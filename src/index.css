@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Nexa', sans-serif;
+  --font-serif: 'Nexa', sans-serif;
+  --font-display: 'Nexa', sans-serif;
+  --color-ink: #383838;
+  --color-muted: #383838;
+  --color-white: #ffffff;
+  --color-rule: #e4e3e2;
+}
+
+/* Global font color override */
+*, *::before, *::after {
+  color: inherit;
+}
+
+body {
+  color: #383838;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #383838;
+  color: #ffffff;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroScale {
+  from { opacity: 0; transform: scale(1.08); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scrollLine {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  40%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  60%  { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+@keyframes scroll-line-move {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+.animate-scroll-line {
+  animation: scroll-line-move 1.8s ease-in-out infinite;
+}
