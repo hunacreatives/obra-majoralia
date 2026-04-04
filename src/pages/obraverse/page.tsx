@@ -22,13 +22,13 @@ const ObraversePage = () => {
           {/* Left: OBRAverse wordmark */}
           <div className="flex items-baseline">
             <span
-              className="text-[20px] md:text-[22px] tracking-[-0.5px] text-[#383838] font-bold"
+              className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               OBRA
             </span>
             <span
-              className="text-[20px] md:text-[22px] tracking-[-0.5px] text-[#383838] font-light"
+              className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               verse
@@ -91,7 +91,7 @@ const ObraversePage = () => {
 
       {/* CTA below map */}
       <div className="w-full bg-[#f7f6f5] border-t border-[#e4e3e2] py-20 px-10 md:px-20">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-stretch justify-between gap-10">
 
           {/* Left — copy */}
           <div className="flex flex-col gap-4 max-w-lg">
@@ -99,28 +99,28 @@ const ObraversePage = () => {
               className="text-[28px] md:text-[34px] tracking-[-0.5px] text-[#383838] leading-tight"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
-              Work with us — and your project becomes part of OBRAverse.
+              Work with us — and your project becomes part of <strong>OBRAverse</strong>.
             </h2>
             <p
               className="text-[13px] text-[#797979] leading-relaxed"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              Every project on this map was designed by OBRA Majoralia. Commission a project with us and it earns its place here — a permanent record of built work across the Philippines.
+              Every project on this map was designed by OBRA Majoralia. Commission a project with us and it earns its place here — a permanent record of built work across&nbsp;the&nbsp;Philippines.
             </p>
           </div>
 
-          {/* Right — two buttons stacked */}
-          <div className="flex flex-col gap-3 shrink-0">
+          {/* Right — two buttons stacked, vertically centered to copy block */}
+          <div className="flex flex-col gap-3 shrink-0 justify-center">
             <a
               href="/contact"
-              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[9px] tracking-[3px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 whitespace-nowrap cursor-pointer text-center rounded-full"
+              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[9px] tracking-[3px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               START A PROJECT
             </a>
             <a
               href="/projects"
-              className="border border-[#d4d3d2] text-[#797979] px-10 py-3 text-[9px] tracking-[3px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 whitespace-nowrap cursor-pointer text-center rounded-full"
+              className="border border-[#d4d3d2] text-[#797979] px-10 py-3 text-[9px] tracking-[3px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               VIEW ALL PROJECTS

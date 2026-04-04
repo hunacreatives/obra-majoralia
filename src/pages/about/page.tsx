@@ -32,10 +32,9 @@ const CREDENTIALS = {
     { title: 'WTA Architecture + Design Studio', sub: 'Architect', year: '2019–2020' },
   ],
   awards: [
-    { title: 'WAF 2024 Singapore', sub: 'Shortlisted — Future Projects, Culture', year: '2024' },
-    { title: 'WAF 2021', sub: 'WAFX Overall Winner — Horizon Manila Masterplan', year: '2021' },
-    { title: 'WAF 2021', sub: 'WAFX Water Category — Loboc Performing Arts Center', year: '2021' },
-    { title: 'Young Visionaries Challenge', sub: 'Kanto X Grohe — Overall Winner', year: '2020' },
+    { title: 'WAF 2021 — WAFX Overall Winner', sub: 'Team Member | WTA Architecture + Design Studio', year: '2020' },
+    { title: 'WAF 2024 Singapore', sub: 'Shortlisted — House of Song, Loboc Performing Arts', year: '2024' },
+    { title: 'Young Visionaries Challenge', sub: 'Kanto X Grohe — Overall Winner', year: '2024' },
   ],
 };
 
@@ -92,63 +91,100 @@ const Stat = ({ value, label, suffix = '' }: { value: number; label: string; suf
 
 const AboutPage = () => {
   const [credTab, setCredTab] = useState<'education' | 'work' | 'awards'>('awards');
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   return (
-    <div className="min-h-screen bg-white overflow-x-hidden">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
       {/* ══════════════════════════════════════════
           01 — CINEMATIC HERO
       ══════════════════════════════════════════ */}
       <section className="relative w-full h-screen overflow-hidden" data-theme="dark">
-        {/* Parallax bg */}
-        <div
-          className="absolute inset-0 w-full h-[120%]"
-          style={{ transform: `translateY(${scrollY * 0.3}px)` }}
-        >
-          <img
-            src="https://readdy.ai/api/search-image?query=dramatic%20aerial%20view%20of%20a%20luxury%20architectural%20masterpiece%20surrounded%20by%20lush%20tropical%20landscape%20in%20the%20Philippines%2C%20golden%20hour%20light%20casting%20long%20shadows%20across%20clean%20geometric%20forms%2C%20cinematic%20wide%20angle%2C%20editorial%20architecture%20photography%2C%20warm%20amber%20tones%2C%20breathtaking%20scale&width=1800&height=1200&seq=about-hero-v2&orientation=landscape"
-            alt="Obra Majoralia"
-            className="w-full h-full object-cover object-center"
-          />
-        </div>
+        {/* Static bg — no parallax */}
+        <img
+          src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/5db33e67-a2cf-4c8f-a06e-ad6df44ef7e2_Loboc-River---Best-Project.png?v=1424a9275c81dfcd848632b4e3d15fbd"
+          alt="Obra Majoralia"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/70" />
 
-        {/* Bottom-left text block */}
-        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-20 pb-10 md:pb-16 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 md:gap-8">
-          <div>
-            <h1
-              className="text-[44px] md:text-[80px] lg:text-[100px] font-bold leading-none tracking-[-2px] md:tracking-[-3px] text-white"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              OBRA
-              <br />
-              MAJORALIA
-            </h1>
-          </div>
-          <p
-            className="text-xs md:text-sm text-white/70 max-w-xs leading-relaxed tracking-[0.3px] lg:pb-3"
+        {/* Bottom text block — OBRA MAJORALIA left, tagline right */}
+        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-20 pb-6 md:pb-10 flex flex-row items-end justify-between gap-8">
+          {/* Left: studio name */}
+          <h1
+            className="text-[44px] md:text-[80px] lg:text-[100px] font-bold leading-none tracking-[-2px] md:tracking-[-3px] text-white flex-shrink-0"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
-            A future-driven architecture studio designing meaningful spaces rooted in place, culture, and human experience.
+            OBRA
+            <br />
+            MAJORALIA
+          </h1>
+
+          {/* Right: tagline — 3 lines */}
+          <p
+            className="text-[15px] md:text-[17px] text-white/75 leading-[1.9] tracking-[0.2px] text-right mb-6"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            A future-driven architecture studio
+            <br />
+            designing meaningful spaces
+            <br />
+            rooted in place, culture, and human experience.
           </p>
         </div>
 
+        {/* Project annotation — locked to section, does NOT scroll with image */}
+        <div className="absolute top-[18%] right-[5%] flex items-start gap-0 z-10">
+          {/* L-shaped callout: horizontal line then short vertical tick dropping down, circle at bottom */}
+          <div className="flex flex-col items-start">
+            {/* Horizontal line */}
+            <div className="w-32 md:w-48 h-px bg-white/50 mt-[18px]" />
+            {/* Short vertical tick dropping down from left end, with circle at bottom */}
+            <div className="w-px h-16 bg-white/50 relative">
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 bg-white/70 rounded-full" />
+            </div>
+          </div>
 
+          {/* Info panel */}
+          <div className="ml-5 flex flex-col gap-2">
+            <p
+              className="text-xl md:text-2xl font-bold tracking-[-0.5px] text-white leading-tight"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              House of Song
+            </p>
+            <p
+              className="text-sm md:text-[15px] text-white/60 mb-4"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Loboc Performing Arts Center
+            </p>
+            <div className="flex gap-4">
+              <img
+                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/b5e975b0-6e6d-492c-8255-57622459074f_8.png?v=4904ed1b99a07b55dba47b0554c9785b"
+                alt="Award 1"
+                className="w-24 h-24 md:w-28 md:h-28 object-contain opacity-95"
+              />
+              <img
+                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/247fc22e-0cd5-4441-8f28-6e53d88a1f3b_9.png?v=254efb0730372fc0d14979d1bedea563"
+                alt="Award 2"
+                className="w-24 h-24 md:w-28 md:h-28 object-contain opacity-95"
+              />
+              <img
+                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/5602e32a-862d-47dc-8e00-1c7bc90150ea_10.png?v=61c38fc96ca752df22ab489efc6a7d53"
+                alt="Award 3"
+                className="w-24 h-24 md:w-28 md:h-28 object-contain opacity-95"
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════
           02 — OVERSIZED STATEMENT
       ══════════════════════════════════════════ */}
-      <section className="px-6 md:px-16 lg:px-20 py-16 md:py-32 border-b border-[#e4e3e2] overflow-hidden">
+      <section className="px-6 md:px-16 lg:px-20 py-16 md:py-32 border-b border-[#e4e3e2]">
         <p
           className="text-[28px] md:text-[52px] lg:text-[68px] font-bold leading-[1.1] md:leading-[1.05] tracking-[-1px] md:tracking-[-2px] text-[#383838] max-w-5xl"
           style={{ fontFamily: 'var(--font-sans)' }}
@@ -199,12 +235,6 @@ const AboutPage = () => {
         <div className="absolute inset-0 flex items-center px-10 md:px-16 lg:px-20">
           <div className="max-w-2xl">
             <p
-              className="text-[10px] tracking-[3px] text-white/40 uppercase mb-6"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              — Principal Architect
-            </p>
-            <p
               className="text-[32px] md:text-[44px] lg:text-[56px] font-bold leading-[1.1] tracking-[-1.5px] text-white"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
@@ -223,7 +253,7 @@ const AboutPage = () => {
         {/* Left: portrait — tall */}
         <div className="relative w-full h-[70vw] lg:h-auto lg:min-h-[700px] overflow-hidden">
           <img
-            src="https://obramajoralia.my.canva.site/_assets/media/0d28ecfaa42789d2e67a8d9c743378aa.png"
+            src="https://obramajoralia.my.canva.site/_assets/media/ce32977ce0b766a30047bd571a81ab98.jpg"
             alt="Ar. Jonathan Cruz"
             className="w-full h-full object-cover object-top"
           />
@@ -380,44 +410,106 @@ const AboutPage = () => {
       </section>
 
       {/* ══════════════════════════════════════════
-          08 — CTA BAND
+          08 — DESIGN TEAM
       ══════════════════════════════════════════ */}
-      <section className="px-10 md:px-16 lg:px-20 py-20 border-t border-[#e4e3e2]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <div className="flex flex-col gap-6">
+      <section className="px-6 md:px-16 lg:px-20 py-16 md:py-32 border-b border-[#e4e3e2]">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
+          <p
+            className="text-[40px] md:text-[56px] font-bold leading-none tracking-[-2px] text-[#383838]"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            Design{' '}
+            <span className="italic font-normal text-[#999]">Team</span>
+          </p>
+          <p
+            className="text-sm text-[#999] max-w-xs leading-loose"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            A focused team of designers and architects working together to shape meaningful spaces.
+          </p>
+        </div>
+
+        {/* 9-box uniform grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-px bg-[#e4e3e2]">
+          {Array.from({ length: 9 }).map((_, i) => (
+            <div key={i} className="bg-white flex flex-col">
+              {/* Placeholder image box */}
+              <div className="w-full aspect-[3/4] bg-[#f5f4f3] flex items-center justify-center">
+                <i className="ri-user-3-line text-[#d0cfc9] text-4xl" />
+              </div>
+              {/* Name + role */}
+              <div className="px-5 py-5 flex flex-col gap-1">
+                <p
+                  className="text-sm font-bold tracking-[-0.2px] text-[#383838]"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  Team Member
+                </p>
+                <p
+                  className="text-[11px] text-[#aaa] tracking-[0.3px]"
+                  style={{ fontFamily: 'var(--font-sans)' }}
+                >
+                  Architectural Designer
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          09 — CTA BAND
+      ══════════════════════════════════════════ */}
+      <section className="bg-[#1a1a1a]">
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
+          {/* Left CTA */}
+          <div className="px-10 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
             <p
-              className="text-2xl md:text-3xl font-bold tracking-[-0.5px] text-[#383838] leading-tight"
+              className="text-[40px] md:text-[56px] lg:text-[64px] font-bold leading-[1.0] tracking-[-2px] text-white"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              Have something in mind?
+              Have something
+              <br />
+              <span className="italic font-normal text-white/40">in mind?</span>
             </p>
-            <p className="text-sm text-[#797979] leading-loose max-w-sm" style={{ fontFamily: 'var(--font-sans)' }}>
+            <p className="text-sm text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
               We'd love to hear about your project. Reach out and let's start a conversation.
             </p>
             <Link
               to="/contact"
-              className="text-[10px] tracking-[3px] font-bold text-[#383838] border-b border-[#1a1a1a] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap"
+              className="mt-1 flex items-center gap-3 group w-fit cursor-pointer"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              GET IN TOUCH
+              <span className="text-[10px] tracking-[3px] font-bold text-white uppercase whitespace-nowrap group-hover:text-white/50 transition-colors duration-200">
+                GET IN TOUCH
+              </span>
+              <span className="w-8 h-px bg-white/30 group-hover:w-16 transition-all duration-300" />
             </Link>
           </div>
-          <div className="flex flex-col gap-6">
+
+          {/* Right CTA */}
+          <div className="px-10 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
             <p
-              className="text-2xl md:text-3xl font-bold tracking-[-0.5px] text-[#383838] leading-tight"
+              className="text-[40px] md:text-[56px] lg:text-[64px] font-bold leading-[1.0] tracking-[-2px] text-white"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              We're always looking for talent.
+              Always looking
+              <br />
+              <span className="italic font-normal text-white/40">for talent.</span>
             </p>
-            <p className="text-sm text-[#797979] leading-loose max-w-sm" style={{ fontFamily: 'var(--font-sans)' }}>
+            <p className="text-sm text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
               If you aspire to be part of the team, send your portfolio and let's see where it goes.
             </p>
             <Link
               to="/careers"
-              className="text-[10px] tracking-[3px] font-bold text-[#383838] border-b border-[#1a1a1a] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap"
+              className="mt-1 flex items-center gap-3 group w-fit cursor-pointer"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              VIEW OPEN POSITIONS
+              <span className="text-[10px] tracking-[3px] font-bold text-white uppercase whitespace-nowrap group-hover:text-white/50 transition-colors duration-200">
+                VIEW OPEN POSITIONS
+              </span>
+              <span className="w-8 h-px bg-white/30 group-hover:w-16 transition-all duration-300" />
             </Link>
           </div>
         </div>
