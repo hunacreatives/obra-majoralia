@@ -48,6 +48,16 @@ const Navbar = ({ nightMode = false }: NavbarProps) => {
     setHasBackground(window.scrollY > 30 && darkCount < 2);
   }, [nightMode]);
 
+  // Instantly respond to nightMode prop changes — no delay
+  useEffect(() => {
+    if (nightMode) {
+      setIsDark(true);
+      setHasBackground(false);
+    } else {
+      checkTheme();
+    }
+  }, [nightMode, checkTheme]);
+
   useEffect(() => {
     window.addEventListener('scroll', checkTheme, { passive: true });
     const id = setTimeout(checkTheme, 80);
@@ -78,7 +88,7 @@ const Navbar = ({ nightMode = false }: NavbarProps) => {
     <>
       <nav
         className={[
-          'fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between transition-all duration-300',
+          'fixed top-0 left-0 right-0 z-50 h-20 flex items-center justify-between',
           navBg,
         ].join(' ')}
       >

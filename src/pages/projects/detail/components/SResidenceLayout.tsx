@@ -202,7 +202,7 @@ const SResidenceLayout = ({ project }: Props) => {
       </section>
 
       {/* DAY / NIGHT — bottom of page */}
-      <section className="relative w-full overflow-hidden mt-24" style={{ height: '85vh' }}>
+      <section className="relative w-full overflow-hidden mt-24" style={{ height: '85vh', marginBottom: '-1px' }}>
         <img
           src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/cfd2a9d2-7200-4b93-8288-fa770ced1edb_Light-Mode.svg?v=f021d1a9f79f4bbe098cabfdad42ddef"
           alt="S Residence day"
