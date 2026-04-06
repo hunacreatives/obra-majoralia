@@ -7,10 +7,12 @@ import InteriorLayout from './components/InteriorLayout';
 import HospitalityLayout from './components/HospitalityLayout';
 import MonumentalLayout from './components/MonumentalLayout';
 import SResidenceLayout from './components/SResidenceLayout';
+import { NightModeProvider, useNightMode } from '@/contexts/NightModeContext';
 
-const ProjectDetailPage = () => {
+const ProjectDetailInner = () => {
   const { id } = useParams<{ id: string }>();
   const project = projects.find(p => p.id === id);
+  const { isNight } = useNightMode();
 
   if (!project) {
     return (
@@ -42,13 +44,22 @@ const ProjectDetailPage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-white">
-      <Navbar />
+    <main
+      className="min-h-screen transition-colors duration-700"
+      style={{ backgroundColor: isNight ? '#0d0d0d' : '#ffffff' }}
+    >
+      <Navbar nightMode={isNight} />
       <div style={{ height: '0px' }} />
       {renderLayout()}
-      <Footer />
+      <Footer nightMode={isNight} />
     </main>
   );
 };
+
+const ProjectDetailPage = () => (
+  <NightModeProvider>
+    <ProjectDetailInner />
+  </NightModeProvider>
+);
 
 export default ProjectDetailPage;
