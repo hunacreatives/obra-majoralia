@@ -6,14 +6,17 @@ const LOGO = 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-
 const IntroPage = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
+  const [lettersIn, setLettersIn] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
-    // Fade in
+    // Fade in background
     const t1 = setTimeout(() => setVisible(true), 80);
+    // Letters dance in
+    const t2 = setTimeout(() => setLettersIn(true), 200);
     // Auto-navigate after 2.8s
-    const t2 = setTimeout(() => handleEnter(), 2800);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t3 = setTimeout(() => handleEnter(), 2800);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
   }, []);
 
   const handleEnter = () => {
@@ -31,35 +34,71 @@ const IntroPage = () => {
         transition: leaving ? 'opacity 0.6s ease' : 'opacity 0.8s ease',
       }}
     >
-      {/* Corner letters — O B R A */}
+      {/* Corner letters — O B R A with dancing entrance */}
       {/* Top-left: O */}
       <span
-        className="absolute top-[-0.12em] left-[-0.08em] text-[#d8d7d6] font-light leading-none pointer-events-none"
-        style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(120px, 18vw, 260px)' }}
+        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(120px, 18vw, 260px)',
+          top: '0.04em',
+          left: lettersIn ? '-0.02em' : '-0.4em',
+          opacity: lettersIn ? 1 : 0,
+          transform: lettersIn ? 'translateY(0) rotate(0deg)' : 'translateY(-20px) rotate(-8deg)',
+          transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: '0ms',
+        }}
       >
         O
       </span>
 
       {/* Top-right: B */}
       <span
-        className="absolute top-[-0.12em] right-[-0.06em] text-[#d8d7d6] font-light leading-none pointer-events-none"
-        style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(120px, 18vw, 260px)' }}
+        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(120px, 18vw, 260px)',
+          top: '0.04em',
+          right: lettersIn ? '-0.02em' : '-0.4em',
+          opacity: lettersIn ? 1 : 0,
+          transform: lettersIn ? 'translateY(0) rotate(0deg)' : 'translateY(-20px) rotate(8deg)',
+          transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: '80ms',
+        }}
       >
         B
       </span>
 
       {/* Bottom-left: A */}
       <span
-        className="absolute bottom-[-0.18em] left-[-0.06em] text-[#d8d7d6] font-light leading-none pointer-events-none"
-        style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(120px, 18vw, 260px)' }}
+        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(120px, 18vw, 260px)',
+          bottom: '-0.22em',
+          left: lettersIn ? '-0.02em' : '-0.4em',
+          opacity: lettersIn ? 1 : 0,
+          transform: lettersIn ? 'translateY(0) rotate(0deg)' : 'translateY(20px) rotate(8deg)',
+          transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: '160ms',
+        }}
       >
         A
       </span>
 
       {/* Bottom-right: R */}
       <span
-        className="absolute bottom-[-0.18em] right-[-0.06em] text-[#d8d7d6] font-light leading-none pointer-events-none"
-        style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(120px, 18vw, 260px)' }}
+        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(120px, 18vw, 260px)',
+          bottom: '-0.22em',
+          right: lettersIn ? '-0.02em' : '-0.4em',
+          opacity: lettersIn ? 1 : 0,
+          transform: lettersIn ? 'translateY(0) rotate(0deg)' : 'translateY(20px) rotate(-8deg)',
+          transition: 'all 0.9s cubic-bezier(0.16, 1, 0.3, 1)',
+          transitionDelay: '240ms',
+        }}
       >
         R
       </span>
@@ -71,10 +110,21 @@ const IntroPage = () => {
           alt="Obra Majoralia"
           className="w-[160px] md:w-[200px] h-auto object-contain"
           draggable={false}
+          style={{
+            opacity: lettersIn ? 1 : 0,
+            transform: lettersIn ? 'scale(1)' : 'scale(0.9)',
+            transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+            transitionDelay: '300ms',
+          }}
         />
         <span
           className="text-[9px] tracking-[4px] text-[#c8c7c6] mt-2"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          style={{
+            fontFamily: 'var(--font-sans)',
+            opacity: lettersIn ? 1 : 0,
+            transition: 'opacity 0.6s ease',
+            transitionDelay: '500ms',
+          }}
         >
           CLICK TO ENTER
         </span>

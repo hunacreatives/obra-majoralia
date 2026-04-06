@@ -6,6 +6,7 @@ import ResidentialLayout from './components/ResidentialLayout';
 import InteriorLayout from './components/InteriorLayout';
 import HospitalityLayout from './components/HospitalityLayout';
 import MonumentalLayout from './components/MonumentalLayout';
+import SResidenceLayout from './components/SResidenceLayout';
 
 const ProjectDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,6 +27,7 @@ const ProjectDetailPage = () => {
   }
 
   const renderLayout = () => {
+    if (project.id === 's-residence') return <SResidenceLayout project={project} />;
     switch (project.typology) {
       case 'Interior':
         return <InteriorLayout project={project} />;

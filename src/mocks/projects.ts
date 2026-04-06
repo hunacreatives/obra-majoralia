@@ -17,6 +17,21 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 's-residence',
+    title: 'S Residence',
+    location: 'Dipolog City, ZAN',
+    typology: 'Residential',
+    year: 2024,
+    area: '420 SQM.',
+    status: 'Completed',
+    concept: 'Grounded in the clarity of minimalism and the warmth of tropical living, the design blends wood, stone, and concrete to create a space that feels calm, honest, and enduring.',
+    conceptExtended: 'Natural textures define the palette: the warmth of wood, the solidity of stone, and the raw elegance of concrete come together in quiet balance. Wide openings dissolve the line between inside and out, while clean forms and open layouts support a sense of ease and quiet luxury.',
+    imageUrl: 'https://obramajoralia.my.canva.site/copy-of-02-obra-majoralia-web-design/_assets/media/ac8de25f47b57d0632f8afc1699fe1d9.jpg',
+    imageAspect: '4/3',
+    featured: true,
+    galleryImages: [],
+  },
+  {
     id: 'pk-house',
     title: 'PK House',
     location: 'Dipolog City, ZAN',

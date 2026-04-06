@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { usePageTransition } from '@/hooks/usePageTransition';
 
 const LOGO = 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/cf35880e-e94b-4fb6-8f22-65df2e948125_OM---Secondary-Logo.png?v=2b8748a6f303d7dad0dbeedd427064f3';
 
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 
 const Navbar = () => {
   const location = useLocation();
+  const { navigate } = usePageTransition();
   const [isDark, setIsDark] = useState(true);
   const [hasBackground, setHasBackground] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -53,6 +55,12 @@ const Navbar = () => {
   const textColor = isDark ? 'text-white' : 'text-[#383838]';
   const hoverColor = isDark ? 'hover:text-white/80' : 'hover:text-[#797979]';
 
+  const handleNav = (to: string) => {
+    if (location.pathname === to) return;
+    setMenuOpen(false);
+    navigate(to);
+  };
+
   return (
     <>
       <nav
@@ -63,43 +71,39 @@ const Navbar = () => {
       >
         {/* Left: Menu Links */}
         <div className="hidden md:flex items-center gap-10 lg:gap-12">
-          {NAV_LINKS.map(({ label, to }) =>
-            to ? (
-              <Link
-                key={label}
-                to={to}
-                className={[
-                  'text-[10px] tracking-[2.4px] font-bold transition-colors duration-200 whitespace-nowrap',
-                  textColor,
-                  hoverColor,
-                  location.pathname === to ? 'border-b border-current pb-[2px]' : '',
-                ].join(' ')}
-              >
-                {label}
-              </Link>
-            ) : (
-              <span
-                key={label}
-                className={[
-                  'text-[10px] tracking-[2.4px] font-medium whitespace-nowrap cursor-default',
-                  isDark ? 'text-white/40' : 'text-[#383838]/30',
-                ].join(' ')}
-              >
-                {label}
-              </span>
-            )
-          )}
+          {NAV_LINKS.map(({ label, to }) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => handleNav(to)}
+              className={[
+                'text-[10px] tracking-[2.4px] font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer bg-transparent border-0 p-0',
+                textColor,
+                hoverColor,
+                location.pathname === to ? 'border-b border-current pb-[2px]' : '',
+              ].join(' ')}
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
-        {/* Right: Logo — CSS invert handles dark/light switching cleanly */}
+        {/* Right: Logo */}
         <div className="ml-auto md:ml-0 flex items-center">
-          <img
-            src={LOGO}
-            alt="Obra Majoralia"
-            className="h-11 w-auto object-contain select-none transition-all duration-200"
-            style={{ filter: isDark ? 'invert(1)' : 'none' }}
-            draggable={false}
-          />
+          <button
+            type="button"
+            onClick={() => handleNav('/home')}
+            className="cursor-pointer bg-transparent border-0 p-0"
+          >
+            <img
+              src={LOGO}
+              alt="Obra Majoralia"
+              className="h-11 w-auto object-contain select-none transition-all duration-200"
+              style={{ filter: isDark ? 'invert(1)' : 'none' }}
+              draggable={false}
+            />
+          </button>
         </div>
 
         {/* Mobile: Hamburger */}
@@ -119,22 +123,17 @@ const Navbar = () => {
         className={`fixed inset-0 z-40 bg-white flex flex-col justify-center px-10 transition-all duration-400 ${menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
       >
         <div className="flex flex-col gap-8">
-          {NAV_LINKS.map(({ label, to }) =>
-            to ? (
-              <Link
-                key={label}
-                to={to}
-                className="text-[#383838] text-2xl tracking-[3px] font-semibold hover:text-[#797979] transition-colors duration-200"
-                onClick={() => setMenuOpen(false)}
-              >
-                {label}
-              </Link>
-            ) : (
-              <span key={label} className="text-[#383838]/25 text-2xl tracking-[3px] font-semibold">
-                {label}
-              </span>
-            )
-          )}
+          {NAV_LINKS.map(({ label, to }) => (
+            <button
+              key={label}
+              type="button"
+              onClick={() => handleNav(to)}
+              className="text-[#383838] text-2xl tracking-[3px] font-semibold hover:text-[#797979] transition-colors duration-200 text-left bg-transparent border-0 p-0 cursor-pointer"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              {label}
+            </button>
+          ))}
         </div>
       </div>
     </>

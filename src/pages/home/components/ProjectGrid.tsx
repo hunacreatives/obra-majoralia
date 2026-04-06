@@ -57,7 +57,7 @@ const ProjectGrid = () => {
           <div className="flex justify-center mt-10">
             <button
               onClick={() => setVisible(v => v + BATCH_SIZE)}
-              className="group flex items-center gap-3 border border-[#d4d3d2] px-8 py-3 text-[9px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
+              className="group flex items-center gap-3 border border-[#d4d3d2] px-8 py-3 rounded-full text-[9px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               SEE MORE
