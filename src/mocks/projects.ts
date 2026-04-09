@@ -29,7 +29,11 @@ export const projects: Project[] = [
     imageUrl: 'https://obramajoralia.my.canva.site/copy-of-02-obra-majoralia-web-design/_assets/media/ac8de25f47b57d0632f8afc1699fe1d9.jpg',
     imageAspect: '4/3',
     featured: true,
-    galleryImages: [],
+    galleryImages: [
+      'https://readdy.ai/api/search-image?query=modern%20tropical%20residential%20interior%20living%20room%20concrete%20walls%20timber%20ceiling%20warm%20afternoon%20light%20open%20plan%20minimal%20furniture%20calm%20neutral%20tones%20Philippines%20architectural%20photography%20editorial%20refined&width=1200&height=675&seq=sres-g1&orientation=landscape',
+      'https://readdy.ai/api/search-image?query=modern%20tropical%20house%20exterior%20pool%20deck%20concrete%20and%20timber%20facade%20lush%20garden%20Philippines%20architectural%20photography%20warm%20golden%20hour%20light%20clean%20lines%20minimal%20refined%20neutral%20palette&width=1200&height=675&seq=sres-g2&orientation=landscape',
+      'https://readdy.ai/api/search-image?query=residential%20master%20bedroom%20interior%20concrete%20walls%20timber%20accents%20soft%20ambient%20lighting%20minimal%20furniture%20calm%20neutral%20tones%20Philippines%20architectural%20photography%20editorial%20refined%20warm%20palette&width=1200&height=675&seq=sres-g3&orientation=landscape',
+    ],
   },
   {
     id: 'pk-house',

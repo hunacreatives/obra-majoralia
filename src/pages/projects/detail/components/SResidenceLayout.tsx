@@ -87,15 +87,7 @@ const SResidenceLayout = ({ project }: Props) => {
       {/* 05  WARM MINIMALISM */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-0 mt-2 mb-16">
         <div className="flex flex-col justify-center px-10 md:px-16 py-16">
-          <blockquote
-            className="text-[32px] md:text-[42px] font-bold leading-[1.15] tracking-[-0.5px] transition-colors duration-700"
-            style={{ fontFamily: 'var(--font-sans)', color: t }}
-          >
-            "Every surface is intentional. Every material left to speak in its natural voice."
-          </blockquote>
-          <p className="text-[12px] tracking-[2px] uppercase mt-8 transition-colors duration-700" style={{ fontFamily: 'var(--font-sans)', color: sub }}>
-            — S Residence, 2024
-          </p>
+
         </div>
 
         <div className="flex flex-col justify-start px-10 md:px-16 pt-10 pb-16 gap-6">
