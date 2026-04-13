@@ -7,6 +7,7 @@ import InteriorLayout from './components/InteriorLayout';
 import HospitalityLayout from './components/HospitalityLayout';
 import MonumentalLayout from './components/MonumentalLayout';
 import SResidenceLayout from './components/SResidenceLayout';
+import LobocLayout from './components/LobocLayout';
 import { NightModeProvider, useNightMode } from '@/contexts/NightModeContext';
 
 const ProjectDetailInner = () => {
@@ -30,12 +31,15 @@ const ProjectDetailInner = () => {
 
   const renderLayout = () => {
     if (project.id === 's-residence') return <SResidenceLayout project={project} />;
+    if (project.id === 'loboc-house-of-song') return <LobocLayout project={project} />;
     switch (project.typology) {
       case 'Interior':
         return <InteriorLayout project={project} />;
       case 'Hospitality':
         return <HospitalityLayout project={project} />;
       case 'Monumental':
+      case 'Cultural':
+      case 'Commercial':
         return <MonumentalLayout project={project} />;
       case 'Residential':
       default:

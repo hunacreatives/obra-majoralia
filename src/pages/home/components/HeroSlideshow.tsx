@@ -89,41 +89,33 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
             ))}
           </div>
 
-          {/* Counter + progress lines */}
-          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4 pointer-events-auto">
-            <span
-              className="text-white/80 text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold whitespace-nowrap flex-shrink-0"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-            </span>
-            <div className="flex items-center gap-1 flex-1">
-              {projects.map((p, i) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  onClick={() => { goTo(i); resetTimer(); }}
-                  aria-label={`Go to ${p.title}`}
-                  className="flex-1 h-4 cursor-pointer relative flex items-center"
-                >
-                  <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/30 w-full" />
-                  {i === current && (
-                    <span
-                      key={`progress-${current}`}
-                      className="absolute left-0 top-1/2 -translate-y-1/2 h-[1px] bg-white"
-                      style={{ animation: 'progressFill 5.5s linear forwards' }}
-                    />
-                  )}
-                  {i < current && (
-                    <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/70" />
-                  )}
-                </button>
-              ))}
-            </div>
+          {/* Progress lines only — no counter here */}
+          <div className="flex items-center gap-1 mb-3 md:mb-4 pointer-events-auto">
+            {projects.map((p, i) => (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => { goTo(i); resetTimer(); }}
+                aria-label={`Go to ${p.title}`}
+                className="flex-1 h-4 cursor-pointer relative flex items-center"
+              >
+                <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/30 w-full" />
+                {i === current && (
+                  <span
+                    key={`progress-${current}`}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 h-[1px] bg-white"
+                    style={{ animation: 'progressFill 5.5s linear forwards' }}
+                  />
+                )}
+                {i < current && (
+                  <span className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] bg-white/70" />
+                )}
+              </button>
+            ))}
           </div>
 
-          {/* Location / Typology / View Project */}
-          <div className="flex items-center justify-between pointer-events-none">
+          {/* Location / Typology left — Counter + View Project stacked right */}
+          <div className="flex items-end justify-between pointer-events-none">
             <div className="flex items-center gap-4 md:gap-8 flex-wrap">
               <p
                 className="text-white text-[10px] md:text-[13px] tracking-[2px] md:tracking-[2.6px] font-semibold"
@@ -142,13 +134,23 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
                 {project.typology.toUpperCase()}
               </p>
             </div>
-            <Link
-              to={`/projects/${project.id}`}
-              className="pointer-events-auto text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold text-white hover:text-white/70 transition-colors duration-200 uppercase whitespace-nowrap"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              View Project
-            </Link>
+
+            {/* Right column: counter on top, View Project below */}
+            <div className="flex flex-col items-end gap-1 pointer-events-auto">
+              <span
+                className="text-white/60 text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold whitespace-nowrap"
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                {String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+              </span>
+              <Link
+                to={`/projects/${project.id}`}
+                className="text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold text-white hover:text-white/70 transition-colors duration-200 uppercase whitespace-nowrap"
+                style={{ fontFamily: 'var(--font-sans)' }}
+              >
+                View Project
+              </Link>
+            </div>
           </div>
         </div>
       </div>

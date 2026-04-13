@@ -4,11 +4,9 @@ import { Project } from '@/mocks/projects';
 
 interface Props {
   project: Project;
-  index: number;
-  total: number;
 }
 
-const ArchiveTile = ({ project, index, total }: Props) => {
+const ArchiveTile = ({ project }: Props) => {
   const images = [project.imageUrl, ...(project.galleryImages ?? [])].filter(Boolean);
   const [imgIndex, setImgIndex] = useState(0);
   const navigate = useNavigate();
@@ -97,29 +95,13 @@ const ArchiveTile = ({ project, index, total }: Props) => {
         )}
 
         {/* Info — hover only on all tiles */}
-        <div className="absolute inset-0 flex flex-col justify-between p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none">
-          <div className="flex justify-end">
-            <span
-              className="text-[9px] tracking-[2.5px] text-white/75"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {String(index + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}
-            </span>
-          </div>
-          <div>
-            <p
-              className="text-[9px] tracking-[2.2px] text-white/65 mb-[5px]"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              {project.typology.toUpperCase()} &nbsp;·&nbsp; {project.location}
-            </p>
-            <h3
-              className="text-base md:text-lg text-white leading-snug tracking-[-0.2px]"
-              style={{ fontFamily: 'var(--font-serif)' }}
-            >
-              {project.title}
-            </h3>
-          </div>
+        <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none">
+          <h3
+            className="text-base md:text-lg text-white leading-snug tracking-[-0.2px]"
+            style={{ fontFamily: 'var(--font-serif)' }}
+          >
+            {project.title}
+          </h3>
         </div>
       </div>
     </div>

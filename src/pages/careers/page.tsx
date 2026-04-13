@@ -8,17 +8,17 @@ const WHY_ITEMS = [
   {
     title: 'Design Excellence',
     description: 'Work alongside award-winning architects on projects that push the boundaries of form and function.',
-    img: 'https://readdy.ai/api/search-image?query=modern%20architecture%20studio%20interior%20with%20designers%20working%20at%20large%20drafting%20tables%2C%20warm%20natural%20light%2C%20minimalist%20workspace%20with%20architectural%20models%20and%20blueprints%2C%20clean%20white%20walls%2C%20professional%20creative%20environment&width=600&height=700&seq=careers-why-1&orientation=portrait',
+    img: '/images/careers-why-1.jpg',
   },
   {
     title: 'Collaborative Culture',
     description: 'A studio built on open dialogue, shared ideas, and a deep respect for every voice in the room.',
-    img: 'https://readdy.ai/api/search-image?query=architecture%20team%20collaborating%20around%20a%20large%20table%20with%20project%20drawings%20and%20scale%20models%2C%20bright%20studio%20space%2C%20diverse%20group%20of%20professionals%2C%20natural%20daylight%2C%20creative%20office%20atmosphere&width=600&height=700&seq=careers-why-2&orientation=portrait',
+    img: '/images/careers-why-2.jpg',
   },
   {
     title: 'Meaningful Projects',
     description: 'From private residences to monumental civic works — every project carries purpose and lasting impact.',
-    img: 'https://readdy.ai/api/search-image?query=stunning%20completed%20architectural%20project%20exterior%2C%20luxury%20residential%20building%20with%20tropical%20landscaping%2C%20clean%20lines%2C%20warm%20evening%20light%2C%20high-end%20design%20photography%20style&width=600&height=700&seq=careers-why-3&orientation=portrait',
+    img: '/images/careers-why-3.jpg',
   },
 ];
 
@@ -143,7 +143,7 @@ const CareersPage = () => {
         {/* ── Hero Image ── */}
         <div className="w-full h-[40vh] md:h-[50vh] overflow-hidden">
           <img
-            src="https://readdy.ai/api/search-image?query=dramatic%20wide%20angle%20architectural%20studio%20workspace%20with%20large%20floor%20to%20ceiling%20windows%20overlooking%20tropical%20city%2C%20architects%20reviewing%20large%20scale%20drawings%20on%20illuminated%20table%2C%20moody%20cinematic%20lighting%2C%20editorial%20photography%20style%2C%20warm%20tones&width=1600&height=900&seq=careers-hero-1&orientation=landscape"
+            src="/images/careers-hero-1.jpg"
             alt="Obra Majoralia Studio"
             className="w-full h-full object-cover object-center"
           />

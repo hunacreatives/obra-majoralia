@@ -43,34 +43,34 @@ import FadeIn from '@/components/base/FadeIn';
 const ROW_ONE = [
   {
     label: 'Residential',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/9068c359-eae5-4e06-93f5-af2b46630234_Residential.png?v=a427c2dd7493eb12cbe5f3c9b82052c2',
+    image: '/images/typology-residential.png',
   },
   {
     label: 'Interior',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/cc9a8556-6b71-4669-ada6-09a124351926_Interior.png?v=6fb3c1a2b41b07cf226fd89a124b2fee',
+    image: '/images/typology-interior.png',
   },
   {
     label: 'Commercial',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/8a5d44f4-bbc1-47ff-9491-92542c4495e9_Commercial.png?v=a427c2dd7493eb12cbe5f3c9b82052c2',
+    image: '/images/typology-commercial.png',
   },
   {
     label: 'Hospitality',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/b6a954f6-82e0-469d-9d96-11176d61322c_Hospitality.png?v=e4e3ebe58d58b9d2654f1ab52a51c59a',
+    image: '/images/typology-hospitality.png',
   },
 ];
 
 const ROW_TWO = [
   {
     label: 'Healthcare',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/7cb3522a-9664-4f51-9ccb-902e86b637c3_Healthcare.png?v=0798f537e460d8863d381dda14f86fa4',
+    image: '/images/typology-healthcare.png',
   },
   {
     label: 'Government',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/a468bf92-f71c-4e0d-b060-d3f661871266_Government.png?v=8a101a0eb72fbe4dadbfc8d1b352f7a7',
+    image: '/images/typology-government.png',
   },
   {
     label: 'Monumental',
-    image: 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/7f4b584f-6bd4-4fa6-b272-130fd7d12ea6_Monumental.png?v=3954aa770101e3ecdf5e2da19fcc3d11',
+    image: '/images/typology-monumental.png',
   },
 ];
 

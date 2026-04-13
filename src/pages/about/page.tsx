@@ -186,7 +186,7 @@ const AboutPage = () => {
       <section className="relative w-full h-screen overflow-hidden" data-theme="dark">
         {/* Hero image with scale-in */}
         <img
-          src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/5db33e67-a2cf-4c8f-a06e-ad6df44ef7e2_Loboc-River---Best-Project.png?v=1424a9275c81dfcd848632b4e3d15fbd"
+          src="/images/about-hero.png"
           alt="Obra Majoralia"
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{
@@ -242,9 +242,9 @@ const AboutPage = () => {
         <div className="absolute top-[18%] right-[5%] flex items-start gap-0 z-10">
           {/* L-shaped lines — draw in with scale */}
           <div className="flex flex-col items-start">
-            {/* Horizontal line draws left→right */}
+            {/* Horizontal line draws right→left (from label toward building) */}
             <div
-              className="w-32 md:w-48 h-px bg-white/50 mt-[18px] origin-left"
+              className="w-32 md:w-48 h-px bg-white/50 mt-[18px] origin-right"
               style={{
                 transform: calloutIn ? 'scaleX(1)' : 'scaleX(0)',
                 transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1) 900ms',
@@ -299,19 +299,19 @@ const AboutPage = () => {
             {/* Award badges — staggered after subtitle */}
             <div className="flex gap-4">
               <AwardBadge
-                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/b5e975b0-6e6d-492c-8255-57622459074f_8.png?v=4904ed1b99a07b55dba47b0554c9785b"
+                src="/images/award-1.png"
                 alt="WAF Award"
                 delay={0}
                 masterReady={awardsIn}
               />
               <AwardBadge
-                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/247fc22e-0cd5-4441-8f28-6e53d88a1f3b_9.png?v=254efb0730372fc0d14979d1bedea563"
+                src="/images/award-2.png"
                 alt="Award 2"
                 delay={160}
                 masterReady={awardsIn}
               />
               <AwardBadge
-                src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/5602e32a-862d-47dc-8e00-1c7bc90150ea_10.png?v=61c38fc96ca752df22ab489efc6a7d53"
+                src="/images/award-3.png"
                 alt="Award 3"
                 delay={320}
                 masterReady={awardsIn}
@@ -387,7 +387,7 @@ const AboutPage = () => {
       ══════════════════════════════════════════ */}
       <section className="relative w-full h-[80vh] overflow-hidden" data-theme="dark">
         <img
-          src="https://readdy.ai/api/search-image?query=interior%20of%20a%20high-end%20architectural%20studio%20in%20the%20Philippines%2C%20large%20scale%20architectural%20drawings%20pinned%20to%20walls%2C%20scale%20models%20on%20long%20white%20tables%2C%20dramatic%20raking%20light%20through%20floor%20to%20ceiling%20windows%2C%20moody%20editorial%20photography%2C%20warm%20shadows%2C%20minimalist%20aesthetic&width=1800&height=1000&seq=about-studio-interior-v2&orientation=landscape"
+          src="/images/about-studio-interior-v2.jpg"
           alt="Studio interior"
           className="w-full h-full object-cover object-center"
         />
@@ -421,7 +421,7 @@ const AboutPage = () => {
           {/* Left: portrait */}
           <div className="relative w-full h-[70vw] lg:h-auto lg:min-h-[700px] overflow-hidden">
             <img
-              src="https://obramajoralia.my.canva.site/_assets/media/ce32977ce0b766a30047bd571a81ab98.jpg"
+              src="/images/home-bg.jpg"
               alt="Ar. Jonathan Cruz"
               className="w-full h-full object-cover object-top"
             />
@@ -581,21 +581,21 @@ const AboutPage = () => {
       <section className="grid grid-cols-12 grid-rows-2 h-[80vh]">
         <div className="col-span-7 row-span-2 overflow-hidden">
           <img
-            src="https://readdy.ai/api/search-image?query=stunning%20luxury%20residential%20architecture%20exterior%20in%20tropical%20Philippines%20setting%2C%20dramatic%20evening%20light%2C%20clean%20modernist%20lines%2C%20lush%20landscaping%2C%20award-winning%20architectural%20photography%2C%20cinematic%20composition%2C%20warm%20golden%20tones&width=900&height=800&seq=about-mosaic-1&orientation=portrait"
+            src="/images/about-mosaic-1.jpg"
             alt="Project"
             className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-[1.03]"
           />
         </div>
         <div className="col-span-5 row-span-1 overflow-hidden border-l border-b border-white">
           <img
-            src="https://readdy.ai/api/search-image?query=elegant%20interior%20design%20of%20a%20high-end%20Philippine%20residence%2C%20warm%20natural%20materials%2C%20rattan%20and%20wood%20textures%2C%20dramatic%20ceiling%20height%2C%20soft%20diffused%20light%2C%20editorial%20interior%20photography&width=600&height=400&seq=about-mosaic-2&orientation=landscape"
+            src="/images/about-mosaic-2.jpg"
             alt="Interior"
             className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
           />
         </div>
         <div className="col-span-5 row-span-1 overflow-hidden border-l border-white">
           <img
-            src="https://readdy.ai/api/search-image?query=monumental%20civic%20architecture%20in%20the%20Philippines%2C%20grand%20public%20building%20with%20dramatic%20geometric%20facade%2C%20wide%20open%20plaza%2C%20blue%20sky%2C%20architectural%20photography%2C%20strong%20shadows%20and%20light&width=600&height=400&seq=about-mosaic-3&orientation=landscape"
+            src="/images/about-mosaic-3.jpg"
             alt="Monumental"
             className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.03]"
           />

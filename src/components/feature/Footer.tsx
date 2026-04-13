@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LOGO = 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/840215c1-b1c1-422b-b3bf-4d497afd7a61_OBRA-MAJORALIA_Relayout_Wide_Black.png?v=39274b9389791c8085b9c37ec0734b83';
+const LOGO = '/images/logo-black.png';
 
 interface FooterProps {
   nightMode?: boolean;

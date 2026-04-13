@@ -84,7 +84,7 @@ const ObraversePage = () => {
 
       {/* Map */}
       <img
-        src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/d7afab1e-7bf4-4c6a-8aab-13c953d2f308_Obraverse.png?v=a4cd6366a838f60657012d88193a944a"
+        src="/images/obraverse.png"
         alt="OBRAverse map"
         className="w-full h-auto block"
       />

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { usePageTransition } from '@/hooks/usePageTransition';
 
-const LOGO = 'https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/cf35880e-e94b-4fb6-8f22-65df2e948125_OM---Secondary-Logo.png?v=2b8748a6f303d7dad0dbeedd427064f3';
+const LOGO = '/images/logo-secondary.png';
 
 const NAV_LINKS = [
   { label: 'HOME', to: '/home' },

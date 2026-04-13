@@ -94,12 +94,10 @@ const ProjectsPage = () => {
       {/* 4-column flush grid — no gaps, edge to edge */}
       <section className="grid grid-cols-2 md:grid-cols-4">
         {filtered.length > 0 ? (
-          filtered.map((project, i) => (
+          filtered.map((project) => (
             <ArchiveTile
               key={project.id}
               project={project}
-              index={i}
-              total={filtered.length}
             />
           ))
         ) : (
@@ -127,7 +125,7 @@ const ProjectsPage = () => {
       {/* OBRAverse CTA — full bleed, edge to edge, shorter */}
       <section className="relative w-full h-[38vh] overflow-hidden group" data-theme="dark">
         <img
-          src="https://storage.readdy-site.link/project_files/057d11fe-555c-401e-b7e9-638ff88babf4/d7afab1e-7bf4-4c6a-8aab-13c953d2f308_Obraverse.png?v=a4cd6366a838f60657012d88193a944a"
+          src="/images/obraverse.png"
           alt="OBRAverse map"
           className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />
