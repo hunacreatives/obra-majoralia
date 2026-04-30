@@ -83,7 +83,7 @@ interface TileProps {
 const TypologyTile = ({ label, image, delay }: TileProps) => (
   <FadeIn delay={delay} direction="none">
     <Link
-      to="/projects"
+      to={`/projects?typology=${encodeURIComponent(label)}`}
       className="group flex flex-col items-center gap-3 cursor-pointer"
     >
       <div className="w-3/5 overflow-hidden mx-auto">

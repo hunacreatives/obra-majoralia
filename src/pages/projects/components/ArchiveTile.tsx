@@ -7,7 +7,9 @@ interface Props {
 }
 
 const ArchiveTile = ({ project }: Props) => {
-  const images = [project.imageUrl, ...(project.galleryImages ?? [])].filter(Boolean);
+  const images = project.tileImages
+    ? [project.imageUrl, ...project.tileImages].filter(Boolean)
+    : [project.imageUrl];
   const [imgIndex, setImgIndex] = useState(0);
   const navigate = useNavigate();
 

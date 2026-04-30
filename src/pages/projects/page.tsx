@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import { projects } from '@/mocks/projects';
@@ -7,24 +7,51 @@ import ArchiveTile from './components/ArchiveTile';
 
 type SortMode = 'date' | 'alpha';
 
+const INITIAL_COUNT = 12;
+const BATCH = 8;
+
 const ProjectsPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sort, setSort] = useState<SortMode>('date');
   const [search, setSearch] = useState('');
+  const [typology, setTypology] = useState(() => searchParams.get('typology') ?? '');
+  const [visible, setVisible] = useState(INITIAL_COUNT);
+
+  useEffect(() => {
+    const t = searchParams.get('typology') ?? '';
+    setTypology(t);
+    setVisible(INITIAL_COUNT);
+  }, [searchParams]);
+
+  const clearTypology = () => {
+    setSearchParams(prev => {
+      prev.delete('typology');
+      return prev;
+    });
+  };
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
+    const t = typology.toLowerCase();
     return [...projects]
-      .filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.location.toLowerCase().includes(q) ||
-        p.typology.toLowerCase().includes(q)
-      )
+      .filter(p => {
+        const matchesSearch =
+          !q ||
+          p.title.toLowerCase().includes(q) ||
+          p.location.toLowerCase().includes(q) ||
+          p.typology.toLowerCase().includes(q);
+        const matchesTypology = !t || p.typology.toLowerCase() === t;
+        return matchesSearch && matchesTypology;
+      })
       .sort((a, b) =>
         sort === 'date'
           ? b.year - a.year
           : a.title.localeCompare(b.title)
       );
-  }, [sort, search]);
+  }, [sort, search, typology]);
+
+  const shown = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
 
   return (
     <main className="min-h-screen bg-white">
@@ -91,10 +118,36 @@ const ProjectsPage = () => {
         </div>
       </div>
 
+      {/* Active typology filter badge */}
+      {typology && (
+        <div className="px-6 md:px-10 py-4 flex items-center gap-3 border-b border-[#e4e3e2]">
+          <span
+            className="text-[9px] tracking-[2px] text-[#797979]"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            CATEGORY
+          </span>
+          <div className="flex items-center gap-2 border border-[#383838] rounded-full px-4 py-[5px]">
+            <span
+              className="text-[9px] tracking-[2px] text-[#383838]"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              {typology.toUpperCase()}
+            </span>
+            <button
+              onClick={clearTypology}
+              className="w-4 h-4 flex items-center justify-center text-[#797979] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
+            >
+              <i className="ri-close-line text-[10px]" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* 4-column flush grid — no gaps, edge to edge */}
       <section className="grid grid-cols-2 md:grid-cols-4">
-        {filtered.length > 0 ? (
-          filtered.map((project) => (
+        {shown.length > 0 ? (
+          shown.map((project) => (
             <ArchiveTile
               key={project.id}
               project={project}
@@ -106,21 +159,35 @@ const ProjectsPage = () => {
               className="text-[10px] tracking-[2.5px] text-[#797979]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              NO RESULTS FOR &ldquo;{search}&rdquo;
+              {search ? `NO RESULTS FOR "${search}"` : `NO PROJECTS IN ${typology.toUpperCase()}`}
             </p>
             <button
-              onClick={() => setSearch('')}
+              onClick={() => { setSearch(''); clearTypology(); }}
               className="text-[9px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 underline cursor-pointer"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              CLEAR SEARCH
+              CLEAR FILTERS
             </button>
           </div>
         )}
       </section>
 
+      {/* See More Projects button */}
+      {hasMore && (
+        <div className="flex justify-center py-14">
+          <button
+            onClick={() => setVisible(v => v + BATCH)}
+            className="group flex items-center gap-3 border border-[#d4d3d2] px-10 py-3 rounded-full text-[9px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            SEE MORE PROJECTS
+            <i className="ri-arrow-down-line text-[11px] group-hover:translate-y-[2px] transition-transform duration-300" />
+          </button>
+        </div>
+      )}
+
       {/* Gap between grid and OBRAverse */}
-      <div className="h-24 md:h-32 bg-white" />
+      <div className="h-16 md:h-24 bg-white" />
 
       {/* OBRAverse CTA — full bleed, edge to edge, shorter */}
       <section className="relative w-full h-[38vh] overflow-hidden group" data-theme="dark">

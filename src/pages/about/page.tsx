@@ -421,7 +421,7 @@ const AboutPage = () => {
           {/* Left: portrait */}
           <div className="relative w-full h-[70vw] lg:h-auto lg:min-h-[700px] overflow-hidden">
             <img
-              src="/images/home-bg.jpg"
+              src="/images/jonathan-cruz.png"
               alt="Ar. Jonathan Cruz"
               className="w-full h-full object-cover object-top"
             />

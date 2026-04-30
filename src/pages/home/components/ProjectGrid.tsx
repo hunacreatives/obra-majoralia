@@ -29,7 +29,7 @@ const ProjectGrid = () => {
   const hasMore = visible < grid.length;
 
   return (
-    <section className="w-full pb-24">
+    <section className="w-full pt-4 pb-24">
       {rows.map((row, rowIdx) => {
         const isFullWidth = row.cols === 1;
         return (
