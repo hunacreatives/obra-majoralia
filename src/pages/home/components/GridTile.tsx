@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Project } from '@/mocks/projects';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface GridTileProps {
   project: Project;
@@ -13,11 +14,13 @@ const GridTile = ({ project, fullWidth = false }: GridTileProps) => (
     style={{ aspectRatio: fullWidth ? '21/9' : '4/3' }}
   >
     {/* Image */}
-    <img
+    <OptimizedImg
       src={project.imageUrl}
       alt={project.title}
-      className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.04]"
+      width={1200}
       loading="lazy"
+      decoding="async"
+      className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.04]"
     />
 
     {/* Hover overlay */}

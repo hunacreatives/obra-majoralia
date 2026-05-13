@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Project } from '@/mocks/projects';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface HeroSlideshowProps {
   projects: Project[];
@@ -55,9 +56,11 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
             transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
         >
-          <img
+          <OptimizedImg
             src={p.imageUrl}
             alt={p.title}
+            width={1920}
+            decoding="async"
             className="w-full h-full object-cover object-top"
             style={{ animation: 'kenBurns 10s ease-in-out infinite alternate' }}
           />

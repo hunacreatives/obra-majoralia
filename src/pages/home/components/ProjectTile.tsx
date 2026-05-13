@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Project } from '@/mocks/projects';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface ProjectTileProps {
   project: Project;
@@ -15,11 +16,13 @@ const ProjectTile = ({ project, className = '', style }: ProjectTileProps) => (
     data-theme="dark"
   >
     {/* Image */}
-    <img
+    <OptimizedImg
       src={project.imageUrl}
       alt={project.title}
-      className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.03]"
+      width={1200}
       loading="lazy"
+      decoding="async"
+      className="w-full h-full object-cover object-top transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.03]"
     />
 
     {/* Gradient overlay */}

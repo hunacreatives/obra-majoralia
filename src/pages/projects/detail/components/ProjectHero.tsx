@@ -14,6 +14,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => (
     <OptimizedImg
       src={project.imageUrl}
       alt={project.title}
+      width={1920}
       fetchPriority="high"
       decoding="async"
       className="w-full h-full object-cover object-center"

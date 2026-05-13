@@ -1,6 +1,7 @@
 import { Project, projects } from '@/mocks/projects';
 import ProjectMoreProjects from './ProjectMoreProjects';
 import { useNightMode } from '@/contexts/useNightMode';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface Props {
   project: Project;
@@ -80,16 +81,21 @@ const StandardProjectLayout = ({ project }: Props) => {
       {hasNightMode && <DayNightToggle isNight={isNight} onToggle={() => setIsNight(!isNight)} />}
 
       <section className="relative w-full" data-theme="dark" style={{ height: '100vh' }}>
-        <img
+        <OptimizedImg
           src={heroDay}
           alt={`${project.title} day view`}
+          width={1920}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
           style={{ opacity: hasNightMode && isNight ? 0 : 1 }}
         />
         {hasNightMode && (
-          <img
+          <OptimizedImg
             src={heroNight}
             alt={`${project.title} night view`}
+            width={1920}
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
             style={{ opacity: isNight ? 1 : 0 }}
           />
@@ -152,7 +158,7 @@ const StandardProjectLayout = ({ project }: Props) => {
             </p>
           </div>
           <div className="relative overflow-hidden min-h-[50vh] lg:min-h-[60vh]">
-            <img src={gallery[0]} alt={`${project.title} perspective`} className="absolute inset-0 w-full h-full object-cover object-center" />
+            <OptimizedImg src={gallery[0]} alt={`${project.title} perspective`} width={1200} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
         </section>
       )}
@@ -162,18 +168,18 @@ const StandardProjectLayout = ({ project }: Props) => {
           <div className="flex flex-col gap-3 h-full">
             {gallery[1] && (
               <div className="overflow-hidden h-[35vh] lg:h-[38vh]">
-                <img src={gallery[1]} alt={`${project.title} gallery one`} className="w-full h-full object-cover object-center" />
+                <OptimizedImg src={gallery[1]} alt={`${project.title} gallery one`} width={1200} loading="lazy" decoding="async" className="w-full h-full object-cover object-center" />
               </div>
             )}
             {gallery[2] && (
               <div className="overflow-hidden h-[35vh] lg:h-[52vh]">
-                <img src={gallery[2]} alt={`${project.title} gallery two`} className="w-full h-full object-cover object-center" />
+                <OptimizedImg src={gallery[2]} alt={`${project.title} gallery two`} width={1200} loading="lazy" decoding="async" className="w-full h-full object-cover object-center" />
               </div>
             )}
           </div>
           {gallery[3] && (
             <div className="overflow-hidden h-[42vh] lg:h-full">
-              <img src={gallery[3]} alt={`${project.title} gallery three`} className="w-full h-full object-cover object-center" />
+              <OptimizedImg src={gallery[3]} alt={`${project.title} gallery three`} width={1200} loading="lazy" decoding="async" className="w-full h-full object-cover object-center" />
             </div>
           )}
         </section>
@@ -181,7 +187,7 @@ const StandardProjectLayout = ({ project }: Props) => {
 
       <section className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-0 px-6 md:px-16 py-12 mt-3">
         <div>
-          <h2 className="text-[22px] md:text-[26px] font-bold leading-[1.2] transition-colors duration-700" style={{ fontFamily: 'var(--font-sans)', color: t }}>
+          <h2 className="text-[22px] md:text-[28px] font-bold leading-[1.2] transition-colors duration-700" style={{ fontFamily: 'var(--font-sans)', color: t }}>
             Material Presence
           </h2>
         </div>
@@ -196,12 +202,12 @@ const StandardProjectLayout = ({ project }: Props) => {
         <section className="grid grid-cols-1 md:grid-cols-2 gap-3 px-6 md:px-16 my-3" style={{ minHeight: '45vh' }}>
           {gallery[4] && (
             <div className="relative overflow-hidden h-[40vh] md:h-full">
-              <img src={gallery[4]} alt={`${project.title} gallery four`} className="absolute inset-0 w-full h-full object-cover object-center" />
+              <OptimizedImg src={gallery[4]} alt={`${project.title} gallery four`} width={1200} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center" />
             </div>
           )}
           {gallery[5] && (
             <div className="relative overflow-hidden h-[40vh] md:h-full">
-              <img src={gallery[5]} alt={`${project.title} gallery five`} className="absolute inset-0 w-full h-full object-cover object-center" />
+              <OptimizedImg src={gallery[5]} alt={`${project.title} gallery five`} width={1200} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center" />
             </div>
           )}
         </section>
@@ -221,14 +227,14 @@ const StandardProjectLayout = ({ project }: Props) => {
       {gallery[6] && (
         <section className="px-6 md:px-16" style={{ height: '90vh' }}>
           <div className="relative overflow-hidden h-full">
-            <img src={gallery[6]} alt={`${project.title} interior feature`} className="absolute inset-0 w-full h-full object-cover object-center" />
+            <OptimizedImg src={gallery[6]} alt={`${project.title} interior feature`} width={1600} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-center" />
           </div>
         </section>
       )}
 
       {gallery[7] && (
         <div className="relative mt-3 mb-24 mx-6 md:mx-16 overflow-hidden">
-          <img src={gallery[7]} alt={`${project.title} interior composition`} className="w-full h-auto max-h-[85vh] object-cover object-center" />
+          <OptimizedImg src={gallery[7]} alt={`${project.title} interior composition`} width={1600} loading="lazy" decoding="async" className="w-full h-auto max-h-[85vh] object-cover object-center" />
         </div>
       )}
 

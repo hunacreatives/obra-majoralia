@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Project } from '@/mocks/projects';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface Props {
   project: Project;
@@ -46,9 +47,10 @@ const ArchiveTile = ({ project }: Props) => {
     >
       <div className="relative w-full" style={{ aspectRatio: '5/3' }}>
         {/* Single image — swapped on nav, not all stacked in DOM */}
-        <img
+        <OptimizedImg
           src={images[imgIndex]}
           alt={project.title}
+          width={800}
           loading="lazy"
           decoding="async"
           className={[
