@@ -7,8 +7,17 @@ interface OptimizedImgProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   quality?: number;
 }
 
-const OptimizedImg = ({ src, alt, width: _width, quality: _quality, className, style, ...rest }: OptimizedImgProps) => (
-  <img src={src} alt={alt} className={className} style={style} {...rest} />
+const toWebP = (src: string) => src.replace(/\.(jpg|jpeg|png)(\?.*)?$/i, '.webp$2');
+
+const OptimizedImg = ({ src, alt, width: _w, quality: _q, className, style, ...rest }: OptimizedImgProps) => (
+  <img
+    src={toWebP(src)}
+    alt={alt}
+    className={className}
+    style={style}
+    onError={(e) => { (e.currentTarget as HTMLImageElement).src = src; }}
+    {...rest}
+  />
 );
 
 export default OptimizedImg;
