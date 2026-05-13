@@ -55,14 +55,14 @@ const ProjectGrid = () => {
       {hasMore && (
         <FadeIn>
           <div className="flex justify-center mt-10">
-            <button
-              onClick={() => setVisible(v => v + BATCH_SIZE)}
-              className="group flex items-center gap-3 border border-[#d4d3d2] px-8 py-3 rounded-full text-[9px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
+            <Link
+              to="/projects"
+              className="group flex items-center gap-3 border border-[#d4d3d2] px-8 py-3 rounded-full text-[11px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               SEE MORE
-              <i className="ri-arrow-down-line text-[11px] group-hover:translate-y-[2px] transition-transform duration-300" />
-            </button>
+              <i className="ri-arrow-right-line text-[13px] group-hover:translate-x-[2px] transition-transform duration-300" />
+            </Link>
           </div>
         </FadeIn>
       )}
@@ -73,7 +73,7 @@ const ProjectGrid = () => {
           <div className="flex justify-center mt-10">
             <Link
               to="/projects"
-              className="text-[9px] tracking-[3px] text-[#c8c7c6] hover:text-[#383838] transition-colors duration-300 whitespace-nowrap cursor-pointer"
+              className="text-[11px] tracking-[3px] text-[#c8c7c6] hover:text-[#383838] transition-colors duration-300 whitespace-nowrap cursor-pointer"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               VIEW ALL PROJECTS

@@ -26,21 +26,21 @@ const GridTile = ({ project, fullWidth = false }: GridTileProps) => (
     {/* Text — revealed on hover */}
     <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 ease-[cubic-bezier(0.4,0,0.2,1)]">
       <h3
-        className="text-white text-[14px] font-medium tracking-[0.6px] leading-snug mb-1"
+        className="text-white text-[16px] font-medium tracking-[0.6px] leading-snug mb-1"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {project.title}
       </h3>
       <div className="flex items-center gap-2">
         <p
-          className="text-white/75 text-[10px] tracking-[1.4px]"
+          className="text-white/75 text-[12px] tracking-[1.4px]"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {project.location}
         </p>
-        <span className="text-white/40 text-[9px]">·</span>
+        <span className="text-white/40 text-[11px]">·</span>
         <p
-          className="text-white/75 text-[10px] tracking-[2px] uppercase"
+          className="text-white/75 text-[12px] tracking-[2px] uppercase"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {project.typology}

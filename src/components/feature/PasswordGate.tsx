@@ -53,7 +53,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         >
           <div className="flex flex-col gap-2">
             <label
-              className="text-[10px] tracking-[2.5px] text-[#383838] uppercase font-semibold"
+              className="text-[12px] tracking-[2.5px] text-[#383838] uppercase font-semibold"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Password
@@ -64,14 +64,14 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
                 value={input}
                 onChange={e => { setInput(e.target.value); setError(false); }}
                 autoFocus
-                className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                 style={{ fontFamily: 'var(--font-sans)' }}
                 placeholder="Enter password"
               />
             </div>
             {error && (
               <p
-                className="text-[10px] tracking-[1.5px] text-red-400"
+                className="text-[12px] tracking-[1.5px] text-red-400"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Incorrect password.
@@ -81,7 +81,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
           <button
             type="submit"
-            className="text-[10px] tracking-[3px] font-semibold text-[#383838] border-b border-[#383838] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer self-end"
+            className="text-[12px] tracking-[3px] font-semibold text-[#383838] border-b border-[#383838] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer self-end"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Enter

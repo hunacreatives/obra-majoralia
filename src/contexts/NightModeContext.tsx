@@ -1,16 +1,8 @@
-import { createContext, useContext, useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
-interface NightModeContextValue {
-  isNight: boolean;
-  setIsNight: (v: boolean) => void;
-}
+import { NightModeContext } from './useNightMode';
 
-const NightModeContext = createContext<NightModeContextValue>({
-  isNight: false,
-  setIsNight: () => {},
-});
-
-export const NightModeProvider = ({ children }: { children: React.ReactNode }) => {
+export const NightModeProvider = ({ children }: { children: ReactNode }) => {
   const [isNight, setIsNight] = useState(false);
   return (
     <NightModeContext.Provider value={{ isNight, setIsNight }}>
@@ -18,5 +10,3 @@ export const NightModeProvider = ({ children }: { children: React.ReactNode }) =
     </NightModeContext.Provider>
   );
 };
-
-export const useNightMode = () => useContext(NightModeContext);

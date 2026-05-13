@@ -100,7 +100,7 @@ const Navbar = ({ nightMode = false }: NavbarProps) => {
               type="button"
               onClick={() => handleNav(to)}
               className={[
-                'text-[10px] tracking-[2.4px] font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer bg-transparent border-0 p-0',
+                'text-[12px] tracking-[2.4px] font-bold transition-colors duration-200 whitespace-nowrap cursor-pointer bg-transparent border-0 p-0',
                 textColor,
                 hoverColor,
                 location.pathname === to ? 'border-b border-current pb-[2px]' : '',

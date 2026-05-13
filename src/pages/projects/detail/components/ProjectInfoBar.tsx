@@ -9,13 +9,13 @@ const InfoCell = ({ label, value, delay }: { label: string; value: string; delay
   <FadeIn delay={delay}>
     <div className="flex flex-col items-center text-center">
       <p
-        className="text-[9px] tracking-[2.2px] text-[#aaa] mb-2"
+        className="text-[11px] tracking-[2.2px] text-[#aaa] mb-2"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {label}
       </p>
       <p
-        className="text-[12px] md:text-[13px] text-[#383838] font-semibold uppercase tracking-[0.5px]"
+        className="text-[14px] md:text-[15px] text-[#383838] font-semibold uppercase tracking-[0.5px]"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {value}

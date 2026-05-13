@@ -35,13 +35,13 @@ const ProjectTile = ({ project, className = '', style }: ProjectTileProps) => (
           {project.title}
         </h2>
         <p
-          className="text-white/80 text-[11px] tracking-[1.8px] mb-1 transition-opacity duration-300 group-hover:text-white"
+          className="text-white/80 text-[13px] tracking-[1.8px] mb-1 transition-opacity duration-300 group-hover:text-white"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {project.location}
         </p>
         <p
-          className="text-white/55 text-[10px] tracking-[2px] uppercase transition-opacity duration-300 group-hover:text-white/80"
+          className="text-white/55 text-[12px] tracking-[2px] uppercase transition-opacity duration-300 group-hover:text-white/80"
           style={{ fontFamily: 'var(--font-sans)' }}
         >
           {project.typology} &nbsp;&middot;&nbsp; {project.year}

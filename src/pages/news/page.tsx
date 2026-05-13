@@ -38,7 +38,7 @@ const NewsPage = () => {
               key={f}
               onClick={() => setActive(f)}
               className={[
-                'text-[11px] tracking-[2px] transition-colors duration-200 whitespace-nowrap cursor-pointer pb-[2px]',
+                'text-[13px] tracking-[2px] transition-colors duration-200 whitespace-nowrap cursor-pointer pb-[2px]',
                 active === f
                   ? 'text-[#383838] border-b border-[#383838]'
                   : 'text-[#c8c7c6] hover:text-[#797979]',
@@ -56,7 +56,10 @@ const NewsPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0">
           {filtered.map((item, i) => (
             <FadeIn key={item.id} delay={i * 40}>
-              <article className="flex gap-6 py-8 border-b border-[#e4e3e2] group cursor-pointer">
+              <article
+                className="flex gap-6 py-8 border-b border-[#e4e3e2] group cursor-pointer"
+                onClick={() => item.url && window.open(item.url, '_blank', 'noopener,noreferrer')}
+              >
 
                 {/* Thumbnail */}
                 <div className="shrink-0 w-[160px] h-[120px] overflow-hidden">
@@ -73,13 +76,13 @@ const NewsPage = () => {
                     {/* Category + Date */}
                     <div className="flex items-center justify-between mb-3">
                       <span
-                        className="text-[11px] tracking-[2px] text-[#797979] uppercase font-medium"
+                        className="text-[13px] tracking-[2px] text-[#797979] uppercase font-medium"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {item.category}
                       </span>
                       <span
-                        className="text-[11px] tracking-[1px] text-[#c8c7c6]"
+                        className="text-[13px] tracking-[1px] text-[#c8c7c6]"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {item.date}
@@ -88,7 +91,7 @@ const NewsPage = () => {
 
                     {/* Title */}
                     <h2
-                      className="text-[17px] md:text-[19px] text-[#383838] leading-[1.5] tracking-[-0.2px] group-hover:text-[#797979] transition-colors duration-200 font-semibold"
+                      className="text-[19px] md:text-[19px] text-[#383838] leading-[1.5] tracking-[-0.2px] group-hover:text-[#797979] transition-colors duration-200 font-semibold"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.title}
@@ -96,14 +99,16 @@ const NewsPage = () => {
                   </div>
 
                   {/* Read More */}
-                  <div className="mt-4">
-                    <span
-                      className="inline-block text-[10px] tracking-[2px] text-[#797979] group-hover:text-[#383838] group-hover:border-[#383838] transition-colors duration-200 uppercase border border-[#d0d0d0] rounded-full px-4 py-[6px] whitespace-nowrap"
-                      style={{ fontFamily: 'var(--font-sans)' }}
-                    >
-                      Read More
-                    </span>
-                  </div>
+                  {item.url && (
+                    <div className="mt-4">
+                      <span
+                        className="inline-block text-[12px] tracking-[2px] text-[#797979] group-hover:text-[#383838] group-hover:border-[#383838] transition-colors duration-200 uppercase border border-[#d0d0d0] rounded-full px-4 py-[6px] whitespace-nowrap"
+                        style={{ fontFamily: 'var(--font-sans)' }}
+                      >
+                        Read More
+                      </span>
+                    </div>
+                  )}
                 </div>
 
               </article>
@@ -114,7 +119,7 @@ const NewsPage = () => {
         {filtered.length === 0 && (
           <div className="py-24 text-center">
             <p
-              className="text-[11px] tracking-[3px] text-[#c8c7c6]"
+              className="text-[13px] tracking-[3px] text-[#c8c7c6]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               NO ARTICLES IN THIS CATEGORY

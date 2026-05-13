@@ -1,4 +1,5 @@
 import { Project } from '@/mocks/projects';
+import OptimizedImg from '@/components/base/OptimizedImg';
 
 interface ProjectHeroProps {
   project: Project;
@@ -7,12 +8,14 @@ interface ProjectHeroProps {
 const ProjectHero = ({ project }: ProjectHeroProps) => (
   <section
     className="relative w-full overflow-hidden"
-    style={{ height: '92vh' }}
+    style={{ height: '100vh' }}
     data-theme="dark"
   >
-    <img
+    <OptimizedImg
       src={project.imageUrl}
       alt={project.title}
+      fetchPriority="high"
+      decoding="async"
       className="w-full h-full object-cover object-center"
       style={{
         animation: 'heroScale 2s cubic-bezier(0.4,0,0.2,1) forwards',
@@ -25,7 +28,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => (
     {/* Typology tag — top left */}
     <div className="absolute top-28 left-10">
       <span
-        className="text-[9px] tracking-[4px] text-white/50 uppercase"
+        className="text-[11px] tracking-[4px] text-white/50 uppercase"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {project.typology}

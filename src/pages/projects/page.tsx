@@ -12,7 +12,7 @@ const BATCH = 8;
 
 const ProjectsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [sort, setSort] = useState<SortMode>('date');
+  const [sort, setSort] = useState<SortMode>('alpha');
   const [search, setSearch] = useState('');
   const [typology, setTypology] = useState(() => searchParams.get('typology') ?? '');
   const [visible, setVisible] = useState(INITIAL_COUNT);
@@ -75,7 +75,7 @@ const ProjectsPage = () => {
             <button
               onClick={() => setSort('date')}
               className={[
-                'text-[9px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
+                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
                 sort === 'date' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
               ].join(' ')}
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -86,7 +86,7 @@ const ProjectsPage = () => {
             <button
               onClick={() => setSort('alpha')}
               className={[
-                'text-[9px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
+                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
                 sort === 'alpha' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
               ].join(' ')}
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -96,13 +96,13 @@ const ProjectsPage = () => {
 
             {/* Pill search */}
             <div className="flex items-center gap-2 border border-[#e4e3e2] rounded-full px-4 py-[6px]">
-              <i className="ri-search-line text-[10px] text-[#aaa]" />
+              <i className="ri-search-line text-[12px] text-[#aaa]" />
               <input
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="SEARCH"
-                className="text-[9px] tracking-[2.2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
+                className="text-[11px] tracking-[2.2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
                 style={{ fontFamily: 'var(--font-sans)' }}
               />
               {search && (
@@ -110,7 +110,7 @@ const ProjectsPage = () => {
                   onClick={() => setSearch('')}
                   className="w-4 h-4 flex items-center justify-center text-[#c8c7c6] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
                 >
-                  <i className="ri-close-line text-[10px]" />
+                  <i className="ri-close-line text-[12px]" />
                 </button>
               )}
             </div>
@@ -122,14 +122,14 @@ const ProjectsPage = () => {
       {typology && (
         <div className="px-6 md:px-10 py-4 flex items-center gap-3 border-b border-[#e4e3e2]">
           <span
-            className="text-[9px] tracking-[2px] text-[#797979]"
+            className="text-[11px] tracking-[2px] text-[#797979]"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             CATEGORY
           </span>
           <div className="flex items-center gap-2 border border-[#383838] rounded-full px-4 py-[5px]">
             <span
-              className="text-[9px] tracking-[2px] text-[#383838]"
+              className="text-[11px] tracking-[2px] text-[#383838]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {typology.toUpperCase()}
@@ -138,7 +138,7 @@ const ProjectsPage = () => {
               onClick={clearTypology}
               className="w-4 h-4 flex items-center justify-center text-[#797979] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
             >
-              <i className="ri-close-line text-[10px]" />
+              <i className="ri-close-line text-[12px]" />
             </button>
           </div>
         </div>
@@ -156,14 +156,14 @@ const ProjectsPage = () => {
         ) : (
           <div className="col-span-2 md:col-span-4 py-32 flex flex-col items-center justify-center gap-4">
             <p
-              className="text-[10px] tracking-[2.5px] text-[#797979]"
+              className="text-[12px] tracking-[2.5px] text-[#797979]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               {search ? `NO RESULTS FOR "${search}"` : `NO PROJECTS IN ${typology.toUpperCase()}`}
             </p>
             <button
               onClick={() => { setSearch(''); clearTypology(); }}
-              className="text-[9px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 underline cursor-pointer"
+              className="text-[11px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 underline cursor-pointer"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               CLEAR FILTERS
@@ -177,11 +177,11 @@ const ProjectsPage = () => {
         <div className="flex justify-center py-14">
           <button
             onClick={() => setVisible(v => v + BATCH)}
-            className="group flex items-center gap-3 border border-[#d4d3d2] px-10 py-3 rounded-full text-[9px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
+            className="group flex items-center gap-3 border border-[#d4d3d2] px-10 py-3 rounded-full text-[11px] tracking-[3px] text-[#797979] hover:text-[#383838] hover:border-[#383838] transition-all duration-300 cursor-pointer whitespace-nowrap"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             SEE MORE PROJECTS
-            <i className="ri-arrow-down-line text-[11px] group-hover:translate-y-[2px] transition-transform duration-300" />
+            <i className="ri-arrow-down-line text-[13px] group-hover:translate-y-[2px] transition-transform duration-300" />
           </button>
         </div>
       )}
@@ -202,7 +202,7 @@ const ProjectsPage = () => {
         {/* Content — bottom left aligned, editorial */}
         <div className="absolute inset-0 flex flex-col justify-end px-8 md:px-12 pb-10 md:pb-12">
           <p
-            className="text-[9px] tracking-[3px] text-white/40 mb-3 uppercase"
+            className="text-[11px] tracking-[3px] text-white/40 mb-3 uppercase"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Interactive Map
@@ -221,7 +221,7 @@ const ProjectsPage = () => {
               className="group/cta flex items-center gap-4 mb-1 shrink-0"
             >
               <span
-                className="text-[13px] md:text-[15px] tracking-[4px] text-white/80 group-hover/cta:text-white transition-colors duration-300 uppercase whitespace-nowrap"
+                className="text-[15px] md:text-[17px] tracking-[4px] text-white/80 group-hover/cta:text-white transition-colors duration-300 uppercase whitespace-nowrap"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Explore the Map

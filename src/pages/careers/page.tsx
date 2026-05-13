@@ -169,13 +169,13 @@ const CareersPage = () => {
                 </div>
                 <div>
                   <p
-                    className="text-sm font-bold tracking-[1.5px] text-[#383838] mb-2"
+                    className="text-base font-bold tracking-[1.5px] text-[#383838] mb-2"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {item.title}
                   </p>
                   <p
-                    className="text-xs tracking-[0.5px] text-[#797979] leading-relaxed"
+                    className="text-base tracking-[0.5px] text-[#797979] leading-relaxed"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {item.description}
@@ -206,20 +206,20 @@ const CareersPage = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-10 text-left">
                     <span
-                      className="text-sm font-bold tracking-[1.5px] text-[#383838] group-hover:text-[#797979] transition-colors duration-200"
+                      className="text-base font-bold tracking-[1.5px] text-[#383838] group-hover:text-[#797979] transition-colors duration-200"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {pos.title}
                     </span>
                     <div className="flex items-center gap-6">
                       <span
-                        className="text-[10px] tracking-[2px] text-[#999] uppercase"
+                        className="text-[12px] tracking-[2px] text-[#999] uppercase"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {pos.type}
                       </span>
                       <span
-                        className="text-[10px] tracking-[2px] text-[#999] uppercase"
+                        className="text-[12px] tracking-[2px] text-[#999] uppercase"
                         style={{ fontFamily: 'var(--font-sans)' }}
                       >
                         {pos.location}
@@ -236,7 +236,7 @@ const CareersPage = () => {
                   className={`overflow-hidden transition-all duration-300 ${openPosition === pos.id ? 'max-h-60 pb-8' : 'max-h-0'}`}
                 >
                   <p
-                    className="text-xs tracking-[0.5px] text-[#797979] leading-loose max-w-2xl mb-6"
+                    className="text-base tracking-[0.5px] text-[#797979] leading-loose max-w-2xl mb-6"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {pos.description}
@@ -244,7 +244,7 @@ const CareersPage = () => {
                   <button
                     type="button"
                     onClick={() => handleApply(pos.title)}
-                    className="text-[10px] tracking-[3px] font-semibold text-[#383838] border-b border-[#1a1a1a] pb-[2px] hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer"
+                    className="text-[12px] tracking-[3px] font-semibold text-[#383838] border-b border-[#1a1a1a] pb-[2px] hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer"
                     style={{ fontFamily: 'var(--font-display)' }}
                   >
                     APPLY FOR THIS ROLE
@@ -265,7 +265,7 @@ const CareersPage = () => {
               Apply Now
             </h2>
             <p
-              className="text-xs tracking-[0.5px] text-[#999] whitespace-nowrap"
+              className="text-base tracking-[0.5px] text-[#999] whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Send us your portfolio and resume. We&apos;ll reach out if there&apos;s a fit.
@@ -280,25 +280,25 @@ const CareersPage = () => {
             {/* Row 1: First + Last */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="border-b border-[#d0d0d0] py-5 md:pr-10">
-                <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                   First Name <span className="text-[#999]">(required)</span>
                 </label>
                 <input
                   type="text"
                   name="first_name"
                   required
-                  className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 />
               </div>
               <div className="border-b border-[#d0d0d0] py-5 md:pl-10">
-                <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                   Last Name
                 </label>
                 <input
                   type="text"
                   name="last_name"
-                  className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 />
               </div>
@@ -307,25 +307,25 @@ const CareersPage = () => {
             {/* Row 2: Email + Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="border-b border-[#d0d0d0] py-5 md:pr-10">
-                <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                   Email Address <span className="text-[#999]">(required)</span>
                 </label>
                 <input
                   type="email"
                   name="email"
                   required
-                  className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 />
               </div>
               <div className="border-b border-[#d0d0d0] py-5 md:pl-10">
-                <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                   Phone Number
                 </label>
                 <input
                   type="tel"
                   name="phone"
-                  className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 />
               </div>
@@ -333,7 +333,7 @@ const CareersPage = () => {
 
             {/* Row 3: Position */}
             <div className="border-b border-[#d0d0d0] py-5">
-              <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+              <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                 Position Applying For <span className="text-[#999]">(required)</span>
               </label>
               <input
@@ -342,14 +342,14 @@ const CareersPage = () => {
                 required
                 value={selectedPosition}
                 onChange={(e) => setSelectedPosition(e.target.value)}
-                className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none"
+                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
                 style={{ fontFamily: 'var(--font-sans)' }}
               />
             </div>
 
             {/* Row 4: Message */}
             <div className="border-b border-[#d0d0d0] py-5">
-              <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+              <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
                 Cover Letter / Message <span className="text-[#999]">(required)</span>
               </label>
               <textarea
@@ -357,14 +357,14 @@ const CareersPage = () => {
                 required
                 rows={5}
                 maxLength={500}
-                className="w-full bg-transparent text-sm text-[#383838] tracking-[0.5px] outline-none resize-none"
+                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none resize-none"
                 style={{ fontFamily: 'var(--font-sans)' }}
               />
             </div>
 
             {/* Row 5: Resume Upload */}
             <div className="py-8">
-              <label className="block text-[11px] tracking-[1.5px] text-[#383838] mb-4 uppercase font-semibold">
+              <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-4 uppercase font-semibold">
                 Resume / Portfolio
               </label>
               <div
@@ -374,11 +374,11 @@ const CareersPage = () => {
                 onClick={() => fileInputRef.current?.click()}
               >
                 {fileName ? (
-                  <span className="text-xs tracking-[1px] text-[#383838]" style={{ fontFamily: 'var(--font-sans)' }}>
+                  <span className="text-base tracking-[1px] text-[#383838]" style={{ fontFamily: 'var(--font-sans)' }}>
                     {fileName}
                   </span>
                 ) : (
-                  <span className="text-[10px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+                  <span className="text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
                     Drag &amp; Drop Files Here
                   </span>
                 )}
@@ -397,7 +397,7 @@ const CareersPage = () => {
 
             {/* Submit */}
             <div className="flex items-center justify-between pt-2">
-              <div className="text-xs tracking-[1.5px]" style={{ fontFamily: 'var(--font-sans)' }}>
+              <div className="text-base tracking-[1.5px]" style={{ fontFamily: 'var(--font-sans)' }}>
                 {submitState === 'success' && (
                   <span className="text-[#383838]">Application sent. We&apos;ll be in touch.</span>
                 )}
@@ -408,7 +408,7 @@ const CareersPage = () => {
               <button
                 type="submit"
                 disabled={submitState === 'sending'}
-                className="text-sm tracking-[4px] font-semibold text-[#383838] hover:text-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
+                className="text-base tracking-[4px] font-semibold text-[#383838] hover:text-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 {submitState === 'sending' ? 'SENDING...' : 'SEND'}

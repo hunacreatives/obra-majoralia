@@ -40,7 +40,7 @@ const ObraversePage = () => {
             <button
               onClick={() => setSort('date')}
               className={[
-                'text-[9px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
+                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
                 sort === 'date' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
               ].join(' ')}
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -50,7 +50,7 @@ const ObraversePage = () => {
             <button
               onClick={() => setSort('alpha')}
               className={[
-                'text-[9px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
+                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
                 sort === 'alpha' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
               ].join(' ')}
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -60,13 +60,13 @@ const ObraversePage = () => {
 
             {/* Pill search */}
             <div className="flex items-center gap-2 border border-[#e4e3e2] rounded-full px-4 py-[6px]">
-              <i className="ri-search-line text-[10px] text-[#aaa]" />
+              <i className="ri-search-line text-[12px] text-[#aaa]" />
               <input
                 type="text"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder="SEARCH"
-                className="text-[9px] tracking-[2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
+                className="text-[11px] tracking-[2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
                 style={{ fontFamily: 'var(--font-sans)' }}
               />
               {search && (
@@ -74,7 +74,7 @@ const ObraversePage = () => {
                   onClick={() => setSearch('')}
                   className="w-4 h-4 flex items-center justify-center text-[#c8c7c6] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
                 >
-                  <i className="ri-close-line text-[10px]" />
+                  <i className="ri-close-line text-[12px]" />
                 </button>
               )}
             </div>
@@ -102,7 +102,7 @@ const ObraversePage = () => {
               Work with us — and your project becomes part of <strong>OBRAverse</strong>.
             </h2>
             <p
-              className="text-[13px] text-[#797979] leading-relaxed"
+              className="text-[15px] text-[#797979] leading-relaxed"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Every project on this map was designed by OBRA Majoralia. Commission a project with us and it earns its place here — a permanent record of built work across&nbsp;the&nbsp;Philippines.
@@ -113,14 +113,14 @@ const ObraversePage = () => {
           <div className="flex flex-col gap-3 shrink-0 justify-center">
             <a
               href="/contact"
-              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[9px] tracking-[3px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
+              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[11px] tracking-[3px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               START A PROJECT
             </a>
             <a
               href="/projects"
-              className="border border-[#d4d3d2] text-[#797979] px-10 py-3 text-[9px] tracking-[3px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
+              className="border border-[#d4d3d2] text-[#797979] px-10 py-3 text-[11px] tracking-[3px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               VIEW ALL PROJECTS

@@ -2,14 +2,10 @@ import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import { projects } from '@/mocks/projects';
-import ResidentialLayout from './components/ResidentialLayout';
-import InteriorLayout from './components/InteriorLayout';
-import HospitalityLayout from './components/HospitalityLayout';
-import MonumentalLayout from './components/MonumentalLayout';
 import SResidenceLayout from './components/SResidenceLayout';
-import LobocLayout from './components/LobocLayout';
-import CResidenceLayout from './components/CResidenceLayout';
-import { NightModeProvider, useNightMode } from '@/contexts/NightModeContext';
+import StandardProjectLayout from './components/StandardProjectLayout';
+import { NightModeProvider } from '@/contexts/NightModeContext';
+import { useNightMode } from '@/contexts/useNightMode';
 
 const ProjectDetailInner = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,8 +17,8 @@ const ProjectDetailInner = () => {
       <main className="min-h-screen bg-white flex items-center justify-center">
         <Navbar />
         <div className="text-center">
-          <p className="text-[#797979] text-sm tracking-[2px] mb-6">PROJECT NOT FOUND</p>
-          <Link to="/projects" className="text-[#383838] text-sm underline">
+          <p className="text-[#797979] text-base tracking-[2px] mb-6">PROJECT NOT FOUND</p>
+          <Link to="/projects" className="text-[#383838] text-base underline">
             Back to Projects
           </Link>
         </div>
@@ -32,21 +28,7 @@ const ProjectDetailInner = () => {
 
   const renderLayout = () => {
     if (project.id === 's-residence') return <SResidenceLayout project={project} />;
-    if (project.id === 'loboc-house-of-song') return <LobocLayout project={project} />;
-    if (project.id === 'c-residence') return <CResidenceLayout project={project} />;
-    switch (project.typology) {
-      case 'Interior':
-        return <InteriorLayout project={project} />;
-      case 'Hospitality':
-        return <HospitalityLayout project={project} />;
-      case 'Monumental':
-      case 'Cultural':
-      case 'Commercial':
-        return <MonumentalLayout project={project} />;
-      case 'Residential':
-      default:
-        return <ResidentialLayout project={project} />;
-    }
+    return <StandardProjectLayout project={project} />;
   };
 
   return (

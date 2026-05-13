@@ -15,14 +15,14 @@ const ProjectMoreProjects = ({ current, all }: ProjectMoreProjectsProps) => {
       <FadeIn>
         <div className="flex items-center justify-between mb-10">
           <p
-            className="text-[9px] tracking-[2.2px] text-[#797979]"
+            className="text-[11px] tracking-[2.2px] text-[#797979]"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             MORE PROJECTS
           </p>
           <Link
             to="/projects"
-            className="text-[9px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 flex items-center gap-2 cursor-pointer"
+            className="text-[11px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 flex items-center gap-2 cursor-pointer"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             VIEW ALL
@@ -40,13 +40,13 @@ const ProjectMoreProjects = ({ current, all }: ProjectMoreProjectsProps) => {
                 />
               </div>
               <p
-                className="text-[12px] text-[#383838] tracking-[0.3px]"
+                className="text-[14px] text-[#383838] tracking-[0.3px]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {p.title}
               </p>
               <p
-                className="text-[9px] tracking-[1.8px] text-[#797979] mt-1 uppercase"
+                className="text-[11px] tracking-[1.8px] text-[#797979] mt-1 uppercase"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {p.typology} · {p.year}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LOGO = '/images/logo-secondary.png';
@@ -9,6 +9,12 @@ const IntroPage = () => {
   const [lettersIn, setLettersIn] = useState(false);
   const [leaving, setLeaving] = useState(false);
 
+  const handleEnter = useCallback(() => {
+    if (leaving) return;
+    setLeaving(true);
+    setTimeout(() => navigate('/home'), 600);
+  }, [leaving, navigate]);
+
   useEffect(() => {
     // Fade in background
     const t1 = setTimeout(() => setVisible(true), 80);
@@ -17,13 +23,7 @@ const IntroPage = () => {
     // Auto-navigate after 2.8s
     const t3 = setTimeout(() => handleEnter(), 2800);
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
-  }, []);
-
-  const handleEnter = () => {
-    if (leaving) return;
-    setLeaving(true);
-    setTimeout(() => navigate('/home'), 600);
-  };
+  }, [handleEnter]);
 
   return (
     <div
@@ -118,7 +118,7 @@ const IntroPage = () => {
           }}
         />
         <span
-          className="text-[9px] tracking-[4px] text-[#c8c7c6] mt-2"
+          className="text-[11px] tracking-[4px] text-[#c8c7c6] mt-2"
           style={{
             fontFamily: 'var(--font-sans)',
             opacity: lettersIn ? 1 : 0,

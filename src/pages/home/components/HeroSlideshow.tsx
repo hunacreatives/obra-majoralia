@@ -118,7 +118,7 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
           <div className="flex items-end justify-between pointer-events-none">
             <div className="flex items-center gap-4 md:gap-8 flex-wrap">
               <p
-                className="text-white text-[10px] md:text-[13px] tracking-[2px] md:tracking-[2.6px] font-semibold"
+                className="text-white text-[12px] md:text-[15px] tracking-[2px] md:tracking-[2.6px] font-semibold"
                 style={{
                   fontFamily: 'var(--font-sans)',
                   opacity: 1,
@@ -128,7 +128,7 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
                 {project.location.toUpperCase()}
               </p>
               <p
-                className="text-white text-[10px] md:text-[13px] tracking-[2px] md:tracking-[3px] font-semibold"
+                className="text-white text-[12px] md:text-[15px] tracking-[2px] md:tracking-[3px] font-semibold"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {project.typology.toUpperCase()}
@@ -138,14 +138,14 @@ const HeroSlideshow = ({ projects }: HeroSlideshowProps) => {
             {/* Right column: counter on top, View Project below */}
             <div className="flex flex-col items-end gap-1 pointer-events-auto">
               <span
-                className="text-white/60 text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold whitespace-nowrap"
+                className="text-white/60 text-[12px] md:text-[13px] tracking-[2px] md:tracking-[3px] font-semibold whitespace-nowrap"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 {String(current + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
               </span>
               <Link
                 to={`/projects/${project.id}`}
-                className="text-[10px] md:text-[11px] tracking-[2px] md:tracking-[3px] font-semibold text-white hover:text-white/70 transition-colors duration-200 uppercase whitespace-nowrap"
+                className="text-[12px] md:text-[13px] tracking-[2px] md:tracking-[3px] font-semibold text-white hover:text-white/70 transition-colors duration-200 uppercase whitespace-nowrap"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 View Project

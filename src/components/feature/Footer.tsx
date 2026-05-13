@@ -25,12 +25,12 @@ const Footer = ({ nightMode = false }: FooterProps) => {
           />
         </Link>
         <div className="flex flex-col items-end justify-between h-full py-3 gap-2">
-          <p className="text-[11px] tracking-[3px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+          <p className="text-[13px] tracking-[3px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             Get in Touch
           </p>
           <a
             href="mailto:obra.majoralia@gmail.com"
-            className="text-sm tracking-[0.5px] text-[#e4e3e2] font-bold hover:text-[#b0afae] transition-colors duration-200 whitespace-nowrap"
+            className="text-base tracking-[0.5px] text-[#e4e3e2] font-bold hover:text-[#b0afae] transition-colors duration-200 whitespace-nowrap"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             obra.majoralia@gmail.com
@@ -57,13 +57,13 @@ const Footer = ({ nightMode = false }: FooterProps) => {
               href="https://hunacreatives.com"
               target="_blank"
               rel="nofollow noopener noreferrer"
-              className="text-[9px] tracking-[2px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase whitespace-nowrap"
+              className="text-[11px] tracking-[2px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Website by Huna Creatives
             </a>
             <p
-              className="text-[9px] tracking-[2px] text-[#e4e3e2] uppercase whitespace-nowrap"
+              className="text-[11px] tracking-[2px] text-[#e4e3e2] uppercase whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               © 2026 All Rights Reserved Obra Majoralia
@@ -83,12 +83,12 @@ const Footer = ({ nightMode = false }: FooterProps) => {
           />
         </Link>
         <div className="flex flex-col gap-2">
-          <p className="text-[10px] tracking-[2.5px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+          <p className="text-[12px] tracking-[2.5px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             Get in Touch
           </p>
           <a
             href="mailto:obra.majoralia@gmail.com"
-            className="text-sm tracking-[0.3px] text-[#e4e3e2] font-semibold hover:text-[#b0afae] transition-colors duration-200"
+            className="text-base tracking-[0.3px] text-[#e4e3e2] font-semibold hover:text-[#b0afae] transition-colors duration-200"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             obra.majoralia@gmail.com
@@ -110,12 +110,12 @@ const Footer = ({ nightMode = false }: FooterProps) => {
             href="https://hunacreatives.com"
             target="_blank"
             rel="nofollow noopener noreferrer"
-            className="text-[9px] tracking-[1.5px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase"
+            className="text-[11px] tracking-[1.5px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Website by Huna Creatives
           </a>
-          <p className="text-[9px] tracking-[1.5px] text-[#e4e3e2] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+          <p className="text-[11px] tracking-[1.5px] text-[#e4e3e2] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             © 2026 All Rights Reserved Obra Majoralia
           </p>
         </div>

@@ -2,16 +2,21 @@ import { Link } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import FadeIn from '@/components/base/FadeIn';
+import CinematicHero from './components/CinematicHero';
 import HeroSlideshow from './components/HeroSlideshow';
 import ProjectGrid from './components/ProjectGrid';
 import TypologySection from './components/TypologySection';
+import CtaBand from '@/components/feature/CtaBand';
 import { projects } from '@/mocks/projects';
 
 const HomePage = () => (
   <main className="min-h-screen bg-white">
     <Navbar />
 
-    {/* 1. Full-screen hero slideshow — all projects */}
+    {/* 1. Cinematic studio hero — Loboc */}
+    <CinematicHero />
+
+    {/* 2. Project slideshow */}
     <HeroSlideshow projects={projects} />
 
     {/* 2. Studio intro — white section */}
@@ -62,14 +67,14 @@ const HomePage = () => (
                 </span>
               </div>
               <p
-                className="text-[13px] tracking-[0.5px] text-[#797979] leading-relaxed max-w-[200px]"
+                className="text-[15px] tracking-[0.5px] text-[#797979] leading-relaxed max-w-[200px]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Discover our built work on an interactive map of the Philippines.
               </p>
             </div>
             <span
-              className="inline-flex items-center gap-2 text-[11px] tracking-[3px] text-[#383838] uppercase border-b border-transparent group-hover:border-[#383838] transition-all duration-300"
+              className="inline-flex items-center gap-2 text-[13px] tracking-[3px] text-[#383838] uppercase transition-all duration-300"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               EXPLORE
@@ -90,6 +95,9 @@ const HomePage = () => (
         </Link>
       </FadeIn>
     </section>
+
+    {/* 6. CTA band */}
+    <CtaBand />
 
     <Footer />
   </main>
