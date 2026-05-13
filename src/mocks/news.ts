@@ -53,7 +53,7 @@ export const newsItems: NewsItem[] = [
     date: 'MAY 7, 2024',
     title: 'Kanto × GROHE Young Visionaries Challenge — Overall Winner',
     excerpt: 'Obra Majoralia takes the overall win at the Kanto × GROHE Young Visionaries Challenge, recognized for a design that explores water, material, and spatial experience in a tropical context.',
-    imageUrl: '/images/award-3.png',
+    imageUrl: '/images/award-3.webp',
     url: 'https://www.instagram.com/p/C6qllCNtZhe/',
   },
   {
@@ -62,7 +62,7 @@ export const newsItems: NewsItem[] = [
     date: 'FEB 4, 2025',
     title: 'Manila Architecture Festival 2025',
     excerpt: 'Ar. Jonathan Cruz joins the Manila Architecture Festival 2025 as a speaker, sharing the studio\'s approach to context-driven design and its experience on the international stage.',
-    imageUrl: '/images/jonathan-cruz.png',
+    imageUrl: '/images/jonathan-cruz.webp',
     url: 'https://www.instagram.com/p/DGcaW4rPAQl/?img_index=3',
   },
 ];

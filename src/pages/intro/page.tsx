@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LOGO = '/images/logo-secondary.png';
+const LOGO = '/images/logo-secondary.webp';
 
 const IntroPage = () => {
   const navigate = useNavigate();

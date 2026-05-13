@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { usePageTransition } from '@/hooks/usePageTransition';
 
-const LOGO = '/images/logo-secondary.png';
+const LOGO = '/images/logo-secondary.webp';
 
 const NAV_LINKS = [
   { label: 'HOME', to: '/home' },

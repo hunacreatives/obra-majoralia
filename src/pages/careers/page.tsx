@@ -8,17 +8,17 @@ const WHY_ITEMS = [
   {
     title: 'Design Excellence',
     description: 'Work alongside award-winning architects on projects that push the boundaries of form and function.',
-    img: '/images/careers-why-1.jpg',
+    img: '/images/careers-why-1.webp',
   },
   {
     title: 'Collaborative Culture',
     description: 'A studio built on open dialogue, shared ideas, and a deep respect for every voice in the room.',
-    img: '/images/careers-why-2.jpg',
+    img: '/images/careers-why-2.webp',
   },
   {
     title: 'Meaningful Projects',
     description: 'From private residences to monumental civic works — every project carries purpose and lasting impact.',
-    img: '/images/careers-why-3.jpg',
+    img: '/images/careers-why-3.webp',
   },
 ];
 
@@ -143,7 +143,7 @@ const CareersPage = () => {
         {/* ── Hero Image ── */}
         <div className="w-full h-[40vh] md:h-[50vh] overflow-hidden">
           <img
-            src="/images/careers-hero-1.jpg"
+            src="/images/careers-hero-1.webp"
             alt="Obra Majoralia Studio"
             className="w-full h-full object-cover object-center"
           />

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const LOGO = '/images/logo-black.png';
+const LOGO = '/images/logo-black.webp';
 
 interface FooterProps {
   nightMode?: boolean;

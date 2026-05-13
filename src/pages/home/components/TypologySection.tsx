@@ -4,34 +4,34 @@ import FadeIn from '@/components/base/FadeIn';
 const ROW_ONE = [
   {
     label: 'Residential',
-    image: '/images/typology-residential.png',
+    image: '/images/typology-residential.webp',
   },
   {
     label: 'Interior',
-    image: '/images/typology-interior.png',
+    image: '/images/typology-interior.webp',
   },
   {
     label: 'Commercial',
-    image: '/images/typology-commercial.png',
+    image: '/images/typology-commercial.webp',
   },
   {
     label: 'Hospitality',
-    image: '/images/typology-hospitality.png',
+    image: '/images/typology-hospitality.webp',
   },
 ];
 
 const ROW_TWO = [
   {
     label: 'Healthcare',
-    image: '/images/typology-healthcare.png',
+    image: '/images/typology-healthcare.webp',
   },
   {
     label: 'Government',
-    image: '/images/typology-government.png',
+    image: '/images/typology-government.webp',
   },
   {
     label: 'Monumental',
-    image: '/images/typology-monumental.png',
+    image: '/images/typology-monumental.webp',
   },
 ];
 
