@@ -71,7 +71,7 @@ const CinematicHero = () => {
 
       <section className="relative w-full h-screen overflow-hidden" data-theme="dark">
         <img
-          src="/images/about-hero.png"
+          src="/images/about-hero.webp"
           alt="Obra Majoralia"
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{
@@ -172,9 +172,9 @@ const CinematicHero = () => {
             </p>
 
             <div className="flex flex-col gap-3">
-              <AwardBadge src="/images/award-1.png" alt="WAF Award" delay={0} masterReady={awardsIn} />
-              <AwardBadge src="/images/award-2.png" alt="Award 2" delay={160} masterReady={awardsIn} />
-              <AwardBadge src="/images/award-3.png" alt="Award 3" delay={320} masterReady={awardsIn} />
+              <AwardBadge src="/images/award-1.webp" alt="WAF Award" delay={0} masterReady={awardsIn} />
+              <AwardBadge src="/images/award-2.webp" alt="Award 2" delay={160} masterReady={awardsIn} />
+              <AwardBadge src="/images/award-3.webp" alt="Award 3" delay={320} masterReady={awardsIn} />
             </div>
           </div>
         </div>

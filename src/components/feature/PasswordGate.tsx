@@ -40,7 +40,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
         {/* Logo */}
         <img
-          src="/images/logo-black.png"
+          src="/images/logo-black.webp"
           alt="Obra Majoralia"
           className="h-10 w-auto object-contain select-none"
           draggable={false}

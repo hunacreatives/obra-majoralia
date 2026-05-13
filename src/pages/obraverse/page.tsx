@@ -84,7 +84,7 @@ const ObraversePage = () => {
 
       {/* Map */}
       <img
-        src="/images/obraverse.png"
+        src="/images/obraverse.webp"
         alt="OBRAverse map"
         className="w-full h-auto block"
       />
