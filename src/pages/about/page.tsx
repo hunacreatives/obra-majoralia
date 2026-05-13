@@ -167,7 +167,7 @@ const AboutPage = () => {
           {/* Right: image panel */}
           <div className="hidden lg:block overflow-hidden relative">
             <img
-              src="/images/about-studio-interior-v2.jpg"
+              src="/images/about-studio-interior-v2.webp"
               alt="Studio"
               className="w-full h-full object-cover object-center"
             />

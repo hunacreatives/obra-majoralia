@@ -80,7 +80,7 @@ const ContactPage = () => {
         {/* Hero */}
         <section className="relative w-full overflow-hidden" style={{ height: '60vh' }} data-theme="dark">
           <img
-            src="/images/fringe-hero.jpg"
+            src="/images/fringe-hero.webp"
             alt="Obra Majoralia"
             className="w-full h-full object-cover object-center"
             style={{ animation: 'heroScale 2s cubic-bezier(0.4,0,0.2,1) forwards', transformOrigin: 'center center' }}

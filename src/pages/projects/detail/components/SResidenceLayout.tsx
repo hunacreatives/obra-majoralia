@@ -67,7 +67,7 @@ const SResidenceLayout = ({ project }: Props) => {
           style={{ opacity: isNight ? 0 : 1 }}
         />
         <img
-          src="/images/s-residence-night.jpg"
+          src="/images/s-residence-night.webp"
           alt="S Residence night"
           className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
           style={{ opacity: isNight ? 1 : 0 }}
@@ -140,13 +140,13 @@ const SResidenceLayout = ({ project }: Props) => {
         {/* Right: photo with day/night */}
         <div className="relative overflow-hidden" style={{ minHeight: '60vh' }}>
           <img
-            src="/images/s-residence-concept-day.jpg"
+            src="/images/s-residence-concept-day.webp"
             alt="Exterior day"
             className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
             style={{ opacity: isNight ? 0 : 1 }}
           />
           <img
-            src="/images/s-residence-concept-night.jpg"
+            src="/images/s-residence-concept-night.webp"
             alt="Exterior night"
             className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
             style={{ opacity: isNight ? 1 : 0 }}
@@ -159,15 +159,15 @@ const SResidenceLayout = ({ project }: Props) => {
         {/* Left column — two stacked photos */}
         <div className="flex flex-col gap-5 h-full">
           <div className="overflow-hidden" style={{ flex: '0 0 38vh' }}>
-            <img src="/images/s-residence-ext-night-01.jpg" alt="Exterior night 01" className="w-full h-full object-cover object-center" />
+            <img src="/images/s-residence-ext-night-01.webp" alt="Exterior night 01" className="w-full h-full object-cover object-center" />
           </div>
           <div className="overflow-hidden flex-1">
-            <img src="/images/s-residence-ext-night-02.jpg" alt="Exterior night 02" className="w-full h-full object-cover object-[70%_center]" />
+            <img src="/images/s-residence-ext-night-02.webp" alt="Exterior night 02" className="w-full h-full object-cover object-[70%_center]" />
           </div>
         </div>
         {/* Right column — single tall photo filling full height */}
         <div className="overflow-hidden h-full">
-          <img src="/images/s-residence-ext-night-03.jpg" alt="Exterior night" className="w-full h-full object-cover object-center" />
+          <img src="/images/s-residence-ext-night-03.webp" alt="Exterior night" className="w-full h-full object-cover object-center" />
         </div>
       </section>
 
@@ -188,12 +188,12 @@ const SResidenceLayout = ({ project }: Props) => {
       {/* 07 TWO-IMAGE ROW */}
       <section className="grid grid-cols-2 gap-3 px-10 md:px-16 my-3" style={{ height: '45vh' }}>
         <div className="relative overflow-hidden h-full">
-          <img src="/images/s-residence-foyer-01-day.jpg" alt="Foyer day" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 0 : 1 }} />
-          <img src="/images/s-residence-foyer-01.jpg" alt="Foyer night" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 1 : 0 }} />
+          <img src="/images/s-residence-foyer-01-day.webp" alt="Foyer day" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 0 : 1 }} />
+          <img src="/images/s-residence-foyer-01.webp" alt="Foyer night" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 1 : 0 }} />
         </div>
         <div className="relative overflow-hidden h-full">
-          <img src="/images/s-residence-foyer-02-day.jpg" alt="Foyer 2 day" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 0 : 1 }} />
-          <img src="/images/s-residence-foyer-02-night.jpg" alt="Foyer 2 night" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 1 : 0 }} />
+          <img src="/images/s-residence-foyer-02-day.webp" alt="Foyer 2 day" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 0 : 1 }} />
+          <img src="/images/s-residence-foyer-02-night.webp" alt="Foyer 2 night" className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700" style={{ opacity: isNight ? 1 : 0 }} />
         </div>
       </section>
 
@@ -213,13 +213,13 @@ const SResidenceLayout = ({ project }: Props) => {
       <section className="px-10 md:px-16" style={{ height: '90vh' }}>
         <div className="relative overflow-hidden h-full">
           <img
-            src="/images/s-residence-int-1-day.jpg"
+            src="/images/s-residence-int-1-day.webp"
             alt="Interior perspective day"
             className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
             style={{ opacity: isNight ? 0 : 1 }}
           />
           <img
-            src="/images/s-residence-int-1.jpg"
+            src="/images/s-residence-int-1.webp"
             alt="Interior perspective night"
             className="absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700"
             style={{ opacity: isNight ? 1 : 0 }}
@@ -230,13 +230,13 @@ const SResidenceLayout = ({ project }: Props) => {
       {/* 09b DAY / NIGHT INTERIOR — natural aspect ratio */}
       <div className="relative mt-3 mb-24 mx-10 md:mx-16">
         <img
-          src="/images/s-residence-int-day.jpg"
+          src="/images/s-residence-int-day.webp"
           alt="Interior day"
           className="w-full object-contain transition-opacity duration-700"
           style={{ opacity: isNight ? 0 : 1 }}
         />
         <img
-          src="/images/s-residence-int-2.jpg"
+          src="/images/s-residence-int-2.webp"
           alt="Interior night"
           className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
           style={{ opacity: isNight ? 1 : 0 }}
@@ -247,7 +247,7 @@ const SResidenceLayout = ({ project }: Props) => {
       <section className="grid grid-cols-1 lg:grid-cols-2 py-16 md:py-20">
         <div className="flex justify-center items-center px-10 md:px-16 mb-10 lg:mb-0">
           <img
-            src="/images/s-residence-materials.jpg"
+            src="/images/s-residence-materials.webp"
             alt="Material palette"
             className="w-full max-w-md object-contain"
             style={{ imageRendering: 'auto', filter: 'contrast(1.04) saturate(1.08)' }}
