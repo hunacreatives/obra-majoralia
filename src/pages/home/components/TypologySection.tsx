@@ -66,7 +66,7 @@ const TypologyTile = ({ label, image, delay }: TileProps) => (
 );
 
 const TypologySection = () => (
-  <section className="w-full px-8 md:px-14 pb-14 md:pb-20">
+  <section className="w-full px-6 md:px-14 pb-14 md:pb-20">
     {/* Row 1 — 4 columns */}
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-7 mb-5 md:mb-7">
       {ROW_ONE.map((t, i) => (
@@ -75,7 +75,7 @@ const TypologySection = () => (
     </div>
 
     {/* Row 2 — 3 columns, centered */}
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-7 max-w-[75%] mx-auto">
+    <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 md:gap-7">
       {ROW_TWO.map((t, i) => (
         <TypologyTile key={t.label} label={t.label} image={t.image} delay={i * 60} />
       ))}

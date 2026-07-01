@@ -24,7 +24,7 @@ const HomePage = () => (
       <FadeIn>
         <div className="max-w-2xl mx-auto text-center">
           <p
-            className="text-lg md:text-2xl text-[#383838] leading-[1.8] md:leading-[2] tracking-[0.2px]"
+            className="text-sm md:text-2xl text-[#383838] leading-[1.8] md:leading-[2] tracking-[0.2px] text-justify"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             A future-driven architecture studio,{' '}
@@ -42,7 +42,7 @@ const HomePage = () => (
     <ProjectGrid />
 
     {/* 5. OBRAverse teaser */}
-    <section className="px-8 md:px-14 py-6 md:py-8">
+    <section className="px-6 md:px-14 py-6 md:py-8">
       <FadeIn direction="none">
         <Link
           to="/obraverse"

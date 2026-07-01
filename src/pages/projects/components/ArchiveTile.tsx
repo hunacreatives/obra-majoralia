@@ -67,7 +67,7 @@ const ArchiveTile = ({ project }: Props) => {
           <>
             <button
               onClick={prev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
               aria-label="Previous image"
             >
               <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/40 transition-colors duration-200">
@@ -77,7 +77,7 @@ const ArchiveTile = ({ project }: Props) => {
 
             <button
               onClick={next}
-              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
               aria-label="Next image"
             >
               <span className="w-7 h-7 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/40 transition-colors duration-200">
@@ -89,7 +89,7 @@ const ArchiveTile = ({ project }: Props) => {
 
         {/* Dot indicators */}
         {images.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-10 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
             {images.map((_, i) => (
               <span
                 key={i}
@@ -102,10 +102,11 @@ const ArchiveTile = ({ project }: Props) => {
           </div>
         )}
 
-        {/* Info — hover reveal */}
-        <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none">
+        {/* Info — always visible on mobile, hover reveal on desktop */}
+        <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none">
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent md:hidden" />
           <h3
-            className="text-base md:text-lg text-white leading-snug tracking-[-0.2px]"
+            className="relative text-sm md:text-lg text-white leading-snug tracking-[-0.2px]"
             style={{ fontFamily: 'var(--font-serif)' }}
           >
             {project.title}

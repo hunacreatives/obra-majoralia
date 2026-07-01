@@ -52,16 +52,7 @@ const Footer = ({ nightMode = false }: FooterProps) => {
       {/* Divider + bottom bar — desktop */}
       <div className="hidden md:block">
         <div className="pl-10 md:pl-16 pr-10 md:pr-16 lg:pr-20">
-          <div className="py-3 flex items-center justify-between border-t" style={{ borderColor: divider }}>
-            <a
-              href="https://hunacreatives.com"
-              target="_blank"
-              rel="nofollow noopener noreferrer"
-              className="text-[11px] tracking-[2px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase whitespace-nowrap"
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              Website by Huna Creatives
-            </a>
+          <div className="py-3 flex items-center justify-end border-t" style={{ borderColor: divider }}>
             <p
               className="text-[11px] tracking-[2px] text-[#e4e3e2] uppercase whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -73,49 +64,40 @@ const Footer = ({ nightMode = false }: FooterProps) => {
       </div>
 
       {/* Mobile layout */}
-      <div className="md:hidden px-6 py-8 flex flex-col gap-6">
-        <Link to="/" className="block">
+      <div className="md:hidden px-6 pt-3 pb-6 flex flex-col gap-3">
+        <Link to="/" className="block -mb-3">
           <img
             src={LOGO}
             alt="Obra Majoralia"
-            className="h-8 w-auto object-contain select-none invert"
+            className="h-24 w-auto object-contain select-none invert"
             draggable={false}
           />
         </Link>
-        <div className="flex flex-col gap-2">
-          <p className="text-[12px] tracking-[2.5px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+        <div className="flex flex-col gap-1">
+          <p className="text-[10px] tracking-[2.5px] text-[#e4e3e2] font-bold uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             Get in Touch
           </p>
           <a
             href="mailto:obra.majoralia@gmail.com"
-            className="text-base tracking-[0.3px] text-[#e4e3e2] font-semibold hover:text-[#b0afae] transition-colors duration-200"
+            className="text-[12px] tracking-[0.3px] text-[#e4e3e2] font-semibold hover:text-[#b0afae] transition-colors duration-200"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             obra.majoralia@gmail.com
           </a>
         </div>
-        <div className="flex items-center gap-5">
-          <a href="https://www.instagram.com/obra.majoralia/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Instagram" className="w-5 h-5 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
-            <i className="ri-instagram-line text-lg" />
+        <div className="flex items-center gap-4">
+          <a href="https://www.instagram.com/obra.majoralia/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Instagram" className="w-4 h-4 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
+            <i className="ri-instagram-line text-sm" />
           </a>
-          <a href="https://www.facebook.com/obramajoralia/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebook" className="w-5 h-5 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
-            <i className="ri-facebook-line text-lg" />
+          <a href="https://www.facebook.com/obramajoralia/" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebook" className="w-4 h-4 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
+            <i className="ri-facebook-line text-sm" />
           </a>
-          <a href="https://www.linkedin.com/in/jbcruz2006/" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn" className="w-5 h-5 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
-            <i className="ri-linkedin-line text-lg" />
+          <a href="https://www.linkedin.com/in/jbcruz2006/" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn" className="w-4 h-4 flex items-center justify-center text-[#e4e3e2] hover:text-[#b0afae] transition-colors duration-200">
+            <i className="ri-linkedin-line text-sm" />
           </a>
         </div>
-        <div className="pt-4 flex flex-col gap-2 border-t" style={{ borderColor: divider }}>
-          <a
-            href="https://hunacreatives.com"
-            target="_blank"
-            rel="nofollow noopener noreferrer"
-            className="text-[11px] tracking-[1.5px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            Website by Huna Creatives
-          </a>
-          <p className="text-[11px] tracking-[1.5px] text-[#e4e3e2] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+        <div className="pt-3 flex flex-col gap-1 border-t" style={{ borderColor: divider }}>
+          <p className="text-[10px] tracking-[1.5px] text-[#e4e3e2] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             © 2026 All Rights Reserved Obra Majoralia
           </p>
         </div>

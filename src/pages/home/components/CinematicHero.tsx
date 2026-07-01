@@ -32,7 +32,7 @@ const AwardBadge = ({
       <img
         src={src}
         alt={alt}
-        className="w-28 h-28 md:w-36 md:h-36 object-contain opacity-95 transition-transform duration-300 group-hover:scale-110"
+        className="w-14 h-14 md:w-36 md:h-36 object-contain opacity-95 transition-transform duration-300 group-hover:scale-110"
       />
     </div>
   );
@@ -81,7 +81,7 @@ const CinematicHero = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/70" />
 
-        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-20 pb-6 md:pb-10 flex flex-row items-end justify-between gap-8">
+        <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 lg:px-20 pb-6 md:pb-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-3 md:gap-8">
           <div
             style={{
               opacity: titleIn ? 1 : 0,
@@ -109,7 +109,7 @@ const CinematicHero = () => {
             }}
           >
             <p
-              className="text-[17px] md:text-[19px] text-white/75 leading-[1.9] tracking-[0.2px] text-right mb-6"
+              className="text-[14px] md:text-[19px] text-white/75 leading-[1.7] md:leading-[1.9] tracking-[0.2px] text-justify md:text-right mb-0 md:mb-6"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               A future-driven architecture studio
@@ -121,10 +121,10 @@ const CinematicHero = () => {
           </div>
         </div>
 
-        <div className="absolute top-[18%] right-[5%] flex items-start gap-0 z-10">
+        <div className="absolute top-[18%] right-[4%] flex items-start gap-0 z-10">
           <div className="flex flex-col items-start">
             <div
-              className="w-32 md:w-48 h-px bg-white/50 mt-[18px] origin-right"
+              className="w-16 md:w-48 h-px bg-white/50 mt-[14px] md:mt-[18px] origin-right"
               style={{
                 transform: calloutIn ? 'scaleX(1)' : 'scaleX(0)',
                 transition: 'transform 600ms cubic-bezier(0.4, 0, 0.2, 1) 900ms',
@@ -149,7 +149,7 @@ const CinematicHero = () => {
 
           <div className="ml-5 flex flex-col gap-2">
             <p
-              className="text-xl md:text-2xl font-bold tracking-[-0.5px] text-white leading-tight"
+              className="text-sm md:text-2xl font-bold tracking-[-0.5px] text-white leading-tight"
               style={{
                 fontFamily: 'var(--font-sans)',
                 opacity: calloutIn ? 1 : 0,
@@ -160,7 +160,7 @@ const CinematicHero = () => {
               House of Song
             </p>
             <p
-              className="text-base md:text-[17px] text-white/60 mb-4"
+              className="text-xs md:text-[17px] text-white/60 mb-2 md:mb-4"
               style={{
                 fontFamily: 'var(--font-sans)',
                 opacity: calloutIn ? 1 : 0,

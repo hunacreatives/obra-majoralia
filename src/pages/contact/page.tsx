@@ -86,7 +86,7 @@ const ContactPage = () => {
             style={{ animation: 'heroScale 2s cubic-bezier(0.4,0,0.2,1) forwards', transformOrigin: 'center center' }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-          <div className="absolute bottom-10 left-10 md:left-16 lg:left-20 right-10">
+          <div className="absolute bottom-6 md:bottom-10 left-6 md:left-16 lg:left-20 right-6 md:right-10">
             <p className="text-[11px] tracking-[4px] text-white/50 uppercase mb-3" style={{ fontFamily: 'var(--font-sans)' }}>
               Get in Touch
             </p>
@@ -100,7 +100,7 @@ const ContactPage = () => {
         </section>
 
         {/* Contact info strip */}
-        <div className="px-10 md:px-16 lg:px-20 py-8 border-b border-[#e4e3e2]">
+        <div className="px-6 md:px-16 lg:px-20 py-8 border-b border-[#e4e3e2]">
           <div className="flex flex-col sm:flex-row gap-10 lg:gap-16">
             <div className="flex flex-col gap-1">
               <span className="text-[13px] tracking-[1.5px] text-[#383838] uppercase font-semibold" style={{ fontFamily: 'var(--font-sans)' }}>
@@ -108,7 +108,7 @@ const ContactPage = () => {
               </span>
               <a
                 href="mailto:obra.majoralia@gmail.com"
-                className="text-base tracking-[0.5px] text-[#383838] hover:text-[#797979] transition-colors duration-200"
+                className="text-sm md:text-base tracking-[0.5px] text-[#383838] hover:text-[#797979] transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 obra.majoralia@gmail.com
@@ -120,7 +120,7 @@ const ContactPage = () => {
               </span>
               <a
                 href="tel:+639672340041"
-                className="text-base tracking-[0.5px] text-[#383838] hover:text-[#797979] transition-colors duration-200"
+                className="text-sm md:text-base tracking-[0.5px] text-[#383838] hover:text-[#797979] transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 +63 967 234 0041
@@ -134,7 +134,7 @@ const ContactPage = () => {
           id="contact-form"
           data-readdy-form
           onSubmit={handleSubmit}
-          className="px-10 md:px-16 lg:px-20 py-14"
+          className="px-6 md:px-16 lg:px-20 py-14"
         >
           {/* Row 1: First Name + Last Name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-0">
@@ -251,7 +251,7 @@ const ContactPage = () => {
           </div>
 
           {/* Submit row */}
-          <div className="flex items-center justify-between pt-2">
+          <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-4 pt-2">
             {/* Feedback */}
             <div className="text-base tracking-[1.5px]" style={{ fontFamily: 'var(--font-sans)' }}>
               {submitState === 'success' && (

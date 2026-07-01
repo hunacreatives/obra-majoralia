@@ -112,8 +112,8 @@ const Navbar = ({ nightMode = false }: NavbarProps) => {
           ))}
         </div>
 
-        {/* Right: Logo */}
-        <div className="ml-auto md:ml-0 flex items-center">
+        {/* Right: Logo (desktop) / Left: Logo (mobile via order) */}
+        <div className="order-first md:order-none md:ml-0 flex items-center">
           <button
             type="button"
             onClick={() => handleNav('/home')}
@@ -131,7 +131,7 @@ const Navbar = ({ nightMode = false }: NavbarProps) => {
 
         {/* Mobile: Hamburger */}
         <button
-          className={`md:hidden ml-6 flex flex-col gap-[5px] transition-colors duration-200 ${isDark ? 'text-white' : 'text-[#383838]'}`}
+          className={`md:hidden ml-auto flex flex-col gap-[5px] transition-colors duration-200 relative z-50 ${menuOpen ? (nightMode ? 'text-white' : 'text-[#383838]') : (isDark ? 'text-white' : 'text-[#383838]')}`}
           onClick={() => setMenuOpen(v => !v)}
           aria-label="Toggle menu"
         >

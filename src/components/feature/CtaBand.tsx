@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const CtaBand = () => (
   <section className="bg-[#1a1a1a]">
     <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/10">
-      <div className="px-10 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
+      <div className="px-6 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
         <p
           className="text-[40px] md:text-[56px] lg:text-[64px] font-bold leading-[1.0] tracking-[-2px] text-white"
           style={{ fontFamily: 'var(--font-sans)' }}
@@ -12,7 +12,7 @@ const CtaBand = () => (
           <br />
           <span className="italic font-normal text-white/40">in mind?</span>
         </p>
-        <p className="text-base text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
+        <p className="text-sm md:text-base text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
           We'd love to hear about your project. Reach out and let's start a conversation.
         </p>
         <Link
@@ -27,7 +27,7 @@ const CtaBand = () => (
         </Link>
       </div>
 
-      <div className="px-10 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
+      <div className="px-6 md:px-16 lg:px-20 py-14 md:py-20 flex flex-col gap-5">
         <p
           className="text-[40px] md:text-[56px] lg:text-[64px] font-bold leading-[1.0] tracking-[-2px] text-white"
           style={{ fontFamily: 'var(--font-sans)' }}
@@ -36,7 +36,7 @@ const CtaBand = () => (
           <br />
           <span className="italic font-normal text-white/40">for talent.</span>
         </p>
-        <p className="text-base text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
+        <p className="text-sm md:text-base text-white/40 leading-loose max-w-xs" style={{ fontFamily: 'var(--font-sans)' }}>
           If you aspire to be part of the team, send your portfolio and let's see where it goes.
         </p>
         <Link

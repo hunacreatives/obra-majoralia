@@ -21,7 +21,7 @@ const NewsPage = () => {
       <div style={{ height: '80px' }} />
 
       {/* Page title */}
-      <div className="px-10 md:px-16 lg:px-20 pt-10 pb-6 border-b border-[#e4e3e2]">
+      <div className="px-6 md:px-16 lg:px-20 pt-10 pb-6 border-b border-[#e4e3e2]">
         <h1
           className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
           style={{ fontFamily: 'var(--font-serif)' }}
@@ -31,8 +31,8 @@ const NewsPage = () => {
       </div>
 
       {/* Filter bar — same padding as title */}
-      <div className="border-b border-[#e4e3e2] px-10 md:px-16 lg:px-20 py-4 flex justify-end">
-        <div className="flex items-center gap-6 md:gap-8 flex-wrap">
+      <div className="border-b border-[#e4e3e2] px-6 md:px-16 lg:px-20 py-4 flex justify-start md:justify-end overflow-x-auto">
+        <div className="flex items-center gap-6 md:gap-8 whitespace-nowrap">
           {FILTERS.map(f => (
             <button
               key={f}
@@ -52,7 +52,7 @@ const NewsPage = () => {
       </div>
 
       {/* News grid — 2 columns, aligned with title */}
-      <section className="px-10 md:px-16 lg:px-20 py-10 md:py-14">
+      <section className="px-6 md:px-16 lg:px-20 py-10 md:py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-0">
           {filtered.map((item, i) => (
             <FadeIn key={item.id} delay={i * 40}>
@@ -62,7 +62,7 @@ const NewsPage = () => {
               >
 
                 {/* Thumbnail */}
-                <div className="shrink-0 w-[160px] h-[120px] overflow-hidden">
+                <div className="shrink-0 w-[100px] h-[80px] md:w-[160px] md:h-[120px] overflow-hidden">
                   <img
                     src={item.imageUrl}
                     alt={item.title}
@@ -91,7 +91,7 @@ const NewsPage = () => {
 
                     {/* Title */}
                     <h2
-                      className="text-[19px] md:text-[19px] text-[#383838] leading-[1.5] tracking-[-0.2px] group-hover:text-[#797979] transition-colors duration-200 font-semibold"
+                      className="text-[15px] md:text-[19px] text-[#383838] leading-[1.5] tracking-[-0.2px] group-hover:text-[#797979] transition-colors duration-200 font-semibold text-justify"
                       style={{ fontFamily: 'var(--font-sans)' }}
                     >
                       {item.title}

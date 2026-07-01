@@ -75,13 +75,13 @@ const Stat = ({ value, label, suffix = '' }: { value: number; label: string; suf
   return (
     <div ref={ref} className="flex flex-col gap-2 items-center">
       <span
-        className="text-[40px] md:text-[52px] font-bold leading-[1] tracking-normal text-[#383838]"
+        className="text-[40px] md:text-[52px] font-bold leading-[1] tracking-normal text-white"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {count}{suffix}
       </span>
       <span
-        className="text-[11px] tracking-[2.5px] text-[#999] uppercase"
+        className="text-[10px] tracking-[2.5px] text-white/40 uppercase"
         style={{ fontFamily: 'var(--font-sans)' }}
       >
         {label}
@@ -126,7 +126,7 @@ const AboutPage = () => {
       {/* ══════════════════════════════════════════
           01 — FULL-SCREEN HERO: STATEMENT + IMAGE
       ══════════════════════════════════════════ */}
-      <section className="h-screen flex flex-col pt-20 border-b border-[#e4e3e2]">
+      <section className="h-[100dvh] flex flex-col pt-20 border-b border-[#1a1a1a]">
         {/* Main split */}
         <div
           ref={statementReveal.ref}
@@ -138,7 +138,31 @@ const AboutPage = () => {
           }}
         >
           {/* Left: statement */}
-          <div className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-10 border-r border-[#e4e3e2]">
+          <div className="relative flex flex-col justify-center px-8 md:px-16 lg:px-20 py-10 border-r border-[#e4e3e2] overflow-hidden">
+            {/* Faded animated logo watermark — mobile only */}
+            <div
+              aria-hidden="true"
+              className="md:hidden absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+            >
+              <img
+                src="/images/logo-secondary.png"
+                alt=""
+                style={{
+                  width: '500%',
+                  opacity: 0.08,
+                  filter: 'blur(6px)',
+                  animation: 'logoDrift 16s ease-in-out infinite alternate',
+                }}
+              />
+            </div>
+            <style>{`
+              @keyframes logoDrift {
+                0%   { transform: scale(1) translate(0px, 0px); }
+                33%  { transform: scale(1.06) translate(-12px, -8px); }
+                66%  { transform: scale(0.97) translate(10px, 6px); }
+                100% { transform: scale(1.04) translate(-6px, 10px); }
+              }
+            `}</style>
             <p
               className="text-[11px] tracking-[3px] text-[#bbb] uppercase mb-8"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -146,7 +170,7 @@ const AboutPage = () => {
               Studio · Est. 2018
             </p>
             <p
-              className="text-[24px] md:text-[36px] lg:text-[46px] font-bold leading-[1.1] tracking-[-1px] md:tracking-[-1.5px] text-[#383838]"
+              className="text-[24px] md:text-[36px] lg:text-[42px] xl:text-[52px] font-bold leading-[1.1] tracking-[-1px] md:tracking-[-2px] text-[#383838] whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Architecture is for the{' '}
@@ -154,11 +178,11 @@ const AboutPage = () => {
               <br />not for the Designers.
             </p>
             <div className="mt-10 w-10 h-px bg-[#e4e3e2]" />
-            <div className="mt-8 flex flex-col gap-5 max-w-2xl">
-              <p className="text-base text-[#797979] leading-loose" style={{ fontFamily: 'var(--font-sans)' }}>
+            <div className="mt-8 flex flex-col gap-5">
+              <p className="text-sm md:text-base lg:text-[20px] text-[#797979] leading-loose text-justify" style={{ fontFamily: 'var(--font-sans)' }}>
                 Rooted in a deep understanding of context — the culture, history, and aspirations of the people and places they design for.
               </p>
-              <p className="text-base text-[#797979] leading-loose" style={{ fontFamily: 'var(--font-sans)' }}>
+              <p className="text-sm md:text-base lg:text-[20px] text-[#797979] leading-loose text-justify" style={{ fontFamily: 'var(--font-sans)' }}>
                 Guided by intuition and a sensitivity to both form and function, they create spaces that are purposeful, poetic, and responsive.
               </p>
             </div>
@@ -178,7 +202,7 @@ const AboutPage = () => {
         {/* Stats bar — anchored at bottom */}
         <div
           ref={statsReveal.ref}
-          className="shrink-0 border-t border-[#e4e3e2] grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#e4e3e2]"
+          className="shrink-0 grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/10 bg-[#1a1a1a]"
           style={{
             opacity: statsReveal.visible ? 1 : 0,
             transition: 'opacity 800ms cubic-bezier(0.4, 0, 0.2, 1) 400ms',
@@ -190,7 +214,8 @@ const AboutPage = () => {
             { value: 3, label: 'International Awards', suffix: '' },
             { value: 6, label: 'Years of Practice', suffix: '' },
           ].map((s) => (
-            <div key={s.label} className="flex items-center justify-center py-6">
+            <div key={s.label} className="flex items-center justify-center py-7 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
               <Stat value={s.value} label={s.label} suffix={s.suffix} />
             </div>
           ))}
@@ -235,32 +260,49 @@ const AboutPage = () => {
           {/* Right: quote + credentials */}
           <div className="flex flex-col px-10 md:px-14 lg:px-16 py-16 lg:min-h-[700px]">
             {/* Pull quote */}
-            <div className="mb-10 pb-10 border-b border-[#e4e3e2]">
-              <p
-                className="text-[26px] md:text-[32px] lg:text-[38px] font-bold italic leading-[1.25] tracking-[-0.5px] text-[#383838] mb-6"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                &ldquo;Architecture must listen before it speaks.&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <span className="w-6 h-px bg-[#d0cfc9] flex-shrink-0" />
+            <div className="mb-6 pb-8 border-b border-[#e4e3e2]">
+              <div className="flex items-start gap-3 mb-8">
+                <span
+                  className="text-[56px] md:text-[72px] leading-[0.8] text-[#e4e3e2] flex-shrink-0 select-none mt-1"
+                  style={{ fontFamily: 'var(--font-serif)' }}
+                  aria-hidden="true"
+                >
+                  &ldquo;
+                </span>
                 <p
-                  className="text-[12px] tracking-[2.5px] text-[#aaa] uppercase"
+                  className="text-[22px] md:text-[32px] lg:text-[38px] font-bold italic leading-[1.3] tracking-[-0.5px] text-[#383838]"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
-                  Ar. Jonathan Cruz · Principal Architect
+                  Architecture must listen<br />before it speaks.
                 </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-5 h-px bg-[#d0cfc9] flex-shrink-0" />
+                <div>
+                  <p
+                    className="text-[13px] font-bold tracking-[1px] text-[#383838]"
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                  >
+                    Ar. Jonathan Cruz
+                  </p>
+                  <p
+                    className="text-[10px] tracking-[2.5px] text-[#aaa] uppercase mt-[2px]"
+                    style={{ fontFamily: 'var(--font-sans)' }}
+                  >
+                    Principal Architect
+                  </p>
+                </div>
               </div>
             </div>
 
             <p
-              className="text-[17px] text-[#797979] leading-loose mb-8"
+              className="text-[13px] md:text-[17px] text-[#797979] leading-loose mb-8 text-justify"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               A licensed architect with a practice rooted in cultural sensitivity, spatial precision, and award-winning design.
             </p>
             <p
-              className="text-base text-[#797979] leading-loose mb-12"
+              className="text-sm md:text-base text-[#797979] leading-loose mb-12 text-justify"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Trained at the University of San Carlos and internationally at the University of Pécs, Hungary, Ar. Jonathan Cruz brings a global perspective to deeply local contexts. His work spans residential, hospitality, interior, and monumental typologies.
@@ -286,8 +328,8 @@ const AboutPage = () => {
               ))}
             </div>
 
-            {/* Tab content — fixed height so switching tabs never resizes the photo */}
-            <div className="flex flex-col gap-5 h-[220px]">
+            {/* Tab content */}
+            <div className="flex flex-col gap-5 md:h-[220px]">
               {CREDENTIALS[credTab].map((item, i) => (
                 <div
                   key={i}
@@ -340,7 +382,7 @@ const AboutPage = () => {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 md:mb-16">
             <div>
               <p
-                className="text-[40px] md:text-[56px] font-bold leading-none tracking-[-2px] text-[#383838]"
+                className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838]"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Form Follows{' '}
@@ -368,13 +410,13 @@ const AboutPage = () => {
                   {label}
                 </p>
                 <p
-                  className="text-base text-[#aaa] leading-loose italic"
+                  className="text-sm md:text-base text-[#aaa] leading-loose italic text-justify"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {formula}
                 </p>
                 <p
-                  className="text-base text-[#797979] leading-loose"
+                  className="text-sm md:text-base lg:text-[18px] text-[#797979] leading-loose text-justify"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 >
                   {body}
@@ -388,10 +430,10 @@ const AboutPage = () => {
       {/* ══════════════════════════════════════════
           06 — PROJECT PROPOSAL PDF VIEWER
       ══════════════════════════════════════════ */}
-      <section className="h-screen flex flex-col border-b border-[#e4e3e2]">
-        <div className="shrink-0 px-8 md:px-16 lg:px-20 pt-14 pb-5 flex items-end justify-between border-b border-[#e4e3e2]">
+      <section className="flex flex-col border-b border-[#e4e3e2] h-[60vh] md:h-screen">
+        <div className="shrink-0 px-6 md:px-16 lg:px-20 pt-8 md:pt-14 pb-4 md:pb-5 flex items-end justify-between border-b border-[#e4e3e2]">
           <div>
-            <p className="text-[32px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838]" style={{ fontFamily: 'var(--font-sans)' }}>
+            <p className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838]" style={{ fontFamily: 'var(--font-sans)' }}>
               Project <span className="italic font-normal text-[#999]">Proposal</span>
             </p>
           </div>
@@ -415,14 +457,14 @@ const AboutPage = () => {
         >
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
             <p
-              className="text-[40px] md:text-[56px] font-bold leading-none tracking-[-2px] text-[#383838]"
+              className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Design{' '}
               <span className="italic font-normal text-[#999]">Team</span>
             </p>
             <p
-              className="text-base text-[#999] max-w-xs leading-loose"
+              className="text-sm md:text-base text-[#999] w-full md:max-w-xs leading-loose text-justify"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               A focused team of designers and architects working together to shape meaningful spaces.

@@ -60,18 +60,17 @@ const ProjectsPage = () => {
       {/* Spacer below fixed navbar */}
       <div style={{ height: '80px' }} />
 
-      {/* PROJECTS title + controls — all on the page, none of it fixed */}
+      {/* PROJECTS title + controls */}
       <div className="px-6 md:px-10 pt-10 pb-6 border-b border-[#e4e3e2]">
-        <div className="flex items-end justify-between gap-6">
-          <h1
-            className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
-            style={{ fontFamily: 'var(--font-serif)' }}
-          >
-            Projects
-          </h1>
+        <h1
+          className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold mb-5 md:mb-0"
+          style={{ fontFamily: 'var(--font-serif)' }}
+        >
+          Projects
+        </h1>
 
-          {/* Sort + search — bottom-right, aligned to baseline of title */}
-          <div className="flex items-center gap-5 md:gap-7 pb-2">
+        <div className="flex items-center justify-between md:justify-end gap-5 md:gap-7 md:-mt-8 md:pb-2">
+          <div className="flex items-center gap-5 md:gap-7">
             <button
               onClick={() => setSort('date')}
               className={[
@@ -91,29 +90,29 @@ const ProjectsPage = () => {
               ].join(' ')}
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-              ALPHABETICAL
+              A–Z
             </button>
+          </div>
 
-            {/* Pill search */}
-            <div className="flex items-center gap-2 border border-[#e4e3e2] rounded-full px-4 py-[6px]">
-              <i className="ri-search-line text-[12px] text-[#aaa]" />
-              <input
-                type="text"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="SEARCH"
-                className="text-[11px] tracking-[2.2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              />
-              {search && (
-                <button
-                  onClick={() => setSearch('')}
-                  className="w-4 h-4 flex items-center justify-center text-[#c8c7c6] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
-                >
-                  <i className="ri-close-line text-[12px]" />
-                </button>
-              )}
-            </div>
+          {/* Pill search */}
+          <div className="flex items-center gap-2 border border-[#e4e3e2] rounded-full px-4 py-[6px]">
+            <i className="ri-search-line text-[12px] text-[#aaa]" />
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="SEARCH"
+              className="text-[11px] tracking-[2.2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                className="w-4 h-4 flex items-center justify-center text-[#c8c7c6] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
+              >
+                <i className="ri-close-line text-[12px]" />
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -200,14 +199,14 @@ const ProjectsPage = () => {
         <div className="absolute inset-0 bg-[#060d1f]/75" />
 
         {/* Content — bottom left aligned, editorial */}
-        <div className="absolute inset-0 flex flex-col justify-end px-8 md:px-12 pb-10 md:pb-12">
+        <div className="absolute inset-0 flex flex-col justify-end px-6 md:px-12 pb-10 md:pb-12">
           <p
             className="text-[11px] tracking-[3px] text-white/40 mb-3 uppercase"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Interactive Map
           </p>
-          <div className="flex items-end justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6">
             <h2
               className="text-[36px] md:text-[52px] lg:text-[60px] font-bold leading-none tracking-[-2px] text-white"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -218,7 +217,7 @@ const ProjectsPage = () => {
             {/* Explore CTA — big, animated */}
             <Link
               to="/obraverse"
-              className="group/cta flex items-center gap-4 mb-1 shrink-0"
+              className="group/cta flex items-center gap-4 md:mb-1 shrink-0"
             >
               <span
                 className="text-[15px] md:text-[17px] tracking-[4px] text-white/80 group-hover/cta:text-white transition-colors duration-300 uppercase whitespace-nowrap"

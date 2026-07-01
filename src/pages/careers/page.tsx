@@ -131,7 +131,7 @@ const CareersPage = () => {
       <main className="flex-1 pt-20">
 
         {/* ── Page Title ── */}
-        <div className="px-10 md:px-16 lg:px-20 pt-10 pb-6 border-b border-[#e4e3e2]">
+        <div className="px-6 md:px-16 lg:px-20 pt-10 pb-6 border-b border-[#e4e3e2]">
           <h1
             className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
             style={{ fontFamily: 'var(--font-serif)' }}
@@ -150,9 +150,9 @@ const CareersPage = () => {
         </div>
 
         {/* ── Why Work With Us ── */}
-        <section className="px-10 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
+        <section className="px-6 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
           <h2
-            className="text-2xl md:text-3xl font-bold tracking-[2px] text-[#383838] mb-14"
+            className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838] mb-10 md:mb-14"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Why Work With Us?
@@ -160,7 +160,7 @@ const CareersPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {WHY_ITEMS.map((item) => (
               <div key={item.title} className="flex flex-col gap-5">
-                <div className="w-full h-72 overflow-hidden">
+                <div className="w-full h-48 md:h-72 overflow-hidden">
                   <img
                     src={item.img}
                     alt={item.title}
@@ -175,7 +175,7 @@ const CareersPage = () => {
                     {item.title}
                   </p>
                   <p
-                    className="text-base tracking-[0.5px] text-[#797979] leading-relaxed"
+                    className="text-sm md:text-base tracking-[0.5px] text-[#797979] leading-relaxed text-justify"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {item.description}
@@ -187,9 +187,9 @@ const CareersPage = () => {
         </section>
 
         {/* ── Open Positions ── */}
-        <section className="px-10 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
+        <section className="px-6 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
           <h2
-            className="text-2xl md:text-3xl font-bold tracking-[2px] text-[#383838] mb-14"
+            className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838] mb-10 md:mb-14"
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Open Positions
@@ -236,7 +236,7 @@ const CareersPage = () => {
                   className={`overflow-hidden transition-all duration-300 ${openPosition === pos.id ? 'max-h-60 pb-8' : 'max-h-0'}`}
                 >
                   <p
-                    className="text-base tracking-[0.5px] text-[#797979] leading-loose max-w-2xl mb-6"
+                    className="text-sm md:text-base tracking-[0.5px] text-[#797979] leading-loose max-w-2xl mb-6 text-justify"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
                     {pos.description}
@@ -256,16 +256,16 @@ const CareersPage = () => {
         </section>
 
         {/* ── Application Form ── */}
-        <section id="application-form" className="px-10 md:px-16 lg:px-20 py-20">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14 border-b border-[#e4e3e2] pb-10">
+        <section id="application-form" className="px-6 md:px-16 lg:px-20 py-10 md:py-20">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 mb-8 md:mb-14 border-b border-[#e4e3e2] pb-6 md:pb-10">
             <h2
-              className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
+              className="text-[36px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Apply Now
             </h2>
             <p
-              className="text-base tracking-[0.5px] text-[#999] whitespace-nowrap"
+              className="text-base tracking-[0.5px] text-[#999]"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
               Send us your portfolio and resume. We&apos;ll reach out if there&apos;s a fit.
@@ -374,13 +374,18 @@ const CareersPage = () => {
                 onClick={() => fileInputRef.current?.click()}
               >
                 {fileName ? (
-                  <span className="text-base tracking-[1px] text-[#383838]" style={{ fontFamily: 'var(--font-sans)' }}>
+                  <span className="text-base tracking-[1px] text-[#383838] px-8 text-center truncate" style={{ fontFamily: 'var(--font-sans)' }}>
                     {fileName}
                   </span>
                 ) : (
-                  <span className="text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
-                    Drag &amp; Drop Files Here
-                  </span>
+                  <>
+                    <span className="hidden md:inline text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+                      Drag &amp; Drop Files Here
+                    </span>
+                    <span className="md:hidden text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+                      Tap to Upload File
+                    </span>
+                  </>
                 )}
                 <div className="absolute right-4 bottom-4 w-5 h-5 flex items-center justify-center text-[#aaa]">
                   <i className="ri-attachment-2 text-base" />
@@ -396,7 +401,7 @@ const CareersPage = () => {
             </div>
 
             {/* Submit */}
-            <div className="flex items-center justify-between pt-2">
+            <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-4 pt-2">
               <div className="text-base tracking-[1.5px]" style={{ fontFamily: 'var(--font-sans)' }}>
                 {submitState === 'success' && (
                   <span className="text-[#383838]">Application sent. We&apos;ll be in touch.</span>
@@ -408,7 +413,7 @@ const CareersPage = () => {
               <button
                 type="submit"
                 disabled={submitState === 'sending'}
-                className="text-base tracking-[4px] font-semibold text-[#383838] hover:text-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
+                className="w-full md:w-auto py-3 md:py-0 border border-[#383838] md:border-0 rounded-sm md:rounded-none text-base tracking-[4px] font-semibold text-[#383838] hover:text-[#797979] hover:border-[#797979] md:hover:border-0 transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 {submitState === 'sending' ? 'SENDING...' : 'SEND'}
