@@ -52,7 +52,16 @@ const Footer = ({ nightMode = false }: FooterProps) => {
       {/* Divider + bottom bar — desktop */}
       <div className="hidden md:block">
         <div className="pl-10 md:pl-16 pr-10 md:pr-16 lg:pr-20">
-          <div className="py-3 flex items-center justify-end border-t" style={{ borderColor: divider }}>
+          <div className="py-3 flex items-center justify-between border-t" style={{ borderColor: divider }}>
+            <a
+              href="https://hunacreatives.com"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              className="text-[11px] tracking-[2px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase whitespace-nowrap"
+              style={{ fontFamily: 'var(--font-sans)' }}
+            >
+              Website by Huna Creatives
+            </a>
             <p
               className="text-[11px] tracking-[2px] text-[#e4e3e2] uppercase whitespace-nowrap"
               style={{ fontFamily: 'var(--font-sans)' }}
@@ -97,6 +106,15 @@ const Footer = ({ nightMode = false }: FooterProps) => {
           </a>
         </div>
         <div className="pt-3 flex flex-col gap-1 border-t" style={{ borderColor: divider }}>
+          <a
+            href="https://hunacreatives.com"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+            className="text-[10px] tracking-[1.5px] text-[#e4e3e2] hover:text-white transition-colors duration-200 uppercase"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            Website by Huna Creatives
+          </a>
           <p className="text-[10px] tracking-[1.5px] text-[#e4e3e2] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
             © 2026 All Rights Reserved Obra Majoralia
           </p>
