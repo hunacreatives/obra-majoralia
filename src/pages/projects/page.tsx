@@ -191,7 +191,7 @@ const ProjectsPage = () => {
       {/* OBRAverse CTA — full bleed, edge to edge, shorter */}
       <section className="relative w-full h-[38vh] overflow-hidden group" data-theme="dark">
         <img
-          src="/images/obraverse.webp"
+          src="/images/obraverse/base.webp"
           alt="OBRAverse map"
           className="w-full h-full object-cover object-center transition-transform duration-[1.2s] ease-out group-hover:scale-[1.04]"
         />

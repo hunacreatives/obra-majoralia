@@ -31,7 +31,7 @@ const BUILDINGS: Building[] = [
   { slug: 'corpuz', name: 'Corpuz Residence', left: 39.151, top: 37.34, width: 28.979, height: 11.25 },
   { slug: 'canga', name: 'Canga Residence', left: 26.714, top: 52.174, width: 15.63, height: 9.328 },
   { slug: 'soria', name: 'Soria Residence', left: 63.672, top: 43.388, width: 29.964, height: 13.034 },
-  { slug: 'loboc', name: 'LOBOC: House of Song', projectId: 'loboc-performing-arts', left: 13.771, top: 8.147, width: 48.594, height: 23.677 },
+  { slug: 'loboc', name: 'LOBOC: House of Song', projectId: 'loboc-performing-arts', left: 12.188, top: 7.806, width: 51.719, height: 24.992 },
   { slug: 'suarez', name: 'Suarez Residence', left: 71.375, top: 29.528, width: 22.5, height: 10.649 },
   { slug: 'pnp', name: 'PNP Facility', projectId: 'pnp-facility', left: 4.172, top: 36.888, width: 26.875, height: 12.473 },
   { slug: 'fringe', name: 'Fringe House', projectId: 'fringe-house', left: 9.88, top: 59.728, width: 12.76, height: 8.462 },

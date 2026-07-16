@@ -3,8 +3,6 @@ import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import ObraverseMap from '@/components/feature/ObraverseMap';
 
-type SortMode = 'date' | 'alpha';
-
 /* Cloud field for the intro: position, size, and the direction each cloud
    drifts as the sky parts to reveal the map. */
 const INTRO_CLOUDS = [
@@ -28,8 +26,6 @@ const INTRO_CLOUDS = [
 const INTRO_MIN_MS = 2400;
 
 const ObraversePage = () => {
-  const [sort, setSort] = useState<SortMode>('date');
-  const [search, setSearch] = useState('');
   const [reveal, setReveal] = useState(false);
   const [introGone, setIntroGone] = useState(false);
   const mapWrapRef = useRef<HTMLDivElement>(null);
@@ -54,9 +50,10 @@ const ObraversePage = () => {
     const failsafe = new Promise<void>(res => { timers.push(setTimeout(res, 7000)); });
     Promise.race([Promise.all([assets, minHold]), failsafe]).then(() => {
       if (cancelled) return;
-      // position the view near the plaza while the clouds still cover the screen
+      // desktop only: position the view near the plaza while the clouds still
+      // cover the screen; mobile starts at the top of the map
       const el = mapWrapRef.current;
-      if (el) {
+      if (el && window.matchMedia('(min-width: 768px)').matches) {
         const top = el.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top: top + el.offsetHeight * 0.72 - window.innerHeight / 2, behavior: 'instant' });
       }
@@ -76,67 +73,20 @@ const ObraversePage = () => {
       {/* Wordmark bar — scrolls away with the page (sticky version slid under
           the fixed navbar and its border showed as a stray line) */}
       <div className="bg-white border-b border-[#e4e3e2]">
-        <div className="flex items-center justify-between px-6 md:px-10 py-3">
-
-          {/* Left: OBRAverse wordmark */}
+        <div className="flex items-center px-6 md:px-10 py-3">
           <div className="flex items-baseline">
             <span
-              className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
+              className="text-[32px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               OBRA
             </span>
             <span
-              className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
+              className="text-[32px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               verse
             </span>
-          </div>
-
-          {/* Right: sort + pill search */}
-          <div className="flex items-center gap-5 md:gap-7">
-            <button
-              onClick={() => setSort('date')}
-              className={[
-                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
-                sort === 'date' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
-              ].join(' ')}
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              DATE &uarr;
-            </button>
-            <button
-              onClick={() => setSort('alpha')}
-              className={[
-                'text-[11px] tracking-[2.5px] transition-colors duration-200 whitespace-nowrap cursor-pointer',
-                sort === 'alpha' ? 'text-[#383838]' : 'text-[#c8c7c6] hover:text-[#797979]',
-              ].join(' ')}
-              style={{ fontFamily: 'var(--font-sans)' }}
-            >
-              ALPHABETICAL
-            </button>
-
-            {/* Pill search */}
-            <div className="flex items-center gap-2 border border-[#e4e3e2] rounded-full px-4 py-[6px]">
-              <i className="ri-search-line text-[12px] text-[#aaa]" />
-              <input
-                type="text"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="SEARCH"
-                className="text-[11px] tracking-[2px] bg-transparent border-none outline-none placeholder-[#c8c7c6] text-[#383838] w-20 md:w-28"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              />
-              {search && (
-                <button
-                  onClick={() => setSearch('')}
-                  className="w-4 h-4 flex items-center justify-center text-[#c8c7c6] hover:text-[#383838] transition-colors duration-150 cursor-pointer"
-                >
-                  <i className="ri-close-line text-[12px]" />
-                </button>
-              )}
-            </div>
           </div>
         </div>
       </div>

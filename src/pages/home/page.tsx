@@ -87,7 +87,7 @@ const HomePage = () => (
           {/* Right — map image */}
           <div className="flex-1 overflow-hidden h-full">
             <img
-              src="/images/obraverse.webp"
+              src="/images/obraverse/base.webp"
               alt="OBRAverse map"
               className="w-full h-full object-cover object-center transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-[1.02]"
             />
