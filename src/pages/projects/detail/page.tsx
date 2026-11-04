@@ -34,7 +34,7 @@ const ProjectDetailInner = () => {
   return (
     <main
       className="min-h-screen transition-colors duration-700"
-      style={{ backgroundColor: isNight ? '#0d0d0d' : '#ffffff' }}
+      style={{ backgroundColor: isNight ? '#383838' : '#ffffff' }}
     >
       <Navbar nightMode={isNight} />
       <div style={{ height: '0px' }} />

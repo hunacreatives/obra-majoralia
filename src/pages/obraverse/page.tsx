@@ -64,7 +64,7 @@ const ObraversePage = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white overflow-x-clip">
       <Navbar />
 
       {/* Spacer to push content below fixed navbar */}
@@ -77,13 +77,13 @@ const ObraversePage = () => {
           <div className="flex items-baseline">
             <span
               className="text-[32px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
-              style={{ fontFamily: 'var(--font-serif)' }}
+              style={{ fontFamily: 'var(--font-display)' }}
             >
               OBRA
             </span>
             <span
-              className="text-[32px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
-              style={{ fontFamily: 'var(--font-serif)' }}
+              className="text-[32px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-thin"
+              style={{ fontFamily: 'var(--font-display)' }}
             >
               verse
             </span>
@@ -98,7 +98,10 @@ const ObraversePage = () => {
         style={{
           aspectRatio: '1920 / 3049',
           opacity: reveal ? 1 : 0,
-          transform: reveal ? 'scale(1)' : 'scale(1.02)',
+          // 'none', not scale(1): any transform here would make this box the
+          // containing block of the map's fixed controls and strand them at
+          // the map's far bottom edge, below the fold
+          transform: reveal ? 'none' : 'scale(1.02)',
           transition: 'opacity 1.2s ease 0.3s, transform 1.4s ease 0.3s',
         }}
       >
@@ -115,7 +118,7 @@ const ObraversePage = () => {
           <div
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(180deg, #e9edf1 0%, #f3f5f6 55%, #f7f7f6 100%)',
+              background: 'linear-gradient(180deg, #e4e3e2 0%, #e4e3e2 55%, #e4e3e2 100%)',
               opacity: reveal ? 0 : 1,
               transition: 'opacity 1.1s ease 0.35s',
             }}
@@ -150,19 +153,15 @@ const ObraversePage = () => {
           >
             <div
               className="text-[56px] md:text-[84px] leading-none tracking-[-2px] text-[#383838] font-bold"
-              style={{ fontFamily: 'var(--font-serif)', animation: 'obraverse-intro-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both' }}
+              style={{ fontFamily: 'var(--font-display)', animation: 'obraverse-intro-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both' }}
             >
-              OBRAverse
+              OBRA<span className="font-thin">verse</span>
             </div>
             <div
-              className="w-12 h-px bg-[#c8c7c6]"
-              style={{ animation: 'obraverse-intro-fade 0.9s ease 0.55s both' }}
-            />
-            <div
               className="text-[10px] md:text-[11px] tracking-[3.5px] text-[#797979]"
-              style={{ fontFamily: 'var(--font-sans)', animation: 'obraverse-intro-fade 0.9s ease 0.75s both' }}
+              style={{ animation: 'obraverse-intro-fade 0.9s ease 0.75s both' }}
             >
-              A LIVING MAP OF BUILT WORK ACROSS THE PHILIPPINES
+              A LIVING MAP OF THE STUDIO’S WORK
             </div>
           </div>
           <style>{`
@@ -179,22 +178,20 @@ const ObraversePage = () => {
       )}
 
       {/* CTA below map */}
-      <div className="w-full bg-[#f7f6f5] border-t border-[#e4e3e2] py-20 px-10 md:px-20">
-        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-stretch justify-between gap-10">
+      <div className="w-full bg-[#e4e3e2] border-t border-[#e4e3e2] py-14 md:py-20 px-6 md:px-20">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-stretch justify-between gap-8 md:gap-10">
 
           {/* Left — copy */}
           <div className="flex flex-col gap-4 max-w-lg">
             <h2
-              className="text-[28px] md:text-[34px] tracking-[-0.5px] text-[#383838] leading-tight"
-              style={{ fontFamily: 'var(--font-serif)' }}
+              className="font-normal text-subhead text-[#383838] text-balance"
             >
-              Work with us — and your project becomes part of <strong>OBRAverse</strong>.
+              Work with us — and your project becomes part of <strong className="font-bold">OBRAverse</strong>.
             </h2>
             <p
-              className="text-[15px] text-[#797979] leading-relaxed"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="text-[14px] md:text-[15px] text-[#797979] leading-[1.55] md:leading-relaxed text-pretty"
             >
-              Every project on this map was designed by OBRA Majoralia. Commission a project with us and it earns its place here — a permanent record of built work across&nbsp;the&nbsp;Philippines.
+              Every project on this map was designed by Obra Majoralia. Commission a project with us and it earns its place here — a living record of the studio’s work, built and in&nbsp;progress.
             </p>
           </div>
 
@@ -202,15 +199,13 @@ const ObraversePage = () => {
           <div className="flex flex-col gap-3 shrink-0 justify-center">
             <a
               href="/contact"
-              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[11px] tracking-[3px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="border border-[#383838] bg-[#383838] text-white px-10 py-3 text-[11px] tracking-[2px] hover:bg-transparent hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
             >
               START A PROJECT
             </a>
             <a
               href="/projects"
-              className="border border-[#d4d3d2] text-[#797979] px-10 py-3 text-[11px] tracking-[3px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="border border-[#e4e3e2] text-[#797979] px-10 py-3 text-[11px] tracking-[2px] hover:border-[#383838] hover:text-[#383838] transition-all duration-300 cursor-pointer text-center rounded-full whitespace-nowrap"
             >
               VIEW ALL PROJECTS
             </a>

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
+  /* Brand type: Nexa (Regular/Bold) for text and UI, Agrandir (Thin/Bold) for display */
   --font-sans: 'Nexa', sans-serif;
-  --font-serif: 'Nexa', sans-serif;
-  --font-display: 'Nexa', sans-serif;
+  --font-display: 'Agrandir', 'Nexa', sans-serif;
   --color-ink: #383838;
   --color-muted: #383838;
   --color-white: #ffffff;
@@ -30,6 +30,7 @@ body {
   font-family: var(--font-sans);
   color: var(--color-ink);
   background: #ffffff;
+  letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

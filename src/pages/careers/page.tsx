@@ -8,17 +8,14 @@ const WHY_ITEMS = [
   {
     title: 'Design Excellence',
     description: 'Work alongside award-winning architects on projects that push the boundaries of form and function.',
-    img: '/images/careers-why-1.webp',
   },
   {
     title: 'Collaborative Culture',
     description: 'A studio built on open dialogue, shared ideas, and a deep respect for every voice in the room.',
-    img: '/images/careers-why-2.webp',
   },
   {
     title: 'Meaningful Projects',
     description: 'From private residences to monumental civic works — every project carries purpose and lasting impact.',
-    img: '/images/careers-why-3.webp',
   },
 ];
 
@@ -133,64 +130,48 @@ const CareersPage = () => {
         {/* ── Page Title ── */}
         <div className="px-6 md:px-16 lg:px-20 pt-10 pb-6 border-b border-[#e4e3e2]">
           <h1
-            className="text-[42px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
-            style={{ fontFamily: 'var(--font-serif)' }}
+            className="font-bold text-title text-[#383838]"
           >
             Careers
           </h1>
         </div>
 
         {/* ── Hero Image ── */}
-        <div className="w-full h-[40vh] md:h-[50vh] overflow-hidden">
+        <div className="w-full aspect-[4/3] max-h-[52svh] md:aspect-auto md:max-h-none md:h-[42vh] overflow-hidden">
+          {/* the studio's own work, not a stock office */}
           <img
-            src="/images/careers-hero-1.webp"
-            alt="Obra Majoralia Studio"
+            src="/images/thumbs-1600/bakley-rotonda/perspective-15.webp"
+            alt="Bakley Rotonda by Obra Majoralia"
             className="w-full h-full object-cover object-center"
           />
         </div>
 
         {/* ── Why Work With Us ── */}
-        <section className="px-6 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
-          <h2
-            className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838] mb-10 md:mb-14"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            Why Work With Us?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {WHY_ITEMS.map((item) => (
-              <div key={item.title} className="flex flex-col gap-5">
-                <div className="w-full h-48 md:h-72 overflow-hidden">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
-                  />
-                </div>
-                <div>
-                  <p
-                    className="text-base font-bold tracking-[1.5px] text-[#383838] mb-2"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
+        <section className="px-6 md:px-16 lg:px-20 py-16 md:py-28 border-b border-[#e4e3e2]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-20">
+            <h2 className="font-bold text-heading text-[#383838]">
+              Why work <span className="text-[#797979] whitespace-nowrap">with us</span>
+            </h2>
+            <ol className="border-t border-[#e4e3e2]">
+              {WHY_ITEMS.map((item, i) => (
+                <li key={item.title} className="grid grid-cols-[2rem_1fr] md:grid-cols-[4rem_1fr] xl:grid-cols-[4rem_1fr_1.2fr] gap-x-3 md:gap-x-8 gap-y-2 py-6 md:py-9 border-b border-[#e4e3e2]">
+                  <span className="text-[11px] tracking-[2px] text-[#797979] pt-1.5 md:pt-2">{i + 1}</span>
+                  <h3 className="font-bold text-[21px] md:text-[30px] leading-tight tracking-[-0.02em] text-[#383838]">
                     {item.title}
-                  </p>
-                  <p
-                    className="text-sm md:text-base tracking-[0.5px] text-[#797979] leading-relaxed text-justify"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
+                  </h3>
+                  <p className="col-start-2 xl:col-start-3 text-[14px] md:text-[15px] leading-[1.6] text-[#797979] xl:pt-1">
                     {item.description}
                   </p>
-                </div>
-              </div>
-            ))}
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
         {/* ── Open Positions ── */}
-        <section className="px-6 md:px-16 lg:px-20 py-20 border-b border-[#e4e3e2]">
+        <section className="px-6 md:px-16 lg:px-20 py-16 md:py-20 border-b border-[#e4e3e2]">
           <h2
-            className="text-[28px] md:text-[44px] font-bold leading-none tracking-[-1.5px] text-[#383838] mb-10 md:mb-14"
-            style={{ fontFamily: 'var(--font-sans)' }}
+            className="font-bold text-heading text-[#383838] mb-8 md:mb-14"
           >
             Open Positions
           </h2>
@@ -201,53 +182,48 @@ const CareersPage = () => {
                 {/* Row header */}
                 <button
                   type="button"
-                  className="w-full flex items-center justify-between py-6 cursor-pointer group"
+                  className="w-full flex items-center justify-between py-5 md:py-6 cursor-pointer group"
                   onClick={() => togglePosition(pos.id)}
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-10 text-left">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-10 text-left">
                     <span
-                      className="text-base font-bold tracking-[1.5px] text-[#383838] group-hover:text-[#797979] transition-colors duration-200"
-                      style={{ fontFamily: 'var(--font-sans)' }}
+                      className="text-[17px] md:text-[18px] font-bold tracking-[-0.01em] text-[#383838] group-hover:text-[#797979] transition-colors duration-200"
                     >
                       {pos.title}
                     </span>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4 md:gap-6">
                       <span
-                        className="text-[12px] tracking-[2px] text-[#999] uppercase"
-                        style={{ fontFamily: 'var(--font-sans)' }}
+                        className="text-[11px] md:text-[12px] tracking-[2px] text-[#797979] uppercase"
                       >
                         {pos.type}
                       </span>
                       <span
-                        className="text-[12px] tracking-[2px] text-[#999] uppercase"
-                        style={{ fontFamily: 'var(--font-sans)' }}
+                        className="text-[11px] md:text-[12px] tracking-[2px] text-[#797979] uppercase"
                       >
                         {pos.location}
                       </span>
                     </div>
                   </div>
-                  <div className="w-5 h-5 flex items-center justify-center text-[#999] flex-shrink-0 ml-4">
+                  <div className="w-11 h-11 -mr-3 flex items-center justify-center text-[#383838] flex-shrink-0 ml-2">
                     <i className={`ri-${openPosition === pos.id ? 'subtract' : 'add'}-line text-base transition-transform duration-200`} />
                   </div>
                 </button>
 
                 {/* Expanded content */}
                 <div
-                  className={`overflow-hidden transition-all duration-300 ${openPosition === pos.id ? 'max-h-60 pb-8' : 'max-h-0'}`}
+                  className={`overflow-hidden transition-all duration-300 ${openPosition === pos.id ? 'max-h-[32rem] pb-6 md:pb-8' : 'max-h-0'}`}
                 >
                   <p
-                    className="text-sm md:text-base tracking-[0.5px] text-[#797979] leading-loose max-w-2xl mb-6 text-justify"
-                    style={{ fontFamily: 'var(--font-sans)' }}
+                    className="text-sm md:text-base tracking-normal text-[#797979] leading-[1.6] max-w-2xl mb-2"
                   >
                     {pos.description}
                   </p>
                   <button
                     type="button"
                     onClick={() => handleApply(pos.title)}
-                    className="text-[12px] tracking-[3px] font-semibold text-[#383838] border-b border-[#1a1a1a] pb-[2px] hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer"
-                    style={{ fontFamily: 'var(--font-display)' }}
+                    className="group/apply inline-flex items-center min-h-[44px] text-[12px] tracking-[2px] font-semibold text-[#383838] hover:text-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer"
                   >
-                    APPLY FOR THIS ROLE
+                    <span className="border-b border-[#383838] group-hover/apply:border-[#797979] pb-[2px] transition-colors duration-200">APPLY FOR THIS ROLE</span>
                   </button>
                 </div>
               </div>
@@ -256,17 +232,15 @@ const CareersPage = () => {
         </section>
 
         {/* ── Application Form ── */}
-        <section id="application-form" className="px-6 md:px-16 lg:px-20 py-10 md:py-20">
+        <section id="application-form" className="px-6 md:px-16 lg:px-20 pt-16 pb-16 md:py-20 scroll-mt-20">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3 mb-8 md:mb-14 border-b border-[#e4e3e2] pb-6 md:pb-10">
             <h2
-              className="text-[36px] md:text-[56px] lg:text-[68px] leading-none tracking-[-2px] text-[#383838] font-bold"
-              style={{ fontFamily: 'var(--font-serif)' }}
+              className="font-bold text-title text-[#383838]"
             >
               Apply Now
             </h2>
             <p
-              className="text-base tracking-[0.5px] text-[#999]"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="text-[14px] md:text-base leading-[1.6] tracking-normal text-[#797979]"
             >
               Send us your portfolio and resume. We&apos;ll reach out if there&apos;s a fit.
             </p>
@@ -279,86 +253,86 @@ const CareersPage = () => {
           >
             {/* Row 1: First + Last */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-              <div className="border-b border-[#d0d0d0] py-5 md:pr-10">
-                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
-                  First Name <span className="text-[#999]">(required)</span>
+              <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pr-10">
+                <label htmlFor="careers-first_name" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
+                  First Name <span className="text-[#797979]">(required)</span>
                 </label>
                 <input
                   type="text"
+                  id="careers-first_name"
                   name="first_name"
                   required
-                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                  style={{ fontFamily: 'var(--font-sans)' }}
+                  className="w-full h-11 bg-transparent text-base text-[#383838] tracking-normal outline-none"
                 />
               </div>
-              <div className="border-b border-[#d0d0d0] py-5 md:pl-10">
-                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+              <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pl-10">
+                <label htmlFor="careers-last_name" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
                   Last Name
                 </label>
                 <input
                   type="text"
+                  id="careers-last_name"
                   name="last_name"
-                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                  style={{ fontFamily: 'var(--font-sans)' }}
+                  className="w-full h-11 bg-transparent text-base text-[#383838] tracking-normal outline-none"
                 />
               </div>
             </div>
 
             {/* Row 2: Email + Phone */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-              <div className="border-b border-[#d0d0d0] py-5 md:pr-10">
-                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
-                  Email Address <span className="text-[#999]">(required)</span>
+              <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pr-10">
+                <label htmlFor="careers-email" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
+                  Email Address <span className="text-[#797979]">(required)</span>
                 </label>
                 <input
                   type="email"
+                  id="careers-email"
                   name="email"
                   required
-                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                  style={{ fontFamily: 'var(--font-sans)' }}
+                  className="w-full h-11 bg-transparent text-base text-[#383838] tracking-normal outline-none"
                 />
               </div>
-              <div className="border-b border-[#d0d0d0] py-5 md:pl-10">
-                <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
+              <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pl-10">
+                <label htmlFor="careers-phone" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
                   Phone Number
                 </label>
                 <input
                   type="tel"
+                  id="careers-phone"
                   name="phone"
-                  className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                  style={{ fontFamily: 'var(--font-sans)' }}
+                  className="w-full h-11 bg-transparent text-base text-[#383838] tracking-normal outline-none"
                 />
               </div>
             </div>
 
             {/* Row 3: Position */}
-            <div className="border-b border-[#d0d0d0] py-5">
-              <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
-                Position Applying For <span className="text-[#999]">(required)</span>
+            <div className="border-b border-[#e4e3e2] pt-5 pb-2">
+              <label htmlFor="careers-position" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
+                Position Applying For <span className="text-[#797979]">(required)</span>
               </label>
               <input
                 type="text"
+                id="careers-position"
                 name="position"
                 required
                 value={selectedPosition}
                 onChange={(e) => setSelectedPosition(e.target.value)}
-                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="w-full h-11 bg-transparent text-base text-[#383838] tracking-normal outline-none"
               />
             </div>
 
             {/* Row 4: Message */}
-            <div className="border-b border-[#d0d0d0] py-5">
-              <label className="block text-[13px] tracking-[1.5px] text-[#383838] mb-3 uppercase font-semibold">
-                Cover Letter / Message <span className="text-[#999]">(required)</span>
+            <div className="border-b border-[#e4e3e2] pt-5 pb-2">
+              <label htmlFor="careers-message" className="block text-[13px] tracking-[1.5px] text-[#383838] mb-1 uppercase font-semibold cursor-pointer">
+                Cover Letter / Message <span className="text-[#797979]">(required)</span>
               </label>
               <textarea
+                id="careers-message"
                 name="message"
                 required
                 rows={5}
                 maxLength={500}
-                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none resize-none"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="w-full py-2 bg-transparent text-base text-[#383838] tracking-normal outline-none resize-none"
               />
             </div>
 
@@ -368,26 +342,26 @@ const CareersPage = () => {
                 Resume / Portfolio
               </label>
               <div
-                className="border border-[#d0d0d0] rounded-sm h-24 flex items-center justify-center relative cursor-pointer hover:border-[#999] transition-colors duration-200"
+                className="border border-[#e4e3e2] rounded-sm h-24 flex items-center justify-center relative cursor-pointer hover:border-[#797979] transition-colors duration-200"
                 onDrop={handleDrop}
                 onDragOver={(e) => e.preventDefault()}
                 onClick={() => fileInputRef.current?.click()}
               >
                 {fileName ? (
-                  <span className="text-base tracking-[1px] text-[#383838] px-8 text-center truncate" style={{ fontFamily: 'var(--font-sans)' }}>
+                  <span className="text-base tracking-[1px] text-[#383838] px-8 text-center truncate">
                     {fileName}
                   </span>
                 ) : (
                   <>
-                    <span className="hidden md:inline text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+                    <span className="hidden md:inline text-[12px] tracking-[1.5px] text-[#797979] uppercase">
                       Drag &amp; Drop Files Here
                     </span>
-                    <span className="md:hidden text-[12px] tracking-[2.5px] text-[#aaa] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+                    <span className="md:hidden text-[12px] tracking-[1.5px] text-[#797979] uppercase">
                       Tap to Upload File
                     </span>
                   </>
                 )}
-                <div className="absolute right-4 bottom-4 w-5 h-5 flex items-center justify-center text-[#aaa]">
+                <div className="absolute right-4 bottom-4 w-5 h-5 flex items-center justify-center text-[#797979]">
                   <i className="ri-attachment-2 text-base" />
                 </div>
                 <input
@@ -402,19 +376,18 @@ const CareersPage = () => {
 
             {/* Submit */}
             <div className="flex flex-col-reverse md:flex-row md:items-center justify-between gap-4 pt-2">
-              <div className="text-base tracking-[1.5px]" style={{ fontFamily: 'var(--font-sans)' }}>
+              <div className="text-base tracking-[1.5px]">
                 {submitState === 'success' && (
                   <span className="text-[#383838]">Application sent. We&apos;ll be in touch.</span>
                 )}
                 {submitState === 'error' && (
-                  <span className="text-red-500">Something went wrong. Please try again.</span>
+                  <span className="font-bold text-[#383838]">Something went wrong. Please try again.</span>
                 )}
               </div>
               <button
                 type="submit"
                 disabled={submitState === 'sending'}
-                className="w-full md:w-auto py-3 md:py-0 border border-[#383838] md:border-0 rounded-sm md:rounded-none text-base tracking-[4px] font-semibold text-[#383838] hover:text-[#797979] hover:border-[#797979] md:hover:border-0 transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
-                style={{ fontFamily: 'var(--font-display)' }}
+                className="w-full md:w-auto h-12 md:h-auto border border-[#383838] md:border-0 rounded-sm md:rounded-none text-[14px] md:text-base tracking-[2px] font-semibold text-[#383838] hover:text-[#797979] hover:border-[#797979] md:hover:border-0 transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer disabled:opacity-40"
               >
                 {submitState === 'sending' ? 'SENDING...' : 'SEND'}
               </button>

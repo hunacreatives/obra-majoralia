@@ -26,26 +26,23 @@ const ProjectTile = ({ project, className = '', style }: ProjectTileProps) => (
     />
 
     {/* Gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
+    <div className="absolute inset-0 bg-gradient-to-t from-[#383838]/60 via-[#383838]/10 to-transparent transition-opacity duration-300 group-hover:opacity-90" />
 
     {/* Text — bottom left */}
     <div className="absolute bottom-0 left-0 p-7 md:p-9">
       <div className="transition-all duration-300 group-hover:translate-y-[-4px]">
         <h2
           className="text-white text-base font-semibold tracking-[1px] leading-snug mb-2 transition-all duration-300 group-hover:tracking-[1.6px]"
-          style={{ fontFamily: 'var(--font-sans)' }}
         >
           {project.title}
         </h2>
         <p
-          className="text-white/80 text-[13px] tracking-[1.8px] mb-1 transition-opacity duration-300 group-hover:text-white"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          className="text-[#e4e3e2] text-[13px] tracking-[1.8px] mb-1 transition-opacity duration-300 group-hover:text-white"
         >
           {project.location}
         </p>
         <p
-          className="text-white/55 text-[12px] tracking-[2px] uppercase transition-opacity duration-300 group-hover:text-white/80"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          className="text-[#e4e3e2] text-[12px] tracking-[2px] uppercase transition-opacity duration-300 group-hover:text-[#e4e3e2]"
         >
           {project.typology} &nbsp;&middot;&nbsp; {project.year}
         </p>

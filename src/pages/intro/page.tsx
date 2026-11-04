@@ -37,9 +37,9 @@ const IntroPage = () => {
       {/* Corner letters — O B R A with dancing entrance */}
       {/* Top-left: O */}
       <span
-        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        className="absolute text-[#e4e3e2] font-thin leading-none pointer-events-none"
         style={{
-          fontFamily: 'var(--font-serif)',
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(120px, 18vw, 260px)',
           top: '0.04em',
           left: lettersIn ? '-0.02em' : '-0.4em',
@@ -54,9 +54,9 @@ const IntroPage = () => {
 
       {/* Top-right: B */}
       <span
-        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        className="absolute text-[#e4e3e2] font-thin leading-none pointer-events-none"
         style={{
-          fontFamily: 'var(--font-serif)',
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(120px, 18vw, 260px)',
           top: '0.04em',
           right: lettersIn ? '-0.02em' : '-0.4em',
@@ -71,9 +71,9 @@ const IntroPage = () => {
 
       {/* Bottom-left: A */}
       <span
-        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        className="absolute text-[#e4e3e2] font-thin leading-none pointer-events-none"
         style={{
-          fontFamily: 'var(--font-serif)',
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(120px, 18vw, 260px)',
           bottom: '-0.22em',
           left: lettersIn ? '-0.02em' : '-0.4em',
@@ -88,9 +88,9 @@ const IntroPage = () => {
 
       {/* Bottom-right: R */}
       <span
-        className="absolute text-[#d8d7d6] font-light leading-none pointer-events-none"
+        className="absolute text-[#e4e3e2] font-thin leading-none pointer-events-none"
         style={{
-          fontFamily: 'var(--font-serif)',
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(120px, 18vw, 260px)',
           bottom: '-0.22em',
           right: lettersIn ? '-0.02em' : '-0.4em',
@@ -118,9 +118,8 @@ const IntroPage = () => {
           }}
         />
         <span
-          className="text-[11px] tracking-[4px] text-[#c8c7c6] mt-2"
+          className="text-[11px] tracking-[2px] text-[#797979] mt-2"
           style={{
-            fontFamily: 'var(--font-sans)',
             opacity: lettersIn ? 1 : 0,
             transition: 'opacity 0.6s ease',
             transitionDelay: '500ms',

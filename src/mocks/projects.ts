@@ -14,9 +14,13 @@ export interface Project {
   tileImages?: string[];
   galleryImages?: string[];
   nightImageUrl?: string;
+  /** Awards and shortlistings, shown under the project's facts row */
+  recognition?: string[];
+  /** Kept in the data but left off the site for now */
+  hidden?: boolean;
 }
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   {
     id: 's-residence',
     title: 'S Residence',
@@ -82,6 +86,7 @@ export const projects: Project[] = [
   },
   {
     id: 'q-residence-interiors',
+    hidden: true,
     title: 'Q Residence Interiors',
     location: 'Dipolog City, ZAN',
     typology: 'Interior',
@@ -108,6 +113,7 @@ export const projects: Project[] = [
   },
   {
     id: 'e-mausoleum',
+    hidden: true,
     title: 'E Mausoleum',
     location: 'Municipality of Katipunan, ZAN',
     typology: 'Monumental',
@@ -411,6 +417,7 @@ export const projects: Project[] = [
     status: 'Design Development',
     concept: 'A performing arts center rooted in the cultural heritage of Loboc. The building is conceived as a series of interconnected volumes — theater, lobby, and rooftop stage — each tuned to a distinct mode of performance and gathering.',
     conceptExtended: 'The main theater seats a full audience in a raked hall with carefully considered acoustics and sight lines. A secondary rooftop theater opens to the sky, allowing performance under the stars. The lobby connects both venues and spills outward into a public plaza — a threshold space for the community before and after performance.',
+    recognition: ['World Architecture Festival 2024 — Shortlisted, Future Projects: Culture'],
     imageUrl: '/images/loboc-performing-arts/perspective-20.webp',
     imageAspect: '21/9',
     tileImages: [
@@ -539,5 +546,8 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+// Everything the site shows. Hidden projects stay in the data above.
+export const projects = allProjects.filter(p => !p.hidden);
 
 export const featuredProjects = projects.filter(p => p.featured);

@@ -46,7 +46,7 @@ const PdfViewer = ({
   }, [measure]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full flex flex-col items-center bg-[#f5f4f3]">
+    <div ref={containerRef} className="relative w-full h-full flex flex-col items-center bg-[#e4e3e2]">
 
       {/* Side arrows — desktop only */}
       <button
@@ -73,7 +73,7 @@ const PdfViewer = ({
           file={file}
           onLoadSuccess={onLoadSuccess}
           loading={
-            <span className="text-[11px] tracking-[3px] text-[#bbb] uppercase" style={{ fontFamily: 'var(--font-sans)' }}>
+            <span className="text-[11px] tracking-[2px] text-[#797979] uppercase">
               Loading...
             </span>
           }
@@ -107,12 +107,12 @@ const PdfViewer = ({
               key={i}
               onClick={() => setPage(i + 1)}
               className={`block rounded-full transition-all duration-200 cursor-pointer ${
-                i + 1 === page ? 'w-4 h-[3px] bg-[#383838]' : 'w-[3px] h-[3px] bg-[#ccc] hover:bg-[#999]'
+                i + 1 === page ? 'w-4 h-[3px] bg-[#383838]' : 'w-[3px] h-[3px] bg-[#797979] hover:bg-[#797979]'
               }`}
             />
           ))}
         </div>
-        <span className="text-[11px] tracking-[2px] text-[#999]" style={{ fontFamily: 'var(--font-sans)' }}>
+        <span className="text-[11px] tracking-[2px] text-[#797979]">
           {page} / {numPages}
         </span>
 

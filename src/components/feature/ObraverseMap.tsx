@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { projects } from '@/mocks/projects';
 
@@ -31,7 +31,7 @@ const BUILDINGS: Building[] = [
   { slug: 'corpuz', name: 'Corpuz Residence', left: 39.151, top: 37.34, width: 28.979, height: 11.25 },
   { slug: 'canga', name: 'Canga Residence', left: 26.714, top: 52.174, width: 15.63, height: 9.328 },
   { slug: 'soria', name: 'Soria Residence', left: 63.672, top: 43.388, width: 29.964, height: 13.034 },
-  { slug: 'loboc', name: 'LOBOC: House of Song', projectId: 'loboc-performing-arts', left: 12.188, top: 7.806, width: 51.719, height: 24.992 },
+  { slug: 'loboc', name: 'LOBOC: House of Song', projectId: 'loboc-performing-arts', left: 16.251, top: 9.036, width: 37.709, height: 18.826 },
   { slug: 'suarez', name: 'Suarez Residence', left: 71.375, top: 29.528, width: 22.5, height: 10.649 },
   { slug: 'pnp', name: 'PNP Facility', projectId: 'pnp-facility', left: 4.172, top: 36.888, width: 26.875, height: 12.473 },
   { slug: 'fringe', name: 'Fringe House', projectId: 'fringe-house', left: 9.88, top: 59.728, width: 12.76, height: 8.462 },
@@ -137,6 +137,24 @@ interface HitMap {
   h: number;
 }
 
+/* Dappled sunlight glints. Placed only where the exact point (and a
+   surrounding radius) sits on solidly opaque canopy in the vegetation mask —
+   NOT just "high density" by a coarse grid average, which let earlier picks
+   land on open lawn. Sibutad Park is excluded entirely: its lawn renders as
+   a solid green fill indistinguishable from tree canopy by color alone. */
+const TREE_GLINTS: [number, number][] = [
+  [13.1, 0.6], [38.1, 0.6], [51.9, 0.6], [65.6, 36.9], [89.4, 41.9],
+  [81.9, 43.1], [50.6, 54.4], [84.4, 58.1], [9.4, 59.4], [0.6, 81.9],
+];
+
+let effectIdSeq = 0;
+interface MapEffect {
+  id: number;
+  kind: 'ripple' | 'birds';
+  x: number;
+  y: number;
+}
+
 interface Cam {
   x: number;
   y: number;
@@ -151,13 +169,21 @@ const ObraverseMap = () => {
   const stageRef = useRef<HTMLDivElement>(null);
   const worldRef = useRef<HTMLDivElement>(null);
   const hitMapsRef = useRef<Record<string, HitMap>>({});
+  const treesMaskRef = useRef<HitMap | null>(null);
+  const waterMaskRef = useRef<HitMap | null>(null);
   const hoverRafRef = useRef<number | null>(null);
   const walkerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const [active, setActive] = useState<string | null>(null);
   const [tourIndex, setTourIndex] = useState<number | null>(null);
   const [hintVisible, setHintVisible] = useState(true);
+  // touch screens: no ⌘+scroll, and taps preview a building before opening it
+  const [coarse] = useState(() => typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches);
+  const pointerTypeRef = useRef('mouse');
+  const cardRef = useRef<HTMLDivElement>(null);
+  const touchActionRef = useRef('pan-y');
   const [stageInView, setStageInView] = useState(false);
+  const [effects, setEffects] = useState<MapEffect[]>([]);
 
   /* ------- camera ------- */
   const camRef = useRef<Cam>({ x: 0, y: 0, s: 1 });
@@ -221,6 +247,14 @@ const ObraverseMap = () => {
       if (Math.abs(t.x - cam.x) < 0.1) cam.x = t.x;
       if (Math.abs(t.y - cam.y) < 0.1) cam.y = t.y;
       if (Math.abs(t.s - cam.s) < 0.0005) cam.s = t.s;
+      // At fit the map is as wide as the page: a vertical swipe scrolls the
+      // page. Zoomed in, one finger pans the map both ways.
+      const stage = stageRef.current;
+      const ta = t.s > fitScale() + 0.01 ? 'none' : 'pan-y';
+      if (stage && ta !== touchActionRef.current) {
+        touchActionRef.current = ta;
+        stage.style.touchAction = ta;
+      }
       const world = worldRef.current;
       if (world) {
         world.style.transform = `translate3d(${cam.x}px, ${cam.y}px, 0) scale(${cam.s})`;
@@ -252,16 +286,29 @@ const ObraverseMap = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* Show floating controls only while the map is on screen */
+  /* The floating controls stay over the map: pinned to the bottom of the screen,
+     but riding up with the map's bottom edge so they never land on the content
+     below it (on phones the whole map can be shorter than the screen). */
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
-    const obs = new IntersectionObserver(
-      entries => setStageInView(entries[0].isIntersecting),
-      { threshold: 0.12 }
-    );
-    obs.observe(stage);
-    return () => obs.disconnect();
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = stage.getBoundingClientRect();
+      const base = window.innerWidth >= 768 ? 24 : 16;
+      stage.style.setProperty('--ctl-bottom', `${Math.max(base, window.innerHeight - r.bottom + base)}px`);
+      setStageInView(r.top < window.innerHeight - 60 && r.bottom > 240);
+    };
+    const onChange = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', onChange, { passive: true });
+    window.addEventListener('resize', onChange);
+    return () => {
+      window.removeEventListener('scroll', onChange);
+      window.removeEventListener('resize', onChange);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   /* ------- guided tour ------- */
@@ -304,9 +351,9 @@ const ObraverseMap = () => {
   /* ------- hit-testing ------- */
   useEffect(() => {
     let cancelled = false;
-    BUILDINGS.forEach(b => {
+    const loadMap = (src: string, onReady: (map: HitMap) => void) => {
       const img = new Image();
-      img.src = `/images/obraverse/buildings/${b.slug}.webp`;
+      img.src = src;
       img.onload = () => {
         if (cancelled) return;
         const w = Math.max(1, Math.round(img.naturalWidth * HIT_SCALE));
@@ -317,18 +364,37 @@ const ObraverseMap = () => {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return;
         ctx.drawImage(img, 0, 0, w, h);
-        hitMapsRef.current[b.slug] = { data: ctx.getImageData(0, 0, w, h).data, w, h };
+        onReady({ data: ctx.getImageData(0, 0, w, h).data, w, h });
       };
+    };
+    BUILDINGS.forEach(b => {
+      loadMap(`/images/obraverse/buildings/${b.slug}.webp`, map => { hitMapsRef.current[b.slug] = map; });
     });
+    loadMap('/images/obraverse/trees.webp', map => { treesMaskRef.current = map; });
+    loadMap('/images/obraverse/water.webp', map => { waterMaskRef.current = map; });
     return () => { cancelled = true; };
   }, []);
 
-  const hitTest = (clientX: number, clientY: number): string | null => {
+  /** Sample a full-map (0..100% coordinate) alpha mask at a percent position. */
+  const sampleFullMask = (map: HitMap | null, px: number, py: number): boolean => {
+    if (!map) return false;
+    const lx = Math.min(map.w - 1, Math.max(0, Math.floor((px / 100) * map.w)));
+    const ly = Math.min(map.h - 1, Math.max(0, Math.floor((py / 100) * map.h)));
+    return map.data[(ly * map.w + lx) * 4 + 3] > 40;
+  };
+
+  /** Client coordinates → percent-of-map position, or null if off-world. */
+  const worldPercentPos = (clientX: number, clientY: number): { px: number; py: number } | null => {
     const world = worldRef.current;
     if (!world) return null;
     const rect = world.getBoundingClientRect();
-    const px = ((clientX - rect.left) / rect.width) * 100;
-    const py = ((clientY - rect.top) / rect.height) * 100;
+    return { px: ((clientX - rect.left) / rect.width) * 100, py: ((clientY - rect.top) / rect.height) * 100 };
+  };
+
+  const hitTest = (clientX: number, clientY: number): string | null => {
+    const pos = worldPercentPos(clientX, clientY);
+    if (!pos) return null;
+    const { px, py } = pos;
     let found: string | null = null;
     for (const b of BUILDINGS) {
       if (px < b.left || px > b.left + b.width || py < b.top || py > b.top + b.height) continue;
@@ -344,6 +410,7 @@ const ObraverseMap = () => {
   /* ------- pointer input ------- */
   const onPointerDown = (e: React.PointerEvent) => {
     if (tourRef.current.active) stopTour(false);
+    pointerTypeRef.current = e.pointerType;
     const stage = stageRef.current;
     if (!stage) return;
     stage.setPointerCapture(e.pointerId);
@@ -400,11 +467,32 @@ const ObraverseMap = () => {
     if (pointersRef.current.size === 0) draggingRef.current = false;
   };
 
+  const spawnEffect = (kind: MapEffect['kind'], x: number, y: number) => {
+    const id = ++effectIdSeq;
+    setEffects(prev => [...prev, { id, kind, x, y }]);
+    const life = kind === 'ripple' ? 1200 : 1500;
+    setTimeout(() => setEffects(prev => prev.filter(f => f.id !== id)), life);
+  };
+
   const onClick = (e: React.MouseEvent) => {
     if (movedRef.current > 6) return;
     const slug = hitTest(e.clientX, e.clientY);
     const b = BUILDINGS.find(x => x.slug === slug);
-    if (b?.projectId) navigate(`/projects/${b.projectId}`);
+    // Touch has no hover: the first tap on a building shows its card, a
+    // second tap on the same building opens the project.
+    const touch = pointerTypeRef.current !== 'mouse';
+    if (touch) {
+      if (slug && slug !== active) return setActive(slug);
+      if (!slug) setActive(null);
+    }
+    if (b?.projectId) return navigate(`/projects/${b.projectId}`);
+    if (slug) return; // clicked a building with no linked project — do nothing further
+
+    // Easter eggs: click open water for a ripple, or a tree to startle a couple of birds.
+    const pos = worldPercentPos(e.clientX, e.clientY);
+    if (!pos) return;
+    if (sampleFullMask(waterMaskRef.current, pos.px, pos.py)) spawnEffect('ripple', pos.px, pos.py);
+    else if (sampleFullMask(treesMaskRef.current, pos.px, pos.py)) spawnEffect('birds', pos.px, pos.py);
   };
 
   /* Wheel: pinch-trackpad / ctrl+wheel zooms; plain wheel scrolls the page. */
@@ -468,6 +556,35 @@ const ObraverseMap = () => {
   const activeProject = projectById(activeBuilding?.projectId);
   const tourStop = tourIndex !== null;
 
+  // The card normally sits above the building; when the building is near the
+  // top of the visible map (stage edge or under the fixed nav) it flips below.
+  const [cardBelow, setCardBelow] = useState(false);
+  // Sideways nudge (screen px) that keeps the card inside the map on narrow
+  // screens, where a building near the edge would push half of it off.
+  const [cardShift, setCardShift] = useState(0);
+  useLayoutEffect(() => {
+    if (!activeBuilding) return;
+    const img = worldRef.current?.querySelector<HTMLImageElement>(`img[alt="${activeBuilding.name}"]`);
+    const stage = stageRef.current;
+    if (!img || !stage) return;
+    const stageRect = stage.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+    // measured against where the camera is heading: a tour stop is still gliding in
+    const t = targetRef.current;
+    const visibleTop = Math.max(stageRect.top, 80);
+    const room = tourStop
+      ? t.y + ((activeBuilding.top + activeBuilding.height * 0.42) / 100) * worldH() * t.s
+      : imgRect.top - visibleTop;
+    setCardBelow(room < (activeProject?.imageUrl ? 200 : 90));
+    const half = (cardRef.current?.offsetWidth ?? 0) / 2;
+    const cx = stageRect.left + t.x + ((activeBuilding.left + activeBuilding.width / 2) / 100) * worldW() * t.s;
+    const pad = 12;
+    const minX = stageRect.left + pad + half;
+    const maxX = stageRect.right - pad - half;
+    setCardShift(half && maxX > minX ? Math.min(maxX, Math.max(minX, cx)) - cx : 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeBuilding, activeProject, tourIndex]);
+
   return (
     <div
       ref={stageRef}
@@ -480,7 +597,7 @@ const ObraverseMap = () => {
       onPointerMove={onPointerMove}
       onPointerUp={endPointer}
       onPointerCancel={endPointer}
-      onPointerLeave={e => { endPointer(e); setActive(null); }}
+      onPointerLeave={e => { endPointer(e); if (e.pointerType === 'mouse') setActive(null); }}
       onClick={onClick}
       onDoubleClick={e => zoomAt(e.clientX, e.clientY, 1.7)}
     >
@@ -508,6 +625,60 @@ const ObraverseMap = () => {
             className="obraverse-trees absolute left-0 top-0 w-full h-auto pointer-events-none"
             style={{ zIndex: 1005 }}
           />
+
+          {/* Dappled sunlight flickering through the canopy */}
+          {TREE_GLINTS.map(([gx, gy], i) => (
+            <div
+              key={i}
+              aria-hidden="true"
+              className="obraverse-glint absolute pointer-events-none"
+              style={{
+                left: `${gx}%`,
+                top: `${gy}%`,
+                zIndex: 1006,
+                animationDelay: `${(i * 0.7) % 4.5}s`,
+              }}
+            />
+          ))}
+
+          {/* Flowing water — river, pool, and bay */}
+          <img
+            src="/images/obraverse/water.webp"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="obraverse-water absolute left-0 top-0 w-full h-auto pointer-events-none"
+            style={{ zIndex: 1004 }}
+          />
+
+          {/* Ripples and startled birds from clicking the water or trees */}
+          {effects.map(fx => fx.kind === 'ripple' ? (
+            <div
+              key={fx.id}
+              aria-hidden="true"
+              className="obraverse-ripple absolute pointer-events-none"
+              style={{ left: `${fx.x}%`, top: `${fx.y}%`, zIndex: 1310 }}
+            />
+          ) : (
+            <div
+              key={fx.id}
+              aria-hidden="true"
+              className="absolute pointer-events-none"
+              style={{ left: `${fx.x}%`, top: `${fx.y}%`, zIndex: 1310 }}
+            >
+              {[0, 1].map(bi => (
+                <svg
+                  key={bi}
+                  viewBox="0 0 30 16"
+                  className={`obraverse-burst-bird obraverse-burst-bird-${bi} absolute`}
+                  style={{ width: '1.6%', left: 0, top: 0, animationDelay: `${bi * 0.08}s` }}
+                >
+                  <path className="obraverse-wing-l" d="M4 8 Q 8 4 15 8" stroke="#383838" strokeWidth="1.4" fill="none" strokeLinecap="round" style={{ transformOrigin: '15px 8px' }} />
+                  <path className="obraverse-wing-r" d="M15 8 Q 22 4 26 8" stroke="#383838" strokeWidth="1.4" fill="none" strokeLinecap="round" style={{ transformOrigin: '15px 8px' }} />
+                </svg>
+              ))}
+            </div>
+          ))}
 
           {/* Drifting cloud shadows */}
           {[0, 1, 2].map(i => (
@@ -540,19 +711,19 @@ const ObraverseMap = () => {
                   className={`obraverse-walker h-auto ${w.kind === 'jogger' ? 'obraverse-walker--fast' : ''} ${w.kind === 'dog' ? 'w-[47%]' : 'w-full'}`}
                   style={{ animationDelay: `${(i * 0.37) % 0.7}s` }}
                 >
-                  <circle cx="5" cy="3" r="2.6" fill="#222" />
-                  <path d="M5 5.5 C 3.4 6.2 3 8 3 10.5 L 3.6 13 L 6.4 13 L 7 10.5 C 7 8 6.6 6.2 5 5.5 Z" fill="#222" />
-                  <line className="obraverse-leg-a" x1="4" y1="13" x2="3.4" y2="20.5" stroke="#222" strokeWidth="1.7" strokeLinecap="round" />
-                  <line className="obraverse-leg-b" x1="6" y1="13" x2="6.6" y2="20.5" stroke="#222" strokeWidth="1.7" strokeLinecap="round" />
+                  <circle cx="5" cy="3" r="2.6" fill="#383838" />
+                  <path d="M5 5.5 C 3.4 6.2 3 8 3 10.5 L 3.6 13 L 6.4 13 L 7 10.5 C 7 8 6.6 6.2 5 5.5 Z" fill="#383838" />
+                  <line className="obraverse-leg-a" x1="4" y1="13" x2="3.4" y2="20.5" stroke="#383838" strokeWidth="1.7" strokeLinecap="round" />
+                  <line className="obraverse-leg-b" x1="6" y1="13" x2="6.6" y2="20.5" stroke="#383838" strokeWidth="1.7" strokeLinecap="round" />
                 </svg>
                 {w.kind === 'dog' && (
                   <svg viewBox="0 0 20 12" className="w-[38%] h-auto">
-                    <rect x="4.5" y="4.2" width="10.5" height="3.6" rx="1.8" fill="#222" />
-                    <circle cx="16.2" cy="3.8" r="2" fill="#222" />
-                    <path d="M17 2.2 L18.2 0.8 L18.6 2.6 Z" fill="#222" />
-                    <line className="obraverse-leg-a" x1="6.5" y1="7.5" x2="6.2" y2="11.2" stroke="#222" strokeWidth="1.3" strokeLinecap="round" />
-                    <line className="obraverse-leg-b" x1="13" y1="7.5" x2="13.3" y2="11.2" stroke="#222" strokeWidth="1.3" strokeLinecap="round" />
-                    <line className="obraverse-tail" x1="4.5" y1="5" x2="1.8" y2="2.6" stroke="#222" strokeWidth="1.2" strokeLinecap="round" />
+                    <rect x="4.5" y="4.2" width="10.5" height="3.6" rx="1.8" fill="#383838" />
+                    <circle cx="16.2" cy="3.8" r="2" fill="#383838" />
+                    <path d="M17 2.2 L18.2 0.8 L18.6 2.6 Z" fill="#383838" />
+                    <line className="obraverse-leg-a" x1="6.5" y1="7.5" x2="6.2" y2="11.2" stroke="#383838" strokeWidth="1.3" strokeLinecap="round" />
+                    <line className="obraverse-leg-b" x1="13" y1="7.5" x2="13.3" y2="11.2" stroke="#383838" strokeWidth="1.3" strokeLinecap="round" />
+                    <line className="obraverse-tail" x1="4.5" y1="5" x2="1.8" y2="2.6" stroke="#383838" strokeWidth="1.2" strokeLinecap="round" />
                   </svg>
                 )}
               </div>
@@ -576,35 +747,35 @@ const ObraverseMap = () => {
             >
               {f.kind === 'stretch' && (
                 <svg viewBox="0 0 14 24" className="obraverse-sway w-full h-auto" style={{ animationDelay: `${i * 0.8}s` }}>
-                  <circle cx="7" cy="4" r="2.4" fill="#222" />
-                  <path d="M7 6.5 C 5.6 7 5.2 9 5.3 11.5 L 5.8 14 L 8.2 14 L 8.7 11.5 C 8.8 9 8.4 7 7 6.5 Z" fill="#222" />
-                  <line x1="7" y1="8" x2="3.2" y2="2.2" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="7" y1="8" x2="10.8" y2="2.2" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="6.1" y1="14" x2="5.7" y2="21.5" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="7.9" y1="14" x2="8.3" y2="21.5" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
+                  <circle cx="7" cy="4" r="2.4" fill="#383838" />
+                  <path d="M7 6.5 C 5.6 7 5.2 9 5.3 11.5 L 5.8 14 L 8.2 14 L 8.7 11.5 C 8.8 9 8.4 7 7 6.5 Z" fill="#383838" />
+                  <line x1="7" y1="8" x2="3.2" y2="2.2" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="7" y1="8" x2="10.8" y2="2.2" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="6.1" y1="14" x2="5.7" y2="21.5" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="7.9" y1="14" x2="8.3" y2="21.5" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
                 </svg>
               )}
               {f.kind === 'exercise' && (
                 <svg viewBox="0 0 16 24" className="obraverse-hop w-full h-auto" style={{ animationDelay: `${i * 0.35}s` }}>
-                  <circle cx="8" cy="3.8" r="2.4" fill="#222" />
-                  <path d="M8 6.3 C 6.6 6.8 6.2 8.8 6.3 11.3 L 6.8 13.8 L 9.2 13.8 L 9.7 11.3 C 9.8 8.8 9.4 6.8 8 6.3 Z" fill="#222" />
-                  <line x1="8" y1="8" x2="2.6" y2="6" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="8" y1="8" x2="13.4" y2="6" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="6.9" y1="13.8" x2="5.6" y2="21.3" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                  <line x1="9.1" y1="13.8" x2="10.4" y2="21.3" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
+                  <circle cx="8" cy="3.8" r="2.4" fill="#383838" />
+                  <path d="M8 6.3 C 6.6 6.8 6.2 8.8 6.3 11.3 L 6.8 13.8 L 9.2 13.8 L 9.7 11.3 C 9.8 8.8 9.4 6.8 8 6.3 Z" fill="#383838" />
+                  <line x1="8" y1="8" x2="2.6" y2="6" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="8" y1="8" x2="13.4" y2="6" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="6.9" y1="13.8" x2="5.6" y2="21.3" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                  <line x1="9.1" y1="13.8" x2="10.4" y2="21.3" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
                 </svg>
               )}
               {f.kind === 'basketball' && (
                 <svg viewBox="0 0 18 24" className="w-full h-auto">
                   <g className="obraverse-dribble">
-                    <circle cx="7" cy="4" r="2.4" fill="#222" />
-                    <path d="M7 6.5 C 5.6 7 5.2 9 5.3 11.5 L 5.8 14 L 8.2 14 L 8.7 11.5 C 8.8 9 8.4 7 7 6.5 Z" fill="#222" />
-                    <line x1="7" y1="8" x2="12.6" y2="13.4" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                    <line x1="7" y1="8" x2="3.6" y2="12.6" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                    <line x1="6.1" y1="14" x2="5.2" y2="21.5" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
-                    <line x1="7.9" y1="14" x2="9" y2="21.5" stroke="#222" strokeWidth="2.1" strokeLinecap="round" />
+                    <circle cx="7" cy="4" r="2.4" fill="#383838" />
+                    <path d="M7 6.5 C 5.6 7 5.2 9 5.3 11.5 L 5.8 14 L 8.2 14 L 8.7 11.5 C 8.8 9 8.4 7 7 6.5 Z" fill="#383838" />
+                    <line x1="7" y1="8" x2="12.6" y2="13.4" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                    <line x1="7" y1="8" x2="3.6" y2="12.6" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                    <line x1="6.1" y1="14" x2="5.2" y2="21.5" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
+                    <line x1="7.9" y1="14" x2="9" y2="21.5" stroke="#383838" strokeWidth="2.1" strokeLinecap="round" />
                   </g>
-                  <circle className="obraverse-ball" cx="13.4" cy="20.4" r="1.8" fill="#222" />
+                  <circle className="obraverse-ball" cx="13.4" cy="20.4" r="1.8" fill="#383838" />
                 </svg>
               )}
             </div>
@@ -663,7 +834,7 @@ const ObraverseMap = () => {
         {/* Theatre spotlight: everything but the hovered building dims softly */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none bg-black"
+          className="absolute inset-0 pointer-events-none bg-[#383838]"
           style={{
             zIndex: 1010,
             opacity: active ? 0.13 : 0,
@@ -704,26 +875,48 @@ const ObraverseMap = () => {
               animationDelay: `${[6, -30, -12, -55, -44][i]}s`,
             }}
           >
-            <path d="M4 10 Q 8 6 12 10 Q 16 6 20 10" stroke="#3a3a3a" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-            <path d="M28 6 Q 32 2 36 6 Q 40 2 44 6" stroke="#3a3a3a" strokeWidth="1.4" fill="none" strokeLinecap="round" />
-            <path d="M38 14 Q 42 10 46 14 Q 50 10 54 14" stroke="#3a3a3a" strokeWidth="1.4" fill="none" strokeLinecap="round" />
+            {/* Each bird: two wing strokes hinged at a shared body point,
+                rotating open (spread) and closed (tucked) like a real flap. */}
+            {[
+              { hinge: [12, 10], reach: 8, lift: 4, delay: 0 },
+              { hinge: [36, 6], reach: 8, lift: 4, delay: 0.12 },
+              { hinge: [46, 14], reach: 8, lift: 4, delay: 0.22 },
+            ].map(({ hinge: [hx, hy], reach, lift, delay }, bi) => (
+              <g key={bi} style={{ animationDelay: `${delay}s` }}>
+                <path
+                  className="obraverse-wing-l"
+                  d={`M${hx - reach} ${hy} Q ${hx - reach / 2} ${hy - lift} ${hx} ${hy}`}
+                  stroke="#383838" strokeWidth="1.4" fill="none" strokeLinecap="round"
+                  style={{ transformOrigin: `${hx}px ${hy}px`, animationDelay: `${delay}s` }}
+                />
+                <path
+                  className="obraverse-wing-r"
+                  d={`M${hx} ${hy} Q ${hx + reach / 2} ${hy - lift} ${hx + reach} ${hy}`}
+                  stroke="#383838" strokeWidth="1.4" fill="none" strokeLinecap="round"
+                  style={{ transformOrigin: `${hx}px ${hy}px`, animationDelay: `${delay}s` }}
+                />
+              </g>
+            ))}
           </svg>
         ))}
 
         {/* Floating card (hover or tour) — counter-scaled to stay constant size */}
         {activeBuilding && (
           <div
+            ref={cardRef}
             className="absolute pointer-events-none"
             style={{
               zIndex: 2000,
               left: `${activeBuilding.left + activeBuilding.width / 2}%`,
-              top: `${activeBuilding.top + (tourStop ? activeBuilding.height * 0.42 : 0)}%`,
-              transform: 'translate(-50%, -108%) scale(var(--inv, 1))',
-              transformOrigin: '50% 100%',
+              top: cardBelow
+                ? `${activeBuilding.top + activeBuilding.height * (tourStop ? 0.8 : 1)}%`
+                : `${activeBuilding.top + (tourStop ? activeBuilding.height * 0.42 : 0)}%`,
+              transform: `${cardBelow ? 'translate(-50%, 8%)' : 'translate(-50%, -108%)'} scale(var(--inv, 1)) translateX(${cardShift}px)`,
+              transformOrigin: cardBelow ? '50% 0%' : '50% 100%',
               animation: 'obraverse-label-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both',
             }}
           >
-            <div className="relative bg-[#383838] shadow-[0_14px_34px_rgba(0,0,0,0.4)] text-center whitespace-nowrap rounded-sm overflow-hidden">
+            <div className="relative bg-[#383838] shadow-[0_14px_34px_rgba(56,56,56,0.4)] text-center whitespace-nowrap rounded-sm overflow-hidden">
               {activeProject?.imageUrl && (
                 <img
                   src={activeProject.imageUrl}
@@ -734,15 +927,13 @@ const ObraverseMap = () => {
               )}
               <div className="px-5 py-3">
                 <div
-                  className="text-[13px] md:text-[15px] text-white tracking-[0.5px]"
-                  style={{ fontFamily: 'var(--font-serif)' }}
+                  className="text-[13px] md:text-[15px] text-white tracking-normal"
                 >
                   {activeBuilding.name}
                 </div>
                 {activeProject ? (
                   <div
-                    className="mt-1 text-[9px] tracking-[2.5px] text-[#c8c7c6]"
-                    style={{ fontFamily: 'var(--font-sans)' }}
+                    className="mt-1 text-[9px] tracking-[1.5px] text-[#e4e3e2]"
                   >
                     {tourStop
                       ? `${activeProject.location.toUpperCase()} · ${activeProject.year}`
@@ -750,15 +941,17 @@ const ObraverseMap = () => {
                   </div>
                 ) : (
                   <div
-                    className="mt-1 text-[9px] tracking-[2.5px] text-[#909090]"
-                    style={{ fontFamily: 'var(--font-sans)' }}
+                    className="mt-1 text-[9px] tracking-[1.5px] text-[#e4e3e2]"
                   >
                     OBRAVERSE
                   </div>
                 )}
               </div>
             </div>
-            <div className="absolute left-1/2 -bottom-[6px] -translate-x-1/2 w-3 h-3 rotate-45 bg-[#383838]" />
+            <div
+              className={`absolute ${cardBelow ? '-top-[6px]' : '-bottom-[6px]'} -translate-x-1/2 w-3 h-3 rotate-45 bg-[#383838]`}
+              style={{ left: `calc(50% - ${cardShift}px)` }}
+            />
           </div>
         )}
       </div>
@@ -771,16 +964,15 @@ const ObraverseMap = () => {
         style={{ opacity: hintVisible ? 1 : 0, transition: 'opacity 0.5s ease' }}
       >
         <div
-          className="bg-[#383838]/85 backdrop-blur-sm text-white text-[10px] tracking-[2px] px-5 py-2 rounded-full"
-          style={{ fontFamily: 'var(--font-sans)' }}
+          className="bg-[#383838]/85 backdrop-blur-sm text-white text-[10px] tracking-[2px] px-5 py-2 rounded-full whitespace-nowrap"
         >
-          DRAG TO EXPLORE &middot; PINCH OR &#8984;+SCROLL TO ZOOM
+          {coarse ? <>DRAG TO EXPLORE &middot; PINCH TO ZOOM</> : <>DRAG TO EXPLORE &middot; PINCH OR &#8984;+SCROLL TO ZOOM</>}
         </div>
       </div>
 
       {/* controls: zoom (fixed to viewport while the map is on screen) */}
       {stageInView && (
-        <div className="fixed bottom-6 right-6 z-20 flex flex-col gap-2">
+        <div className="fixed bottom-[max(var(--ctl-bottom,1rem),env(safe-area-inset-bottom))] right-4 md:right-6 z-20 flex flex-col gap-2">
           {[
             { label: '+', title: 'Zoom in', onClick: () => { const r = stageRef.current!.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1.45); } },
             { label: '−', title: 'Zoom out', onClick: () => { const r = stageRef.current!.getBoundingClientRect(); zoomAt(r.left + r.width / 2, r.top + r.height / 2, 1 / 1.45); } },
@@ -799,8 +991,9 @@ const ObraverseMap = () => {
       )}
 
       {/* tour control */}
+      {/* tour button sits bottom-left on phones so it never runs into the zoom buttons */}
       {stageInView && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-20">
+        <div className="fixed bottom-[max(var(--ctl-bottom,1rem),env(safe-area-inset-bottom))] left-4 md:left-1/2 md:-translate-x-1/2 z-20">
           {tourStop ? (
             <div className="flex items-center gap-3 bg-[#383838]/90 backdrop-blur-sm rounded-full pl-5 pr-2 py-2">
               <div className="flex items-center gap-[6px]">
@@ -815,7 +1008,7 @@ const ObraverseMap = () => {
               <button
                 onClick={e => { e.stopPropagation(); stopTour(); }}
                 onPointerDown={e => e.stopPropagation()}
-                className="w-7 h-7 rounded-full bg-white/15 text-white text-[11px] leading-none hover:bg-white/30 transition-colors cursor-pointer"
+                className="w-8 h-8 md:w-7 md:h-7 rounded-full bg-white/15 text-white text-[11px] leading-none hover:bg-white/30 transition-colors cursor-pointer"
                 title="End tour"
               >
                 &#10005;
@@ -825,8 +1018,7 @@ const ObraverseMap = () => {
             <button
               onClick={e => { e.stopPropagation(); startTour(); }}
               onPointerDown={e => e.stopPropagation()}
-              className="bg-[#383838] text-white text-[10px] tracking-[3px] px-7 py-3 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.25)] hover:bg-[#222] transition-colors cursor-pointer"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="h-10 md:h-auto bg-[#383838] text-white text-[10px] tracking-[2px] px-6 md:px-7 py-3 rounded-full whitespace-nowrap shadow-[0_10px_30px_rgba(56,56,56,0.25)] hover:bg-[#383838] transition-colors cursor-pointer"
             >
               &#9654;&nbsp;&nbsp;TOUR THE OBRAVERSE
             </button>
@@ -841,8 +1033,8 @@ const ObraverseMap = () => {
         }
         .obraverse-trees {
           filter: brightness(1.05) saturate(1.25);
-          -webkit-mask-image: repeating-linear-gradient(115deg, rgba(0,0,0,0.15) 0px, #000 140px, rgba(0,0,0,0.15) 280px);
-          mask-image: repeating-linear-gradient(115deg, rgba(0,0,0,0.15) 0px, #000 140px, rgba(0,0,0,0.15) 280px);
+          -webkit-mask-image: repeating-linear-gradient(115deg, rgba(56,56,56,0.15) 0px, #383838 140px, rgba(56,56,56,0.15) 280px);
+          mask-image: repeating-linear-gradient(115deg, rgba(56,56,56,0.15) 0px, #383838 140px, rgba(56,56,56,0.15) 280px);
           animation: obraverse-wind 26s linear infinite, obraverse-breathe 9s ease-in-out infinite alternate;
         }
         @keyframes obraverse-wind {
@@ -853,8 +1045,72 @@ const ObraverseMap = () => {
           from { opacity: 0.78; }
           to { opacity: 1; }
         }
+        .obraverse-glint {
+          width: 1.6%;
+          height: 1.6%;
+          transform: translate(-50%, -50%);
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,200,0.3) 55%, transparent 75%);
+          mix-blend-mode: screen;
+          opacity: 0;
+          animation: obraverse-dapple 4.5s ease-in-out infinite;
+        }
+        @keyframes obraverse-dapple {
+          0%, 100% { opacity: 0; }
+          45% { opacity: 0; }
+          55% { opacity: 0.9; }
+          70% { opacity: 0.2; }
+          80% { opacity: 0.7; }
+          92% { opacity: 0; }
+        }
+        .obraverse-water {
+          filter: brightness(1.04) saturate(1.15);
+          -webkit-mask-image: repeating-linear-gradient(100deg, rgba(56,56,56,0.5) 0px, #383838 60px, rgba(56,56,56,0.5) 120px);
+          mask-image: repeating-linear-gradient(100deg, rgba(56,56,56,0.5) 0px, #383838 60px, rgba(56,56,56,0.5) 120px);
+          animation: obraverse-water-flow 9s linear infinite, obraverse-water-glint 5s ease-in-out infinite alternate;
+        }
+        @keyframes obraverse-water-flow {
+          from { -webkit-mask-position: 0px 0; mask-position: 0px 0; }
+          to { -webkit-mask-position: -120px 0; mask-position: -120px 0; }
+        }
+        @keyframes obraverse-water-glint {
+          from { filter: brightness(1.0) saturate(1.05); }
+          to { filter: brightness(1.1) saturate(1.25); }
+        }
+        .obraverse-ripple {
+          width: 1%;
+          height: 1%;
+          transform: translate(-50%, -50%);
+          border-radius: 50%;
+          border: 1.5px solid rgba(255,255,255,0.85);
+          box-shadow: 0 0 0 1px rgba(56,56,56,0.25);
+          animation: obraverse-ripple-out 1.1s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+        }
+        @keyframes obraverse-ripple-out {
+          from { transform: translate(-50%, -50%) scale(0.3); opacity: 0.9; }
+          to { transform: translate(-50%, -50%) scale(7); opacity: 0; }
+        }
+        .obraverse-burst-bird {
+          transform-origin: 15px 8px;
+          animation: obraverse-burst-flap 0.3s ease-in-out infinite, obraverse-burst-fly-0 1.4s ease-out forwards;
+        }
+        .obraverse-burst-bird-1 {
+          animation-name: obraverse-burst-flap, obraverse-burst-fly-1;
+        }
+        @keyframes obraverse-burst-flap {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1, 0.7); }
+        }
+        @keyframes obraverse-burst-fly-0 {
+          0% { transform: translate(0, 0); opacity: 1; }
+          100% { transform: translate(-260%, -420%); opacity: 0; }
+        }
+        @keyframes obraverse-burst-fly-1 {
+          0% { transform: translate(0, 0); opacity: 1; }
+          100% { transform: translate(280%, -380%); opacity: 0; }
+        }
         .obraverse-cloud {
-          background: radial-gradient(ellipse at center, rgba(30,35,30,0.14) 0%, rgba(30,35,30,0.07) 45%, transparent 70%);
+          background: radial-gradient(ellipse at center, rgba(56,56,56,0.14) 0%, rgba(56,56,56,0.07) 45%, transparent 70%);
           mix-blend-mode: multiply;
           animation-name: obraverse-cloud-drift;
           animation-timing-function: linear;
@@ -878,6 +1134,20 @@ const ObraverseMap = () => {
           animation-name: obraverse-bird-fly;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+        }
+        .obraverse-wing-l {
+          animation: obraverse-flap-l 0.42s ease-in-out infinite;
+        }
+        .obraverse-wing-r {
+          animation: obraverse-flap-r 0.42s ease-in-out infinite;
+        }
+        @keyframes obraverse-flap-l {
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(-38deg); }
+        }
+        @keyframes obraverse-flap-r {
+          0%, 100% { transform: rotate(0deg); }
+          50% { transform: rotate(38deg); }
         }
         @keyframes obraverse-bird-fly {
           from { transform: translate(-300%, 40%); }
@@ -926,8 +1196,9 @@ const ObraverseMap = () => {
         }
         @media (prefers-reduced-motion: reduce) {
           .obraverse-trees, .obraverse-cloud, .obraverse-whitecloud, .obraverse-birds,
-          .obraverse-walker, .obraverse-walker line, .obraverse-sway, .obraverse-hop,
-          .obraverse-dribble, .obraverse-ball, .obraverse-tail { animation: none !important; }
+          .obraverse-wing-l, .obraverse-wing-r, .obraverse-walker, .obraverse-walker line, .obraverse-sway,
+          .obraverse-hop, .obraverse-dribble, .obraverse-ball, .obraverse-tail,
+          .obraverse-glint, .obraverse-water, .obraverse-burst-bird { animation: none !important; }
         }
       `}</style>
 

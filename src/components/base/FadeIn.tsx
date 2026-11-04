@@ -4,7 +4,8 @@ interface FadeInProps {
   children: ReactNode;
   delay?: number;
   className?: string;
-  direction?: 'up' | 'none';
+  /** reveal: the content uncovers upward (clip), used for image plates */
+  direction?: 'up' | 'none' | 'reveal';
 }
 
 const FadeIn = ({ children, delay = 0, className = '', direction = 'up' }: FadeInProps) => {
@@ -14,6 +15,10 @@ const FadeIn = ({ children, delay = 0, className = '', direction = 'up' }: FadeI
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setVisible(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -31,13 +36,19 @@ const FadeIn = ({ children, delay = 0, className = '', direction = 'up' }: FadeI
     <div
       ref={ref}
       className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible
-          ? 'translateY(0px)'
-          : direction === 'up' ? 'translateY(32px)' : 'translateY(0px)',
-        transition: `opacity 900ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms, transform 900ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
-      }}
+      style={direction === 'reveal'
+        ? {
+            clipPath: visible ? 'inset(0 0 0 0)' : 'inset(12% 0 0 0)',
+            opacity: visible ? 1 : 0,
+            transition: `clip-path 1200ms cubic-bezier(0.22, 1, 0.36, 1) ${delay}ms, opacity 700ms ease ${delay}ms`,
+          }
+        : {
+            opacity: visible ? 1 : 0,
+            transform: visible
+              ? 'translateY(0px)'
+              : direction === 'up' ? 'translateY(32px)' : 'translateY(0px)',
+            transition: `opacity 900ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms, transform 900ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
+          }}
     >
       {children}
     </div>

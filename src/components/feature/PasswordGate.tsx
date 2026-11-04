@@ -53,26 +53,23 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
         >
           <div className="flex flex-col gap-2">
             <label
-              className="text-[12px] tracking-[2.5px] text-[#383838] uppercase font-semibold"
-              style={{ fontFamily: 'var(--font-sans)' }}
+              className="text-[12px] tracking-[1.5px] text-[#383838] uppercase font-semibold"
             >
               Password
             </label>
-            <div className="border-b border-[#d0d0d0] pb-2">
+            <div className="border-b border-[#e4e3e2] pb-2">
               <input
                 type="password"
                 value={input}
                 onChange={e => { setInput(e.target.value); setError(false); }}
                 autoFocus
-                className="w-full bg-transparent text-base text-[#383838] tracking-[0.5px] outline-none"
-                style={{ fontFamily: 'var(--font-sans)' }}
+                className="w-full bg-transparent text-base text-[#383838] tracking-normal outline-none"
                 placeholder="Enter password"
               />
             </div>
             {error && (
               <p
                 className="text-[12px] tracking-[1.5px] text-red-400"
-                style={{ fontFamily: 'var(--font-sans)' }}
               >
                 Incorrect password.
               </p>
@@ -81,8 +78,7 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
 
           <button
             type="submit"
-            className="text-[12px] tracking-[3px] font-semibold text-[#383838] border-b border-[#383838] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer self-end"
-            style={{ fontFamily: 'var(--font-sans)' }}
+            className="text-[12px] tracking-[2px] font-semibold text-[#383838] border-b border-[#383838] pb-[2px] w-fit hover:text-[#797979] hover:border-[#797979] transition-colors duration-200 uppercase whitespace-nowrap cursor-pointer self-end"
           >
             Enter
           </button>

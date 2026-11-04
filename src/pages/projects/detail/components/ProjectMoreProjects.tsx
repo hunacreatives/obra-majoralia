@@ -1,61 +1,50 @@
 import { Link } from 'react-router-dom';
-import FadeIn from '@/components/base/FadeIn';
 import { Project } from '@/mocks/projects';
+import { sizedImage } from '@/components/base/sizedImage';
 
 interface ProjectMoreProjectsProps {
   current: Project;
   all: Project[];
 }
 
+// One full-bleed "Next project" band: same typology first, then the project
+// that follows this one in the list (wrapping round).
 const ProjectMoreProjects = ({ current, all }: ProjectMoreProjectsProps) => {
-  const others = all.filter(p => p.id !== current.id).slice(0, 3);
+  const idx = all.findIndex(p => p.id === current.id);
+  const following = [...all.slice(idx + 1), ...all.slice(0, idx)];
+  const next = following.find(p => p.typology === current.typology) ?? following[0];
+  if (!next) return null;
 
   return (
-    <section className="px-6 md:px-10 pb-20 border-t border-[#e4e3e2] pt-16">
-      <FadeIn>
-        <div className="flex items-center justify-between mb-10">
-          <p
-            className="text-[11px] tracking-[2.2px] text-[#797979]"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            MORE PROJECTS
+    <Link
+      to={`/projects/${next.id}`}
+      className="group relative block w-full h-[70svh] md:h-[80vh] overflow-hidden"
+      data-theme="dark"
+    >
+      <img
+        src={sizedImage(next.imageUrl, 'thumbs-1600')}
+        onError={(e) => { e.currentTarget.src = next.imageUrl; }}
+        alt={next.title}
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#383838]/80 via-[#383838]/20 to-[#383838]/10" />
+
+      <div className="absolute inset-x-0 bottom-0 px-6 md:px-16 pb-10 md:pb-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        <div className="flex flex-col gap-4">
+          <p className="text-[11px] tracking-[2px] text-[#e4e3e2] uppercase">Next project</p>
+          <h2 className="font-bold text-display text-white text-balance">{next.title}</h2>
+          <p className="text-[11px] tracking-[2px] text-[#e4e3e2] uppercase">
+            {next.typology} · {next.location}
           </p>
-          <Link
-            to="/projects"
-            className="text-[11px] tracking-[2px] text-[#797979] hover:text-[#383838] transition-colors duration-200 flex items-center gap-2 cursor-pointer"
-            style={{ fontFamily: 'var(--font-sans)' }}
-          >
-            VIEW ALL
-            <i className="ri-arrow-right-line" />
-          </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {others.map(p => (
-            <Link key={p.id} to={`/projects/${p.id}`} className="group cursor-pointer">
-              <div className="aspect-[4/3] overflow-hidden mb-4">
-                <img
-                  src={p.imageUrl}
-                  alt={p.title}
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-              </div>
-              <p
-                className="text-[14px] text-[#383838] tracking-[0.3px]"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {p.title}
-              </p>
-              <p
-                className="text-[11px] tracking-[1.8px] text-[#797979] mt-1 uppercase"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                {p.typology} · {p.year}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </FadeIn>
-    </section>
+        <span className="flex items-center gap-3 text-[12px] tracking-[2px] text-white uppercase whitespace-nowrap">
+          View project
+          <span className="block h-px bg-white w-6 group-hover:w-14 transition-all duration-500 ease-out" />
+        </span>
+      </div>
+    </Link>
   );
 };
 
