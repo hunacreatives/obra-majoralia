@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import { submitForm } from '@/lib/supabase';
+
+const MAX_FILE = 10 * 1024 * 1024;
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 
@@ -62,6 +65,7 @@ const CareersPage = () => {
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [fileName, setFileName] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('');
+  const [errorText, setErrorText] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const togglePosition = (id: number) => {
@@ -91,32 +95,28 @@ const CareersPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitState('sending');
     const form = e.currentTarget;
-    const data = new URLSearchParams();
-    data.append('first_name', (form.elements.namedItem('first_name') as HTMLInputElement)?.value || '');
-    data.append('last_name', (form.elements.namedItem('last_name') as HTMLInputElement)?.value || '');
-    data.append('email', (form.elements.namedItem('email') as HTMLInputElement)?.value || '');
-    data.append('phone', (form.elements.namedItem('phone') as HTMLInputElement)?.value || '');
-    data.append('position', (form.elements.namedItem('position') as HTMLInputElement)?.value || '');
-    data.append('message', (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '');
-    if (fileName) data.append('resume', `Uncollectable (${fileName})`);
+    const file = fileInputRef.current?.files?.[0];
+    if (file && file.size > MAX_FILE) {
+      setErrorText('That file is over 10 MB. Please send a smaller one or include a link to your portfolio.');
+      setSubmitState('error');
+      return;
+    }
+    setSubmitState('sending');
 
-    try {
-      const res = await fetch('https://readdy.ai/api/form/d78i5rhrcamcd36db3c0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data.toString(),
-      });
-      if (res.ok) {
-        setSubmitState('success');
-        form.reset();
-        setFileName('');
-        setSelectedPosition('');
-      } else {
-        setSubmitState('error');
-      }
-    } catch {
+    const data = new FormData(form);
+    data.set('form', 'careers');
+    data.delete('file');
+    if (file) data.set('file', file);
+
+    const res = await submitForm(data);
+    if (res.ok) {
+      setSubmitState('success');
+      form.reset();
+      setFileName('');
+      setSelectedPosition('');
+    } else {
+      setErrorText(res.error ?? '');
       setSubmitState('error');
     }
   };
@@ -248,9 +248,11 @@ const CareersPage = () => {
 
           <form
             id="careers-form"
-            data-readdy-form
             onSubmit={handleSubmit}
+            className="relative"
           >
+            {/* Honeypot: hidden from people, filled in by bots */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
             {/* Row 1: First + Last */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
               <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pr-10">
@@ -367,8 +369,9 @@ const CareersPage = () => {
                 <input
                   ref={fileInputRef}
                   type="file"
+                  name="file"
                   className="hidden"
-                  accept=".pdf,.doc,.docx,.zip"
+                  accept=".pdf,.doc,.docx,.zip,.jpg,.jpeg,.png,.webp,.ppt,.pptx,.key"
                   onChange={handleFileChange}
                 />
               </div>
@@ -381,7 +384,7 @@ const CareersPage = () => {
                   <span className="text-[#383838]">Application sent. We&apos;ll be in touch.</span>
                 )}
                 {submitState === 'error' && (
-                  <span className="font-bold text-[#383838]">Something went wrong. Please try again.</span>
+                  <span className="font-bold text-[#383838]">{errorText || 'Something went wrong. Please try again.'}</span>
                 )}
               </div>
               <button

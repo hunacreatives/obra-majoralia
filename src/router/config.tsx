@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { RouteObject } from 'react-router-dom';
+import { Navigate, RouteObject } from 'react-router-dom';
 
 const IntroPage        = lazy(() => import('@/pages/intro/page'));
 const HomePage         = lazy(() => import('@/pages/home/page'));
@@ -11,6 +11,10 @@ const NewsPage         = lazy(() => import('@/pages/news/page'));
 const ContactPage      = lazy(() => import('@/pages/contact/page'));
 const CareersPage      = lazy(() => import('@/pages/careers/page'));
 const NotFound         = lazy(() => import('@/pages/NotFound'));
+// Website admin: loaded only when someone opens /admin
+const AdminGate        = lazy(() => import('@/pages/admin/Gate'));
+const AdminLogin       = lazy(() => import('@/pages/admin/login/page'));
+const AdminInbox       = lazy(() => import('@/pages/admin/inbox/page'));
 
 const Loading = () => (
   <div className="min-h-screen bg-white flex items-center justify-center">
@@ -25,6 +29,12 @@ const wrap = (Page: React.ComponentType) => (
   </Suspense>
 );
 
+const admin = (el: React.ReactElement) => (
+  <Suspense fallback={<Loading />}>
+    <AdminGate>{el}</AdminGate>
+  </Suspense>
+);
+
 const routes: RouteObject[] = [
   { path: '/',             element: wrap(IntroPage) },
   { path: '/home',         element: wrap(HomePage) },
@@ -35,6 +45,11 @@ const routes: RouteObject[] = [
   { path: '/news',         element: wrap(NewsPage) },
   { path: '/contact',      element: wrap(ContactPage) },
   { path: '/careers',      element: wrap(CareersPage) },
+  { path: '/admin',              element: <Navigate to="/admin/enquiries" replace /> },
+  { path: '/admin/login',        element: wrap(AdminLogin) },
+  { path: '/admin/enquiries',    element: admin(<AdminInbox form="contact" />) },
+  { path: '/admin/applications', element: admin(<AdminInbox form="careers" />) },
+  { path: '/admin/inbox',        element: admin(<AdminInbox />) },
   { path: '*',             element: wrap(NotFound) },
 ];
 

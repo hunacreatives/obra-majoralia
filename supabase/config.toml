@@ -1,0 +1,5 @@
+project_id = "yamuhkpahvztyldtlrrp"
+
+# The site calls this with the publishable key, which isn't a JWT.
+[functions.submit-form]
+verify_jwt = false

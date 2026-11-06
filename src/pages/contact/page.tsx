@@ -1,12 +1,16 @@
 import { useState, useRef } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import { submitForm } from '@/lib/supabase';
+
+const MAX_FILE = 10 * 1024 * 1024;
 
 type SubmitState = 'idle' | 'sending' | 'success' | 'error';
 
 const ContactPage = () => {
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [fileName, setFileName] = useState<string>('');
+  const [errorText, setErrorText] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,42 +35,27 @@ const ContactPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const file = fileInputRef.current?.files?.[0];
+    if (file && file.size > MAX_FILE) {
+      setErrorText('That file is over 10 MB. Please send a smaller one or include a link.');
+      setSubmitState('error');
+      return;
+    }
     setSubmitState('sending');
 
-    const form = e.currentTarget;
-    const data = new URLSearchParams();
+    const data = new FormData(form);
+    data.set('form', 'contact');
+    data.delete('file');
+    if (file) data.set('file', file);
 
-    const firstName = (form.elements.namedItem('first_name') as HTMLInputElement)?.value || '';
-    const lastName = (form.elements.namedItem('last_name') as HTMLInputElement)?.value || '';
-    const email = (form.elements.namedItem('email') as HTMLInputElement)?.value || '';
-    const phone = (form.elements.namedItem('phone') as HTMLInputElement)?.value || '';
-    const subject = (form.elements.namedItem('subject') as HTMLInputElement)?.value || '';
-    const message = (form.elements.namedItem('message') as HTMLTextAreaElement)?.value || '';
-
-    data.append('first_name', firstName);
-    data.append('last_name', lastName);
-    data.append('email', email);
-    data.append('phone', phone);
-    data.append('subject', subject);
-    data.append('message', message);
-    if (fileName) {
-      data.append('attachment', `Uncollectable (${fileName})`);
-    }
-
-    try {
-      const res = await fetch('https://readdy.ai/api/form/d78i55j2hsar0k5m0arg', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data.toString(),
-      });
-      if (res.ok) {
-        setSubmitState('success');
-        form.reset();
-        setFileName('');
-      } else {
-        setSubmitState('error');
-      }
-    } catch {
+    const res = await submitForm(data);
+    if (res.ok) {
+      setSubmitState('success');
+      form.reset();
+      setFileName('');
+    } else {
+      setErrorText(res.error ?? '');
       setSubmitState('error');
     }
   };
@@ -137,10 +126,11 @@ const ContactPage = () => {
         {/* Form */}
         <form
           id="contact-form"
-          data-readdy-form
           onSubmit={handleSubmit}
-          className="px-6 md:px-16 lg:px-20 pt-6 pb-16 md:pt-10 lg:py-20"
+          className="relative px-6 md:px-16 lg:px-20 pt-6 pb-16 md:pt-10 lg:py-20"
         >
+          {/* Honeypot: hidden from people, filled in by bots */}
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
           {/* Row 1: First Name + Last Name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 mb-0">
             <div className="border-b border-[#e4e3e2] pt-5 pb-2 md:pr-10">
@@ -254,7 +244,9 @@ const ContactPage = () => {
               <input
                 ref={fileInputRef}
                 type="file"
+                name="file"
                 className="hidden"
+                accept=".pdf,.doc,.docx,.zip,.jpg,.jpeg,.png,.webp,.heic,.ppt,.pptx,.key,.dwg"
                 onChange={handleFileChange}
               />
             </div>
@@ -268,7 +260,7 @@ const ContactPage = () => {
                 <span className="text-[#383838]">Message sent. We&apos;ll be in touch soon.</span>
               )}
               {submitState === 'error' && (
-                <span className="font-bold text-[#383838]">Something went wrong. Please try again.</span>
+                <span className="font-bold text-[#383838]">{errorText || 'Something went wrong. Please try again.'}</span>
               )}
             </div>
 

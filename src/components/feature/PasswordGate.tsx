@@ -32,7 +32,9 @@ const PasswordGate = ({ children }: PasswordGateProps) => {
     }
   };
 
-  if (unlocked) return <>{children}</>;
+  // The website admin has its own login, so it skips the preview password.
+  const isAdmin = window.location.pathname.startsWith('/admin');
+  if (unlocked || isAdmin) return <>{children}</>;
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6">

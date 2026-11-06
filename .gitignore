@@ -1,2 +1,4 @@
 node_modules
 out/
+supabase/.temp/
+.DS_Store
